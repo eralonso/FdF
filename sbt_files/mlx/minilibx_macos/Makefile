@@ -1,20 +1,35 @@
 #
 #
 
-NOM=libmlx.a
-SRC= mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
-OBJ1=$(SRC:.c=.o)
-OBJ=$(OBJ1:.m=.o)
-CFLAGS+=-O2
+NOM	=	libmlx.a
 
-all: $(NOM)
+SRC		=	mlx_shaders.c mlx_new_window.m mlx_init_loop.m \
+		 	mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
 
-$(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+OBJ1	=	$(SRC:.c=.o)
+OBJ		=	$(OBJ1:.m=.o)
 
-clean:
-	rm -f $(NOM) $(OBJ) *~
-	rm -f mlx_app
+CFLAGS+	=	-O2 -Wno-deprecated-declarations
+
+RM		=	rm -r
+
+
+#<---RULES--->#
+%.o: %.c 
+
+all		: $(NOM)
+
+$(NOM)	:	$(OBJ)
+	@ar -r $(NOM) $(OBJ)
+	@ranlib $(NOM)
+
+clean	:
+	@rm -f $(OBJ) *~
+	@rm -f mlx_app
+
+fclean	:
+	@$(MAKE) clean
 
 re: clean all
+
+.PHONY:	all clean fclean re

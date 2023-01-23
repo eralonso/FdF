@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/22 13:16:20 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/23 16:31:50 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 MDP = mkdir -p
 AR = ar crs
-INCLUDE = -I ./
+INCLUDE = -I ./libft.h
 
 #------------------------------------>RULES<-----------------------------------#
 $(OBJS_DIR)%.o: %.c Makefile

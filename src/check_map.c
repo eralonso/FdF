@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/22 18:56:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/23 11:22:24 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	ft_check_map(char *map)
 {
 	if (ft_strrncmp(map, ".fdf\0", 4))
 		return (0);
-
+	
 	return (1);
 }

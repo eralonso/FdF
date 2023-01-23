@@ -3,7 +3,6 @@
 ** the XFree86 distribution.
 */
 
-#include	"mlx_int.h"
 
 struct s_col_name mlx_col_name[] =
 {
