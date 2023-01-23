@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/07 18:00:19 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/22 13:16:20 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,9 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \
 #------------------------------------>OBJ<-------------------------------------#
 OBJS_DIR = $(shell pwd)/objs/
 
-OBJS = $(addprefix ${OBJS_DIR}, ${SRCS:.c=.o})
+OBJS = $(addprefix $(OBJS_DIR), $(subst .c,.o, $(SRCS)))
 
-DEP = $(addsuffix .d, $(basename ${OBJS}))
+DEP = $(addsuffix .d, $(basename $(OBJS)))
 
 #----------------------------------->COMANDS<----------------------------------#
 CFLAGS = -Wall -Wextra -Werror
@@ -56,37 +56,36 @@ AR = ar crs
 INCLUDE = -I ./
 
 #------------------------------------>RULES<-----------------------------------#
-${OBJS_DIR}%.o: %.c Makefile
-	@${MDP} $(dir $@)
-	@printf "${PINK}\rCompiling: ${YELLOW}$<...${DEF_COLOR}				\r"
-	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
+$(OBJS_DIR)%.o: %.c Makefile
+	@$(MDP) $(dir $@)
+	@printf "$(PINK)\rCompiling: $(YELLOW)$<...$(DEF_COLOR)				\r"
+	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
 all			: 
 	@echo ""
-	@$(MAKE) ${NAME}
+	@$(MAKE) $(NAME)
 
-${NAME}		::	${OBJS}
-	@${AR} ${NAME} ${OBJS}
-	@printf "\n${GREEN}LIBRARY: libft has been created.${DEF_COLOR}\n"
+$(NAME)		::	$(OBJS)
+	@$(AR) $(NAME) $(OBJS)
+	@printf "\n$(GREEN)LIBRARY: libft has been created.$(DEF_COLOR)\n"
 
-${NAME}		::
-	@echo "${YELLOW}Nothing to be done for 'libft'${DEF_COLOR}"
+$(NAME)		::
+	@echo "$(YELLOW)Nothing to be done for 'libft'$(DEF_COLOR)"
 
 clean:
-	@${RM} -r ${OBJS_DIR}
-	@echo "${RED}OBJ && DEPS of 'libft' has been removed.${DEF_COLOR}"
+	@$(RM) -r $(OBJS_DIR)
 
 fclean		:
 	@$(MAKE) clean
-	@${RM} ${NAME}
-	@echo "${RED}LIBRARY: 'libft' has been removed.${DEF_COLOR}"
+	@$(RM) $(NAME)
+	@echo "$(RED)LIBRARY: 'libft' has been removed.$(DEF_COLOR)"
 
 re			:
 	@$(MAKE) fclean
 	@$(MAKE) all
-	@echo "${CIAN}LIBRARY: 'libft' has been remake${DEF_COLOR}"
+	@echo "$(CIAN)LIBRARY: 'libft' has been remake$(DEF_COLOR)"
+	@echo ""
 
 .PHONY: all bonus clean fclean re bonus
 
--include ${DEP}
--include ${BDEP}
+-include $(DEP)

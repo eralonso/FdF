@@ -6,14 +6,14 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:13:19 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/23 13:28:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:43:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include	"../../libft/libft.h"
+# include	"libft.h"
 # include	<stdarg.h>
 
 # define B10 (char *)"0123456789"

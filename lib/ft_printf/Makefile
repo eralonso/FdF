@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/21 18:44:55 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/22 18:44:14 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -25,6 +25,7 @@ NAME		= libftprintf.a
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-HEADERS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 HEADER		= ./inc/
+LIBFT_H		= ../libft/
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/DIRS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 OBJS_DIR	= objs/
@@ -39,20 +40,20 @@ DEPS_SRCS	= ../libft/objs/*.o
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 MAIN		:= ft_printf ft_checker ft_flags_checker
 UTILS		:= ft_chars_utils ft_ptr_utils ft_nbrs_utils
-FILES		+= ${MAIN}
-FILES		+= ${UTILS}
+FILES		+= $(MAIN)
+FILES		+= $(UTILS)
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/SRCS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-UTILS_SRCS	= $(addsuffix .c, $(addprefix ${UTILS_DIR}, ${UTILS}))
-MAIN_SRCS	:= $(addsuffix .c, $(addprefix ${MAIN_DIR}, ${MAIN}))
-SRCS		+= ${UTILS_SRCS}
-SRCS		+= ${MAIN_SRCS}
+UTILS_SRCS	= $(addsuffix .c, $(addprefix $(UTILS_DIR), $(UTILS)))
+MAIN_SRCS	:= $(addsuffix .c, $(addprefix $(MAIN_DIR), $(MAIN)))
+SRCS		+= $(UTILS_SRCS)
+SRCS		+= $(MAIN_SRCS)
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/OBJS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-OBJS		= $(addprefix ${OBJS_DIR}, ${SRCS:.c=.o})
+OBJS		= $(addprefix $(OBJS_DIR), $(subst .c,.o, $(SRCS)))
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/DEPS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-DEPS		= $(addsuffix .d, $(basename ${OBJS}))
+DEPS		= $(addsuffix .d, $(basename $(OBJS)))
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COMANDS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 RM			= rm -f
@@ -60,43 +61,42 @@ AR			= ar crs
 MK			= Makefile
 MKD			= mkdir -p
 CFLAGS		= -Wall -Wextra -Werror
-INCLUDE		= -I${HEADER}
-B_INCLUDE	= -I${B_HEADER}
+INCLUDE		= -I$(HEADER) -I$(LIBFT_H)
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-$(OBJS_DIR)%.o	:	%.c ${DEPS_SRCS} ${MK}
-	@${MKD} $(dir $@)
-	@printf "${PINK}\rCompiling: ${YELLOW}$<...${DEF_COLOR}							\r"
-	@${CC} -MT $@ ${CFLAGS} -MMD -MP ${INCLUDE} -c $< -o $@
+$(OBJS_DIR)%.o	:	%.c $(DEPS_SRCS) $(MK)
+	@$(MKD) $(dir $@)
+	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)		\r"
+	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
 all				:
 	@echo ""
-	@$(MAKE) ${NAME}
+	@$(MAKE) $(NAME)
 
-${NAME}			::	${OBJS}
-	@cp ${LIB} ${NAME}
-	@${AR} ${NAME} ${OBJS}
-	@echo "${GREEN}\nLIBRARY: ft_printf has been created${DEF_COLOR}"
+$(NAME)			::	$(OBJS)
+	@cp $(LIB) $(NAME)
+	@$(AR) $(NAME) $(OBJS)
+	@echo "$(GREEN)\nLIBRARY: ft_printf has been created$(DEF_COLOR)"
 
-${NAME}			::
-	@echo "${YELLOW}Nothing to be done for 'ft_printf'\n${DEF_COLOR}"
+$(NAME)			::
+	@echo "$(YELLOW)Nothing to be done for 'ft_printf'\n$(DEF_COLOR)"
 
 clean			:
-	@${RM} -r ${OBJS_DIR}
-	@echo "${RED}OBJS && DEPS of 'ft_printf' has been removed${DEF_COLOR}"
+	@$(RM) -r $(OBJS_DIR)
+	@#echo "$(RED)OBJS && DEPS of 'ft_printf' has been removed$(DEF_COLOR)"
 
 fclean			:	
 	@$(MAKE) clean
-	@${RM} ${NAME}
-	@echo "${RED}LIBRARY: 'ft_printf' has been removed${DEF_COLOR}"
+	@$(RM) $(NAME)
+	@echo "$(RED)LIBRARY: 'ft_printf' has been removed$(DEF_COLOR)"
 
 re				:
 	@echo ""
 	@$(MAKE) fclean
 	@$(MAKE) all
 	@echo ""
-	@echo "${CIAN}LIBRARY: 'ft_printf' has been remake${DEF_COLOR}"
+	@echo "$(CIAN)LIBRARY: 'ft_printf' has been remake$(DEF_COLOR)"
 
 .PHONY: all clean fclean re
 
--include	${DEPS}
+-include	$(DEPS)
