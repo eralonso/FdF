@@ -6,17 +6,17 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/24 16:45:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:49:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"fdf.h"
+#include	<fdf.h>
 
 int	main(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac != 2 || !av[1])
 		return (1);
-
+	ft_printf(1, "SI");
 	//if (!ft_check_map(av[1]))
 	//	return (1);
 	return (0);

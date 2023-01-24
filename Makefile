@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/24 16:45:05 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/24 18:51:49 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,24 +36,47 @@ LIBFT_H		=	./lib/libft/
 MLX_H		=	./lib/minilibx/
 
 #<--------------------------------->DIRS<------------------------------------>#
-SRC_DIR		=	./src
+SRC_DIR		=	src/
+OBJ_DIR		=	objs/
+
+B_SRC_DIR	=	bonus/src/
+B_OBJ_DIR	=	bonus/objs/
+
+#<--------------------------------->FILES<---------------------------------->#
+FILES		=	fdf
+
+B_FILES		=
+
+#<--------------------------------->SRCS<----------------------------------->#
+SRCS		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
+
+B_SRCS		=	$(addprefix $(B_SRC_DIR), $(addsuffix .c, $(B_FILES)))
+
+#<----------------------------->OBJS && DEPS<------------------------------->#
+OBJS		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
+DEPS		=	$(subst .o,.d,$(OBJS))
+
+B_OBJS		=	$(addprefix $(B_OBJ_DIR), $(subst .c,.o,$(B_SRCS)))
+B_DEPS		=	$(subst .o,.d,$(B_OBJS))
+
+DEPS_SRCS	=	lib/*/objs/src/*/*.o
 
 #<-------------------------------->COMANDS<---------------------------------->#
 INCLUDE		=	-I$(HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
 B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
-FRMWK		=	-F OpenGL -F AppKit
+FRMWK		=	-framework OpenGL -framework AppKit
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror
 
 #<--------------------------------->RULES<----------------------------------->#
-$(OBJ_DIR)%.o	:	%.c $(DEPS_SRCS) $(MK)
+$(OBJ_DIR)%.o	:	%.c $(DEPS_SRCS) $(LIB) $(MK)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
-$(B_OBJ_DIR)%.o	:	%.c $(DEPS_SRCS) $(MK)
+$(B_OBJ_DIR)%.o	:	%.c $(DEPS_SRCS) $(LIB) $(MK)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(B_INCLUDE) -c $< -o $@
