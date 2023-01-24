@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/22 18:45:28 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/24 16:45:05 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,15 @@ HEADER		=	./inc/
 B_HEADER	=	./bonus/inc/
 PRINTF_H	=	./lib/ft_printf/inc/
 LIBFT_H		=	./lib/libft/
+MLX_H		=	./lib/minilibx/
 
 #<--------------------------------->DIRS<------------------------------------>#
 SRC_DIR		=	./src
 
 #<-------------------------------->COMANDS<---------------------------------->#
-INCLUDE		=	-I $(HEADER) -I $(PRINTF_H) -I $(LIBFT_H)
-B_INCLUDE	=	-I $(B_HEADER) -I $(PRINTF_H) -I $(LIBFT_H)
+INCLUDE		=	-I$(HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
+B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
+FRMWK		=	-F OpenGL -F AppKit
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
@@ -66,7 +68,7 @@ bonus			:
 ifndef BONUS
 
 $(NAME)			::	$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
 
 else

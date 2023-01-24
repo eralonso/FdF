@@ -47,7 +47,7 @@ $(NOM)	::	$(OBJ_C) $(OBJ_M)
 	@printf "\n$(GREEN)LIBRARY: '$(subst .a,,$@)' has been created.$(DEF_COLOR)\n"
 
 $(NOM)	::
-	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$(NOM))'$(DEF_COLOR)"
+	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$(NOM))'\n$(DEF_COLOR)"
 
 clean	:
 	@rm -rf $(OBJ_DIR) *~

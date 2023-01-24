@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 13:34:08 by eralonso          #+#    #+#              #
-#    Updated: 2022/12/13 09:36:54 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/24 10:16:47 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,11 @@ NAME		=	lib.a
 
 LBFA		=	libft/libft.a
 FTPFA		=	ft_printf/libftprintf.a
+MLXA		=	minilibx/libmlx.a
 
 LIBFT_DIR	=	libft/
 PRINTF_DIR	=	ft_printf/
+MLX_DIR		=	minilibx/
 
 RM			=	rm -f
 
@@ -35,38 +37,48 @@ RM			=	rm -f
 all			:
 	@$(MAKE) library
 	@$(MAKE) printf
-	@$(MAKE) ${NAME}
+	@$(MAKE) mlx
+	@$(MAKE) $(NAME)
 
 library		::
-	@$(MAKE) -C ${LIBFT_DIR}
+	@$(MAKE) -C $(LIBFT_DIR)
 
 library		::
 	@echo -n
 
 printf		::
-	@$(MAKE) -C ${PRINTF_DIR}
+	@$(MAKE) -C $(PRINTF_DIR)
 
 printf		::
 	@echo -n
 
-${NAME}		:: ${LBFA} ${FTPFA}
-	@cp ${LBFA} ./${NAME}
-	@cp ${FTPFA} ./${NAME}
+mlx			::
+	@$(MAKE) -C $(MLX_DIR)
 
-${NAME}		::
+mlx			::
+	@echo -n
+
+$(NAME)		:: $(LBFA) $(FTPFA) $(MLXA)
+	@cp $(LBFA) ./$(NAME)
+	@cp $(FTPFA) ./$(NAME)
+	@cp $(MLXA) ./$(NAME)
+
+$(NAME)		::
 	@echo -n
 
 clean		:
-	@$(MAKE) clean -C ${LIBFT_DIR}
-	@$(MAKE) clean -C ${PRINTF_DIR}
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@$(MAKE) clean -C $(PRINTF_DIR)
+	@$(MAKE) clean -C $(MLX_DIR)
 
 fclean		:
-	@$(MAKE) fclean -C ${LIBFT_DIR}
-	@$(MAKE) fclean -C ${PRINTF_DIR}
-	@${RM} ${NAME}
+	@$(MAKE) fclean -C $(LIBFT_DIR)
+	@$(MAKE) fclean -C $(PRINTF_DIR)
+	@$(MAKE) fclean -C $(MLX_DIR)
+	@$(RM) $(NAME)
 
 re			:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all clean fclean re library printf
+.PHONY: all clean fclean re library printf mlx

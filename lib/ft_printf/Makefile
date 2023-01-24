@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/22 18:44:14 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/24 10:17:44 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -50,7 +50,7 @@ SRCS		+= $(UTILS_SRCS)
 SRCS		+= $(MAIN_SRCS)
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/OBJS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
-OBJS		= $(addprefix $(OBJS_DIR), $(subst .c,.o, $(SRCS)))
+OBJS		= $(addprefix $(OBJS_DIR), $(subst .c,.o,$(SRCS)))
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/DEPS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/#
 DEPS		= $(addsuffix .d, $(basename $(OBJS)))
@@ -76,26 +76,25 @@ all				:
 $(NAME)			::	$(OBJS)
 	@cp $(LIB) $(NAME)
 	@$(AR) $(NAME) $(OBJS)
-	@echo "$(GREEN)\nLIBRARY: ft_printf has been created$(DEF_COLOR)"
+	@echo "$(GREEN)\nLIBRARY: '$(subst .a,,$@)' has been created$(DEF_COLOR)"
 
 $(NAME)			::
-	@echo "$(YELLOW)Nothing to be done for 'ft_printf'\n$(DEF_COLOR)"
+	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$@)'$(DEF_COLOR)"
 
 clean			:
 	@$(RM) -r $(OBJS_DIR)
-	@#echo "$(RED)OBJS && DEPS of 'ft_printf' has been removed$(DEF_COLOR)"
 
 fclean			:	
 	@$(MAKE) clean
 	@$(RM) $(NAME)
-	@echo "$(RED)LIBRARY: 'ft_printf' has been removed$(DEF_COLOR)"
+	@echo "$(RED)LIBRARY: '$(subst .a,,$(NAME))' has been removed$(DEF_COLOR)"
 
 re				:
 	@echo ""
 	@$(MAKE) fclean
 	@$(MAKE) all
 	@echo ""
-	@echo "$(CIAN)LIBRARY: 'ft_printf' has been remake$(DEF_COLOR)"
+	@echo "$(CIAN)LIBRARY: '$(subst .a,,$(NAME))' has been remake$(DEF_COLOR)"
 
 .PHONY: all clean fclean re
 
