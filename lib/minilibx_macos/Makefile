@@ -8,6 +8,8 @@ YELLOW = \033[1;33m
 BLUE = \033[1;34m
 PINK = \033[1;35m
 CIAN = \033[1;36m
+
+#<---NAME--->#
 NOM		=	libmlx.a
 
 #<---SRC && OTHERS--->#
@@ -16,11 +18,11 @@ OBJ_DIR	=	./obj/
 SRC_C	=	mlx_shaders.c mlx_xpm.c mlx_int_str_to_wordtab.c
 SRC_M	= 	mlx_new_image.m mlx_new_window.m mlx_init_loop.m
 
-OBJ_C	=	$(addprefix $(OBJ_DIR)src_c/, $(SRC_C:%.c=%.o))
-OBJ_M	=	$(addprefix $(OBJ_DIR)src_m/, $(SRC_M:%.m=%.o))
+OBJ_C	=	$(addprefix $(OBJ_DIR)src_c/, $(SRC_C:%.c=%.o)) #$(SRC_C:%.c=%.o) 
+OBJ_M	=	$(addprefix $(OBJ_DIR)src_m/, $(SRC_M:%.m=%.o)) #$(SRC_M:%.m=%.o) 
 
-DEPS	+=	$(addprefix $(OBJ_DIR)src_c/, $(SRC_C:%.c=%.d))
-DEPS	+=	$(addprefix $(OBJ_DIR)src_m/, $(SRC_M:%.m=%.d))
+DEPS	+=	$(addprefix $(OBJ_DIR)src_c/, $(SRC_C:%.c=%.d)) #$(SRC_C:%.c=%.d) 
+DEPS	+=	$(addprefix $(OBJ_DIR)src_m/, $(SRC_M:%.m=%.d)) #$(SRC_M:%.c=%.d) 
 
 CFLAGS	+=	-O2 -Wno-deprecated-declarations
 
@@ -42,7 +44,7 @@ all		:
 	@$(MAKE) $(NOM)
 
 $(NOM)	::	$(OBJ_C) $(OBJ_M)
-	@ar -csr $@ $(OBJ_C) $(OBJ_M)
+	@ar -crs $@ $(OBJ_C) $(OBJ_M)
 	@#ranlib $@
 	@printf "\n$(GREEN)LIBRARY: '$(subst .a,,$@)' has been created.$(DEF_COLOR)\n"
 

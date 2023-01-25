@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/24 18:51:49 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/25 19:10:02 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,16 @@ NAME		=	FdF
 
 #<-------------------------------->LIBRARY<---------------------------------->#
 LIBRARY		=	lib/
-LIB			=	lib/lib.a
+LIB_A		=	lib/libft/libft.a lib/ft_printf/libftprintf.a
+LIB_SEARCH	=	-L./lib/libft -L./lib/ft_printf -L./lib/minilibx_macos \
+				-lft -lftprintf -lmlx -lm
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADER		=	./inc/
 B_HEADER	=	./bonus/inc/
 PRINTF_H	=	./lib/ft_printf/inc/
 LIBFT_H		=	./lib/libft/
-MLX_H		=	./lib/minilibx/
+MLX_H		=	./lib/minilibx_macos/
 
 #<--------------------------------->DIRS<------------------------------------>#
 SRC_DIR		=	src/
@@ -43,7 +45,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	fdf
+FILES		=	fdf check_map
 
 B_FILES		=
 
@@ -59,24 +61,24 @@ DEPS		=	$(subst .o,.d,$(OBJS))
 B_OBJS		=	$(addprefix $(B_OBJ_DIR), $(subst .c,.o,$(B_SRCS)))
 B_DEPS		=	$(subst .o,.d,$(B_OBJS))
 
-DEPS_SRCS	=	lib/*/objs/src/*/*.o
-
 #<-------------------------------->COMANDS<---------------------------------->#
 INCLUDE		=	-I$(HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
 B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
-FRMWK		=	-framework OpenGL -framework AppKit
+FRMWK		=	-framework OpenGL -framework Appkit
+#FRMWK		=	-F /System/Library/Frameworks/OpenGL.framework/Versions/A \
+				-F /System/Library/Frameworks/AppKit.framework/Versions/C
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror
 
 #<--------------------------------->RULES<----------------------------------->#
-$(OBJ_DIR)%.o	:	%.c $(DEPS_SRCS) $(LIB) $(MK)
+$(OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
-$(B_OBJ_DIR)%.o	:	%.c $(DEPS_SRCS) $(LIB) $(MK)
+$(B_OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(B_INCLUDE) -c $< -o $@
@@ -91,13 +93,13 @@ bonus			:
 ifndef BONUS
 
 $(NAME)			::	$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIB) $(FRMWK) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
 
 else
 
 $(NAME)		::	$(B_OBJS)
-	@$(CC) $(CFLAGS) $(B_OBJS) $(LIB) -o $@
+	@$(CC) $(CFLAGS) $(B_OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF bonus has been compiled$(DEF_COLOR)"
 
 endif
@@ -115,7 +117,7 @@ clean			:
 fclean			:
 	@$(MAKE) clean
 	@$(MAKE) fclean -C $(LIBRARY)
-	@$(RM) $(NAME) $(BONUS)
+	@$(RM) $(NAME)
 	@echo ""
 	@echo "$(RED)Program has been removed$(DEF_COLOR)"
 

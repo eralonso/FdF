@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/16 10:04:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:34:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct s_data {
+typedef struct s_gnl {
 	char	*buffer;
 	char	*line;
 	int		fd;
 	int		err;
-}			t_data;
+}			t_gnl;
 
 int			ft_atoi(const char *str);
 void		ft_bzero(void *s, size_t n);
@@ -58,6 +58,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *s);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_strrncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);
 char		*ft_strrchr(const char *s, int c);
@@ -79,9 +80,9 @@ void		ft_lstiter(t_list *lst, void (*f)(void*));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *));
 
 //GET_NEXT_LINE
-void		ft_read_file(t_data *data);
-void		ft_get_line(t_data *data);
-void		ft_clean_buffer(t_data *data);
+void		ft_read_file(t_gnl *gnl);
+void		ft_get_line(t_gnl *gnl);
+void		ft_clean_buffer(t_gnl *gnl);
 char		*get_next_line(int fd);
 char		*ft_malloc_strjoin(char *s1, char *s2);
 

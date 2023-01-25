@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/24 10:17:44 by eralonso         ###   ########.fr        #
+#    Updated: 2023/01/25 11:03:54 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -35,7 +35,6 @@ UTILS_DIR	= src/utils/
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/LIBFT/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 LIB			= ../libft/libft.a
-DEPS_SRCS	= ../libft/objs/*.o
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/FILES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 MAIN		:= ft_printf ft_checker ft_flags_checker
@@ -64,7 +63,7 @@ CFLAGS		= -Wall -Wextra -Werror
 INCLUDE		= -I$(HEADER) -I$(LIBFT_H)
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
-$(OBJS_DIR)%.o	:	%.c $(DEPS_SRCS) $(MK)
+$(OBJS_DIR)%.o	:	%.c $(LIB) $(MK)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)		\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@

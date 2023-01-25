@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:03:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/22 18:53:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/25 09:50:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+int	ft_strrncmp(const char *s1, const char *s2, size_t n)
 {
 	int	s1_len;
 	int	s2_len;

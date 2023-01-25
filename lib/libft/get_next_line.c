@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 19:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/07 17:56:36 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:33:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,92 +36,92 @@ char	*ft_malloc_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-void	ft_read_file(t_data *data)
+void	ft_read_file(t_gnl *gnl)
 {
 	int	bytes;
 
-	data->line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!data->line)
-		data->err = !ft_free(&(data->buffer), 2);
+	gnl->line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!gnl->line)
+		gnl->err = !ft_free(&(gnl->buffer), 2);
 	bytes = 1;
-	while (!data->err && bytes && !ft_strchr(data->buffer, '\n'))
+	while (!gnl->err && bytes && !ft_strchr(gnl->buffer, '\n'))
 	{
-		bytes = read(data->fd, data->line, BUFFER_SIZE);
+		bytes = read(gnl->fd, gnl->line, BUFFER_SIZE);
 		if (bytes == -1)
-			data->err = !ft_free(&(data->buffer), 2);
+			gnl->err = !ft_free(&(gnl->buffer), 2);
 		else
 		{
-			if (*data->line || data->buffer)
+			if (*gnl->line || gnl->buffer)
 			{
-				data->line[bytes] = '\0';
-				data->buffer = ft_malloc_strjoin(data->buffer, data->line);
-				if (!data->buffer)
-					data->err = 1;
+				gnl->line[bytes] = '\0';
+				gnl->buffer = ft_malloc_strjoin(gnl->buffer, gnl->line);
+				if (!gnl->buffer)
+					gnl->err = 1;
 			}
 		}
 	}
-	ft_free(&(data->line), 2);
+	ft_free(&(gnl->line), 2);
 }
 
-void	ft_get_line(t_data *data)
+void	ft_get_line(t_gnl *gnl)
 {
 	int	len;
 
-	if (!*data->buffer)
+	if (!*gnl->buffer)
 	{
-		data->line = NULL;
+		gnl->line = NULL;
 		return ;
 	}
 	len = 0;
-	while (data->buffer[len] && data->buffer[len] != '\n')
+	while (gnl->buffer[len] && gnl->buffer[len] != '\n')
 		len++;
-	data->line = ft_substr(data->buffer, 0, len + 1);
-	if (!data->line)
-		data->err = 1;
+	gnl->line = ft_substr(gnl->buffer, 0, len + 1);
+	if (!gnl->line)
+		gnl->err = 1;
 }
 
-void	ft_clean_buffer(t_data *data)
+void	ft_clean_buffer(t_gnl *gnl)
 {
 	char	*aux;
 	int		start;
 
 	start = 0;
-	while (data->buffer[start] && data->buffer[start] != '\n')
+	while (gnl->buffer[start] && gnl->buffer[start] != '\n')
 		start++;
-	aux = ft_strdup(data->buffer);
+	aux = ft_strdup(gnl->buffer);
 	if (!aux)
 	{
-		data->err = !ft_free(&(data->buffer), 2);
+		gnl->err = !ft_free(&(gnl->buffer), 2);
 		return ;
 	}
-	ft_free(&(data->buffer), 2);
-	data->buffer = ft_substr(aux, start + 1, (ft_strlen(aux) - start));
-	if (!data->buffer)
-		data->err = 1;
+	ft_free(&(gnl->buffer), 2);
+	gnl->buffer = ft_substr(aux, start + 1, (ft_strlen(aux) - start));
+	if (!gnl->buffer)
+		gnl->err = 1;
 	ft_free(&aux, 2);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_data	data[OPEN_MAX];
+	static t_gnl	gnl[OPEN_MAX];
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!(data[fd]).buffer)
+	if (!(gnl[fd]).buffer)
 	{
-		(data[fd]).buffer = ft_strdup("");
-		if (!(data[fd]).buffer)
+		(gnl[fd]).buffer = ft_strdup("");
+		if (!(gnl[fd]).buffer)
 			return (NULL);
 	}
-	(data[fd]).fd = fd;
-	(data[fd]).err = 0;
-	if (!(data[fd]).err)
-		ft_read_file(&(data[fd]));
-	if (!(data[fd]).err)
-		ft_get_line(&(data[fd]));
-	if (!(data[fd]).err)
-		ft_clean_buffer(&(data[fd]));
-	if ((data[fd]).err || !ft_strchr((data[fd]).line, '\n'))
-		ft_free(&((data[fd]).buffer), 2);
-	return ((data[fd]).line);
+	(gnl[fd]).fd = fd;
+	(gnl[fd]).err = 0;
+	if (!(gnl[fd]).err)
+		ft_read_file(&(gnl[fd]));
+	if (!(gnl[fd]).err)
+		ft_get_line(&(gnl[fd]));
+	if (!(gnl[fd]).err)
+		ft_clean_buffer(&(gnl[fd]));
+	if ((gnl[fd]).err || !ft_strchr((gnl[fd]).line, '\n'))
+		ft_free(&((gnl[fd]).buffer), 2);
+	return ((gnl[fd]).line);
 }
