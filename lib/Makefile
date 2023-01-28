@@ -33,6 +33,10 @@ all			:
 	@$(MAKE) printf
 	@$(MAKE) mlx
 
+linux		:
+	@$(MAKE) library
+	@$(MAKE) printf
+
 library		::
 	@$(MAKE) -C $(LIBFT_DIR)
 
@@ -65,4 +69,4 @@ re			:
 	@$(MAKE) fclean
 	@$(MAKE) all
 
-.PHONY: all clean fclean re library printf mlx
+.PHONY: all clean fclean re library printf mlx linux

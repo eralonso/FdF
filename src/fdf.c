@@ -12,6 +12,16 @@
 
 #include	<fdf.h>
 
+int	main(int ac, char **av)
+{
+	if (ac != 2)
+		return (ft_error(ERR_PARAM, NULL, 1));
+	if (!ft_check_map(av[1]))
+		return (1);
+	return (0);
+}
+
+/*
 typedef struct s_data {
 	void	*img;
 	char	*addr;
@@ -71,4 +81,4 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(mlx, mlx_win, data.img, 0, 0);
 	mlx_loop(mlx);
 	return (0);
-}
+}*/

@@ -45,7 +45,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	fdf check_map
+FILES		=	fdf check_map utils
 
 B_FILES		=
 
@@ -83,12 +83,24 @@ $(B_OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(B_INCLUDE) -c $< -o $@
 
+ifndef LINUX
 all				:
 	@$(MAKE) -C $(LIBRARY)
 	@$(MAKE) $(NAME)
 
+else
+
+all				:
+	@$(MAKE) linux -C $(LIBRARY)
+	@$(MAKE) $(NAME)
+
+endif
+
 bonus			:
 	@$(MAKE) BONUS=1 all
+
+linux			:
+	@$(MAKE) LINUX=1 FRMWK="" LIB_SEARCH="-L./lib/libft -L./lib/ft_printf -lft -lftprintf -lm" all
 
 ifndef BONUS
 

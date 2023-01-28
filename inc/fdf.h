@@ -15,7 +15,13 @@
 
 # include	<ft_printf.h>
 # include	<mlx.h>
+# include	<stdio.h>
+# include	<fcntl.h>
 
+# define ERR_PARAM (char *)"Invalid number of arguments"
+# define ERR_MAP (char *)"Map is incorrect"
+
+int		ft_error(char *str, char *file, int err);
 int		ft_check_map(char *map);
 
 #endif
