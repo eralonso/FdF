@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/25 17:34:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:41:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,12 @@ void		ft_get_line(t_gnl *gnl);
 void		ft_clean_buffer(t_gnl *gnl);
 char		*get_next_line(int fd);
 char		*ft_malloc_strjoin(char *s1, char *s2);
+
+//POST_LIBFT
+long long	ft_atoll(char *str);
+int			ft_isnum(char *input);
+int			ft_isnumdup(char **input, int num, int index);
+int			ft_isint(char *num);
+int			ft_matrixlen(void **matrix);
 
 #endif

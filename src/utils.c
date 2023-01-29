@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:33:29 by eralonso         ###   ########.fr       */
+/*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
+/*   Updated: 2023/01/29 13:27:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include	<fdf.h>
 
-#ifndef FDF_H
-# define FDF_H
-
-# include	<ft_printf.h>
-# include	<mlx.h>
-# include	<stdio.h>
-# include	<fcntl.h>
-
-# define BASE_HXL (char *)"0123456789abcdef"
-# define BASE_HXU (char *)"0123456789ABCDEF"
-
-# define ERR_PARAM (char *)"Invalid number of arguments"
-# define ERR_MAP (char *)"Map is incorrect"
-
-int		ft_error(char *str, char *file, int err);
-int		ft_check_map(char *map);
-
-#endif
+int	ft_error(char *str, char *file, int err)
+{
+	if (str)
+		ft_printf(1, "%s", str);
+	else if (err && file)
+	{
+		ft_printf(1, "FdF: %s: ", file);
+		perror("");
+	}
+	else if (err)
+		perror("");
+	return (err);
+}

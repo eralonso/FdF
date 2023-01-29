@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_isint.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:33:29 by eralonso         ###   ########.fr       */
+/*   Created: 2023/01/29 14:08:12 by eralonso          #+#    #+#             */
+/*   Updated: 2023/01/29 14:08:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include	<libft.h>
 
-# include	<ft_printf.h>
-# include	<mlx.h>
-# include	<stdio.h>
-# include	<fcntl.h>
+int	ft_isint(char *num)
+{
+	int			i;
+	long long	tmp;
 
-# define BASE_HXL (char *)"0123456789abcdef"
-# define BASE_HXU (char *)"0123456789ABCDEF"
-
-# define ERR_PARAM (char *)"Invalid number of arguments"
-# define ERR_MAP (char *)"Map is incorrect"
-
-int		ft_error(char *str, char *file, int err);
-int		ft_check_map(char *map);
-
-#endif
+	i = 0;
+	if (!num || !*num)
+		return (0);
+	if (ft_strchr("+-", num[i]))
+		i++;
+	while (num[i] && num[i] == '0')
+		i++;
+	if (!num[i])
+		i--;
+	if (ft_strlen(&num[i]) > ft_nbr_size(INT_MAX, 10))
+		return (0);
+	tmp = ft_atoll(num);
+	if (tmp < INT_MIN || tmp > INT_MAX)
+		return (0);
+	return (1);
+}
