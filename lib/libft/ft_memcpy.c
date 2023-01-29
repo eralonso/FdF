@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:32:54 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/29 14:27:15 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:05:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

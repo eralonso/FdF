@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:41:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 20:06:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 # include	<stdlib.h>
 # include	<unistd.h>
+# include	<fcntl.h>
 # include	<limits.h>
 
-# define BUFFER_SIZE (int)10
+# define BUFFER_SIZE (int)1000
 
 typedef struct s_list
 {
@@ -62,7 +63,7 @@ int			ft_strrncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);
 char		*ft_strrchr(const char *s, int c);
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char *s1, char *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
@@ -87,10 +88,12 @@ char		*get_next_line(int fd);
 char		*ft_malloc_strjoin(char *s1, char *s2);
 
 //POST_LIBFT
+size_t		ft_nbrlen_base(long long nbr, long long len);
 long long	ft_atoll(char *str);
 int			ft_isnum(char *input);
 int			ft_isnumdup(char **input, int num, int index);
 int			ft_isint(char *num);
-int			ft_matrixlen(void **matrix);
+int			ft_matrixlen(char **matrix);
+int			ft_close(int *fd);
 
 #endif

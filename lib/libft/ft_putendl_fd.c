@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 09:20:54 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/29 15:16:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:13:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	ft_putendl_fd(char *s, int fd)
 {

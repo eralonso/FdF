@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:33:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:35:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:39:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_matrixlen(void **matrix)
+int	ft_matrixlen(char **matrix)
 {
 	int	len;
 

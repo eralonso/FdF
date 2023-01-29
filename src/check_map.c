@@ -6,52 +6,59 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:53:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 20:18:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
-int	ft_check_map(char *file, t_map *map)
+int	ft_check_map(char *file, t_design *design)
 {
 	int	fd;
+	int	y;
+	int	x;
 
+	y = 0;
+	x = 0;
 	if (ft_strrncmp(file, ".fdf\0", 4))
 		return (ft_error(ERR_MAP, NULL, 0));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit(ft_error(NULL, file, 1));
-	if (!ft_check_read(fd))
-		return (0);
-	if (!ft_read_map(fd, map))
+	if (!ft_check_read(&fd, &x, &y))
+		exit (ft_error(ERR_MAP, NULL, 1));
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		exit(ft_error(NULL, file, 1));
+	if (!ft_read_map(&fd, design, x, y))
 		return (0);
 	return (1);
 }
 
-int	ft_check_read(int fd)
+int	ft_check_read(int *fd, int *x, int *y)
 {
 	char	*str;
 	char	**line;
-	int		x;
 
-	x = 0;
-	str = get_next_line(fd);
+	str = get_next_line(*fd);
 	while (str)
 	{
 		line = ft_split(str, ' ');
 		if (!line)
 			return (ft_error(ft_free(&str, 2), NULL, 0));
+		ft_free(&str, 2);
 		if (!ft_check_valid_param(line))
-			return (0);
-		if (x == 0)
-			x = ft_matrixlen(line);
-		else if (x != ft_matrixlen(line))
-			return (0);
+			return (ft_free(line, 1) != NULL);
+		if (*x == 0)
+			*x = ft_matrixlen(line);
+		else if (*x != ft_matrixlen(line))
+			return (ft_free(line, 1) != NULL);
 		ft_free(line, 1);
-		str = get_next_line(fd);
+		str = get_next_line(*fd);
+		(*y)++;
 	}
-	if (close(fd) == -1)
-		return (ft_error(NULL, 1));
+	if (ft_close(fd) == -1)
+		return (ft_error(NULL, "close", 1));
 	return (1);
 }
 
@@ -59,23 +66,27 @@ int	ft_check_valid_param(char **line)
 {
 	int		i;
 	char	**colon;
+	char	*num;
 
 	i = -1;
 	while (line[++i])
 	{
+		num = ft_strtrim(line[i], "\n");
 		colon = NULL;
-		if (ft_strchr(line[i], ','))
+		if (ft_strchr(num, ','))
 		{
-			colon = ft_split(line[i], ',');
+			colon = ft_split(num, ',');
 			if (!colon)
-				return (0);
+				return (ft_free(&num, 2) != NULL);
 			if (ft_matrixlen(colon) > 2 || !ft_isnum(colon[0])
-					|| !ft_check_hexa(colon[1]))
-				return (0)
+				|| !ft_check_hexa(colon[1]))
+				return ((ft_free(&num, 2) == NULL)
+					&& (ft_free(colon, 1) != NULL));
 			ft_free(colon, 1);
 		}
-		else if (!ft_isnum(line[i]))
-				return (0);
+		else if (!ft_isnum(num))
+			return (ft_free(&num, 2) != NULL);
+		ft_free(&num, 2);
 	}
 	return (1);
 }
@@ -85,7 +96,9 @@ int	ft_check_hexa(char *str)
 	int	i;
 
 	i = 1;
-	if (str[0] != 0 || !ft_strchr("xX\0", str[1]))
+	if (!str)
+		return (0);
+	if (str[0] != '0' || !ft_strchr("xX\0", str[1]))
 		return (0);
 	while (str[++i])
 		if (!ft_strchr(BASE_HXU, str[i]) && !ft_strchr(BASE_HXL, str[i]))
@@ -93,7 +106,21 @@ int	ft_check_hexa(char *str)
 	return (1);
 }
 
-int	ft_read_map(int fd, t_map *map)
+int	ft_read_map(int *fd, t_design *design, int x, int y)
 {
+	int	i;
+
+	i = 0;
+	design->x = x;
+	design->y = y;
+	ft_printf(1, "design->x == %d\ndesign->y == %d\n", design->x, design->y);
+	design->map = (char **)ft_calloc(sizeof(char *), y + 1);
+	if (!design->map)
+		return (0);
+	design->map[i] = get_next_line(*fd);
+	while (design->map[i])
+		design->map[++i] = get_next_line(*fd);
+	if (ft_close(fd) == -1)
+		return (0);
 	return (1);
 }

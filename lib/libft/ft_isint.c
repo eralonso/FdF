@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:08:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:08:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:11:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_isint(char *num)
 		i++;
 	if (!num[i])
 		i--;
-	if (ft_strlen(&num[i]) > ft_nbr_size(INT_MAX, 10))
+	if (ft_strlen(&num[i]) > ft_nbrlen_base(INT_MAX, 10))
 		return (0);
 	tmp = ft_atoll(num);
 	if (tmp < INT_MIN || tmp > INT_MAX)

@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:45:47 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/07 13:20:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:07:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 char	*ft_strchr(const char *s, int c)
 {

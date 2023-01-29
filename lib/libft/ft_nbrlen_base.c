@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_nbrlen_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/24 09:15:57 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 17:13:19 by eralonso         ###   ########.fr       */
+/*   Created: 2023/01/29 18:09:09 by eralonso          #+#    #+#             */
+/*   Updated: 2023/01/29 18:34:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
 
-void	ft_putchar_fd(char c, int fd)
+size_t	ft_nbrlen_base(long long nbr, long long len)
 {
-	write(fd, &c, 1);
+	int	nbr_size;
+
+	nbr_size = 0;
+	if (nbr < 0)
+		nbr = -nbr;
+	if (nbr == 0)
+		return (1);
+	while (nbr > 0)
+	{
+		nbr_size++;
+		nbr /= len;
+	}
+	return (nbr_size);
 }

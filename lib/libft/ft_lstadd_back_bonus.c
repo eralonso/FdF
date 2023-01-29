@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:07:29 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/29 15:26:14 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:10:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {

@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:00 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/21 13:47:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:10:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {

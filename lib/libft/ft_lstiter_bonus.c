@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 13:47:46 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/21 13:54:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:10:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {

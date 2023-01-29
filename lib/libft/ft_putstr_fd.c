@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 09:18:16 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/29 15:15:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:14:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	ft_putstr_fd(char *s, int fd)
 {

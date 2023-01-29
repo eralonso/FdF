@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:13:04 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/29 14:26:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:07:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 void	ft_bzero(void *s, size_t n)
 {

@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:37:38 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/23 10:59:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:16:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

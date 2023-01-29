@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_close.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/24 09:15:57 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 17:13:19 by eralonso         ###   ########.fr       */
+/*   Created: 2023/01/29 17:03:11 by eralonso          #+#    #+#             */
+/*   Updated: 2023/01/29 17:08:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_close(int *fd)
 {
-	write(fd, &c, 1);
+	if (*fd != 0 && close(*fd) == -1)
+	{
+		*fd = 0;
+		return (-1);
+	}
+	*fd = 0;
+	return (0);
 }

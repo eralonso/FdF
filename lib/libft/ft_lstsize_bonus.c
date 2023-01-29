@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:31:43 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/29 12:00:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:11:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
 
 int	ft_lstsize(t_list *lst)
 {

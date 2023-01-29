@@ -6,11 +6,9 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:42:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/23 16:32:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:09:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include	<libft.h>
 
 int	ft_isprint(int c)
 {

@@ -6,11 +6,9 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 10:21:00 by eralonso          #+#    #+#             */
-/*   Updated: 2022/09/24 12:41:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:06:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include	"libft.h"
 
 int	ft_atoi(const char *str)
 {

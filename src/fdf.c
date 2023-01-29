@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:11:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 20:09:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 int	main(int ac, char **av)
 {
-	t_map	map;
+	t_design	design;
+	int			i;
 
 	if (ac != 2)
 		return (1);
-	if (!ft_check_map(av[1], &map))
-		return (ft_error(NULL, 1));
+	if (!ft_check_map(av[1], &design))
+		return (ft_error(NULL, NULL, 1));
+	i = -1;
+	while (design.map[++i])
+		ft_printf(1, "%s", design.map[i]);
+	ft_free(design.map, 1);
 	return (0);
 }
 
