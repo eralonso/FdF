@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:42:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:53:21 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	ft_check_read(int fd)
 			return (ft_error(ft_free(&str, 2), NULL, 0));
 		if (!ft_check_valid_param(line))
 			return (0);
-		if (!ft_check_size(line, &x))
+		if (x == 0)
+			x = ft_matrixlen(line);
+		else if (x != ft_matrixlen(line))
 			return (0);
 		ft_free(line, 1);
 		str = get_next_line(fd);
@@ -88,20 +90,6 @@ int	ft_check_hexa(char *str)
 	while (str[++i])
 		if (!ft_strchr(BASE_HXU, str[i]) && !ft_strchr(BASE_HXL, str[i]))
 			return (0);
-	return (1);
-}
-
-int	ft_check_size(char **line, int *x)
-{
-	int	new_x;
-
-	new_x = 0;
-	while (line[new_x])
-		new_x++;
-	if (*x == 0)
-		*x = new_x;
-	else if (*x != new_x)
-		return (0);
 	return (1);
 }
 
