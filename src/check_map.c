@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/30 10:01:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:16:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	ft_check_hexa(char *str)
 	while (str[++i])
 		if (!ft_strchr(BASE_HXU, str[i]) && !ft_strchr(BASE_HXL, str[i]))
 			return (0);
+	if (i > 8)
+		return (0);
 	return (1);
 }
 

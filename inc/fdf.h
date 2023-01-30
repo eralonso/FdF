@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/30 09:59:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:41:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include	<ft_printf.h>
 # include	<mlx.h>
+# include	<math.h>
 # include	<stdio.h>
 
 # define BASE_HXL (char *)"0123456789abcdef"
