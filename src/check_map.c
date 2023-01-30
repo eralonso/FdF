@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 20:18:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/30 10:01:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_check_map(char *file, t_design *design)
 	y = 0;
 	x = 0;
 	if (ft_strrncmp(file, ".fdf\0", 4))
-		return (ft_error(ERR_MAP, NULL, 0));
+		exit(ft_error(ERR_MAP, NULL, 0));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit(ft_error(NULL, file, 1));

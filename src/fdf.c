@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 20:09:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:55:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	main(int ac, char **av)
 	(void) av;
 	if (ac != 2)
 		return (1);
-	//if (!ft_check_map(av[1]))
-	//	return (1);
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 500, 300, av[1]);
 	data.img = mlx_new_image(mlx, 500, 300);

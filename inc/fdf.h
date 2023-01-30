@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 19:53:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:59:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ERR_PARAM (char *)"Invalid number of arguments"
 # define ERR_MAP (char *)"Map is incorrect"
 
-typedef	struct s_design t_design;
+typedef struct s_design	t_design;
 
 struct s_design {
 	int		x;
