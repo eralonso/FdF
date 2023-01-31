@@ -6,12 +6,12 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/30 17:55:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/31 13:35:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
-/*
+
 int	main(int ac, char **av)
 {
 	t_design	design;
@@ -24,13 +24,13 @@ int	main(int ac, char **av)
 	//i = -1;
 	//while (design.map[++i])
 	//	ft_printf(1, "%s", design.map[i]);
-	if (!ft_print_map(&design))
-		return (ft_error(NULL, NULL, 1));
+	//if (!ft_print_map(&design))
+	//	return (ft_error(NULL, NULL, 1));
 	ft_free(design.map, 1);
 	return (0);
 }
-*/
 
+/*
 typedef struct s_data {
 	void	*img;
 	char	*addr;
@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 		while (++x <= 100)
 		{
 			//if (!sqrt(pow(x, 2) - pow (y, 2)))
-				my_mlx_pixel_put(&data, x + 50, y + 50, 0x0000FFFF);
+			//	my_mlx_pixel_put(&data, x + 50, y + 50, 0x0000FFFF);
 			//if (x == 50)
 			//	my_mlx_pixel_put(&data, x + 50, y + 50, 0x0000FFFF);
 			//if (y == 100)
@@ -79,8 +79,8 @@ int	main(int ac, char **av)
 			//	my_mlx_pixel_put(&data, x + 50, y + 50, 0x0000FFFF);
 			//if (x)
 			//	my_mlx_pixel_put(&data, x + 50, y + 50, 0x0000FFFF);
-			//if (x >= 50 - i / 2 && x <= 50 + i / 2)
-			//	my_mlx_pixel_put(&data, x + 200, y + 100, 0x00FFFFFF);
+			if (x >= 50 - i / 2 && x <= 50 + i / 2)
+				my_mlx_pixel_put(&data, x + 200, y + 100, 0x00FFFFFF);
 		}
 		i++;
 			//else if (x +  y == 1)
@@ -93,7 +93,7 @@ int	main(int ac, char **av)
 	mlx_put_image_to_window(mlx, mlx_win, data.img, 0, 0);
 	mlx_loop(mlx);
 	return (0);
-}
+}*/
 
 	//	Cuadradito vacío:
 	//	if (x == 100 || y == 100 || x == 0 || y == 0)

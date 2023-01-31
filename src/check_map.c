@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/30 17:16:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:31:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ int	ft_check_valid_param(char **line)
 			if (!colon)
 				return (ft_free(&num, 2) != NULL);
 			if (ft_matrixlen(colon) > 2 || !ft_isnum(colon[0])
-				|| !ft_check_hexa(colon[1]))
+				|| ft_isint(colon[0]) || !ft_check_hexa(colon[1]))
 				return ((ft_free(&num, 2) == NULL)
 					&& (ft_free(colon, 1) != NULL));
 			ft_free(colon, 1);
 		}
-		else if (!ft_isnum(num))
+		else if (!ft_isnum(num) || !ft_isint(num))
 			return (ft_free(&num, 2) != NULL);
 		ft_free(&num, 2);
 	}
