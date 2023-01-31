@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/31 13:35:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:04:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 int	main(int ac, char **av)
 {
 	t_design	design;
-	//int			i;
+	int			i;
 
 	if (ac != 2)
 		return (1);
 	if (!ft_check_map(av[1], &design))
 		return (ft_error(NULL, NULL, 1));
-	//i = -1;
-	//while (design.map[++i])
-	//	ft_printf(1, "%s", design.map[i]);
+	i = -1;
+	while (design.map[++i])
+		ft_printf(1, "%i", design.map[i]);
 	//if (!ft_print_map(&design))
 	//	return (ft_error(NULL, NULL, 1));
-	ft_free(design.map, 1);
+	ft_free((char **)design.map, 1);
 	return (0);
 }
 
@@ -57,8 +57,9 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (1);
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 500, 300, av[1]);
-	data.img = mlx_new_image(mlx, 500, 300);
+	printf("mlx:\n%%s == %s\n%%l == %llu\n%%p == %p\n", mlx, *(unsigned long long *)mlx, mlx);
+	mlx_win = mlx_new_window(mlx, 1000, 750, av[1]);
+	data.img = mlx_new_image(mlx, 1000, 750);
 	data.addr = mlx_get_data_addr
 		(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 	int y = -1;
@@ -90,6 +91,7 @@ int	main(int ac, char **av)
 			//else if (x + y == 0)
 			//	my_mlx_pixel_put(&data, x + 50, y + 50, 0x0000FFFF);
 	}
+	//my_mlx_pixel_put(&data, 50, 50, 0x0000FFFF);
 	mlx_put_image_to_window(mlx, mlx_win, data.img, 0, 0);
 	mlx_loop(mlx);
 	return (0);

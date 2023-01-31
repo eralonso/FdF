@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/31 13:01:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:38:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include	<limits.h>
 
 # define BUFFER_SIZE (int)1000
+# define B10 (char *)"0123456789"
+# define BL16 (char *)"0123456789abcdef"
+# define BU16 (char *)"0123456789ABCDEF"
 
 typedef struct s_list
 {

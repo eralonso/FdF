@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/31 12:31:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:09:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,27 +101,47 @@ int	ft_check_hexa(char *str)
 	if (str[0] != '0' || !ft_strchr("xX\0", str[1]))
 		return (0);
 	while (str[++i])
-		if (!ft_strchr(BASE_HXU, str[i]) && !ft_strchr(BASE_HXL, str[i]))
+		if (!ft_strchr(BU16, str[i]) && !ft_strchr(BL16, str[i]))
 			return (0);
 	if (i > 8)
 		return (0);
 	return (1);
 }
 
-int	ft_read_map(int *fd, t_design *design, int x, int y)
+int	ft_read_map(int *fd, t_design *design, int width, int height)
 {
-	int	i;
+	char	*line;
+	char	**cord;
+	int		i;
+	int		j;
 
-	i = 0;
-	design->x = x;
-	design->y = y;
-	ft_printf(1, "design->x == %d\ndesign->y == %d\n", design->x, design->y);
-	design->map = (char **)ft_calloc(sizeof(char *), y + 1);
+	i = -1;
+	ft_printf(1, "width == %i\n", width);
+	ft_printf(1, "height == %i\n", height);
+	design->width = width;
+	design->height = height;
+	design->map = (int **)ft_calloc(sizeof(int *), height + 1);
 	if (!design->map)
 		return (0);
-	design->map[i] = get_next_line(*fd);
-	while (design->map[i])
-		design->map[++i] = get_next_line(*fd);
+	line = get_next_line(*fd);
+	while (line)
+	{
+		j = -1;
+		cord = ft_split(line, ' ');
+		ft_free(&line, 2);
+		if (!cord)
+			return (ft_free((char **)design->map, 1) != NULL);
+		design->map[++i] = (int *)ft_calloc(sizeof(int), 2 \
+			+ ft_strchr(cord[++j], ',') != NULL);
+		if (!design->map[i])
+			return (ft_free((char **)design->map, 1) == NULL && \
+				ft_free(cord, 1) != NULL);
+		while (cord[++j])
+			design->map[i][j] = ft_atoi(cord[j]);
+		ft_free(cord, 1);
+		ft_free(&line, 2);
+		line = get_next_line(*fd);
+	}
 	if (ft_close(fd) == -1)
 		return (0);
 	return (1);
