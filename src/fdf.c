@@ -6,27 +6,37 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/01 12:51:04 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:59:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
+void	ft_print_points(t_design design)
+{
+	int			i;
+
+	i = -1;
+	while (++i < design.width * design.height)
+	{
+		ft_printf(1, "x == %i y == %i z == %i color == %i\n\n", \
+		design.points[i].x, design.points[i].y, design.points[i].z, \
+		design.points[i].color);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_design	design;
-	int			i;
 
 	if (ac != 2)
 		return (1);
 	if (!ft_check_map(av[1], &design))
 		return (ft_error(NULL, NULL, 1));
-	i = -1;
-	while (design.map[++i])
-		ft_printf(1, "%i", design.map[i]);
+	//ft_print_points(design);
 	//if (!ft_print_map(&design))
 	//	return (ft_error(NULL, NULL, 1));
-	ft_free((char **)design.map, 1);
+	ft_free((char **)&design.points, 2);
 	return (0);
 }
 

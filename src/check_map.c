@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/31 19:09:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:54:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_check_valid_param(char **line)
 			if (!colon)
 				return (ft_free(&num, 2) != NULL);
 			if (ft_matrixlen(colon) > 2 || !ft_isnum(colon[0])
-				|| ft_isint(colon[0]) || !ft_check_hexa(colon[1]))
+				|| !ft_isint(colon[0]) || !ft_check_hexa(colon[1]))
 				return ((ft_free(&num, 2) == NULL)
 					&& (ft_free(colon, 1) != NULL));
 			ft_free(colon, 1);
@@ -107,7 +107,7 @@ int	ft_check_hexa(char *str)
 		return (0);
 	return (1);
 }
-
+/*
 int	ft_read_map(int *fd, t_design *design, int width, int height)
 {
 	char	*line;
@@ -145,4 +145,51 @@ int	ft_read_map(int *fd, t_design *design, int width, int height)
 	if (ft_close(fd) == -1)
 		return (0);
 	return (1);
+}
+*/
+int	ft_read_map(int *fd, t_design *design, int width, int height)
+{
+	char	*line;
+	char	**cord;
+	int		y;
+
+	design->width = width;
+	design->height = height;
+	design->points = ft_calloc(sizeof(t_point), width * height + 1);
+	if (!design->points)
+		return (0);
+	y = 0;
+	line = get_next_line(*fd);
+	while (line)
+	{
+		cord = ft_split(line, ' ');
+		ft_free(&line, 2);
+		if (!cord)
+			return (ft_free((char **)&design->points, 2) != NULL);
+		ft_create_line_points(design, y, cord);
+		ft_free(cord, 1);
+		line = get_next_line(*fd);
+		y++;
+	}
+	if (ft_close(fd) == -1)
+		return (0);
+	return (1);
+}
+
+void	ft_create_line_points(t_design *design, int y, char **cord)
+{
+	int			x;
+	static int	idx = -1;
+
+	x = -1;
+	while (++x < design->width)
+	{
+		design->points[++idx].x = x;
+		design->points[idx].y = y;
+		design->points[idx].z = ft_atoi(cord[x]);
+		if (ft_strchr(cord[x], ','))
+			design->points[idx].color = ft_atoi(ft_strchr(cord[x], ',') + 1);
+		else
+			design->points[idx].color = WHITE;
+	}
 }

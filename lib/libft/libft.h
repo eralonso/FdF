@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/31 18:38:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:11:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include	<fcntl.h>
 # include	<limits.h>
 
-# define BUFFER_SIZE (int)1000
+# define BUFFER_SIZE (int)100000
 # define B10 (char *)"0123456789"
 # define BL16 (char *)"0123456789abcdef"
 # define BU16 (char *)"0123456789ABCDEF"
