@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/01 19:54:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:22:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,90 +106,4 @@ int	ft_check_hexa(char *str)
 	if (i > 8)
 		return (0);
 	return (1);
-}
-/*
-int	ft_read_map(int *fd, t_design *design, int width, int height)
-{
-	char	*line;
-	char	**cord;
-	int		i;
-	int		j;
-
-	i = -1;
-	ft_printf(1, "width == %i\n", width);
-	ft_printf(1, "height == %i\n", height);
-	design->width = width;
-	design->height = height;
-	design->map = (int **)ft_calloc(sizeof(int *), height + 1);
-	if (!design->map)
-		return (0);
-	line = get_next_line(*fd);
-	while (line)
-	{
-		j = -1;
-		cord = ft_split(line, ' ');
-		ft_free(&line, 2);
-		if (!cord)
-			return (ft_free((char **)design->map, 1) != NULL);
-		design->map[++i] = (int *)ft_calloc(sizeof(int), 2 \
-			+ ft_strchr(cord[++j], ',') != NULL);
-		if (!design->map[i])
-			return (ft_free((char **)design->map, 1) == NULL && \
-				ft_free(cord, 1) != NULL);
-		while (cord[++j])
-			design->map[i][j] = ft_atoi(cord[j]);
-		ft_free(cord, 1);
-		ft_free(&line, 2);
-		line = get_next_line(*fd);
-	}
-	if (ft_close(fd) == -1)
-		return (0);
-	return (1);
-}
-*/
-int	ft_read_map(int *fd, t_design *design, int width, int height)
-{
-	char	*line;
-	char	**cord;
-	int		y;
-
-	design->width = width;
-	design->height = height;
-	design->points = ft_calloc(sizeof(t_point), width * height + 1);
-	if (!design->points)
-		return (0);
-	y = 0;
-	line = get_next_line(*fd);
-	while (line)
-	{
-		cord = ft_split(line, ' ');
-		ft_free(&line, 2);
-		if (!cord)
-			return (ft_free((char **)&design->points, 2) != NULL);
-		ft_create_line_points(design, y, cord);
-		ft_free(cord, 1);
-		line = get_next_line(*fd);
-		y++;
-	}
-	if (ft_close(fd) == -1)
-		return (0);
-	return (1);
-}
-
-void	ft_create_line_points(t_design *design, int y, char **cord)
-{
-	int			x;
-	static int	idx = -1;
-
-	x = -1;
-	while (++x < design->width)
-	{
-		design->points[++idx].x = x;
-		design->points[idx].y = y;
-		design->points[idx].z = ft_atoi(cord[x]);
-		if (ft_strchr(cord[x], ','))
-			design->points[idx].color = ft_atoi(ft_strchr(cord[x], ',') + 1);
-		else
-			design->points[idx].color = WHITE;
-	}
 }
