@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/02 19:46:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:15:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_print_points(t_design design)
 	i = -1;
 	while (++i < design.width * design.height)
 	{
-		ft_printf(1, "x == %i y == %i z == %i color == %#X\n\n", \
+		printf("x == %f y == %f z == %f color == %#X\n\n", \
 		design.points[i].x, design.points[i].y, design.points[i].z, \
 		design.points[i].color);
 	}
@@ -40,6 +40,7 @@ int	main(int ac, char **av)
 	if (!ft_check_map(av[1], &design))
 		return (ft_error(NULL, NULL, 1));
 	//ft_print_points(design);
+	printf("Map stats:\n   Width = %fu\n   Height = %fu\n", design.width, design.height);
 	if (!ft_print_map(&design))
 		return (ft_error(NULL, NULL, 1));
 	ft_free((char **)&design.points, 2);

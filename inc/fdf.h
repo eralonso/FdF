@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/02 19:05:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/03 09:38:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ typedef struct s_point	t_point;
 typedef struct s_pixmap	t_pixmap;
 
 struct s_point {
-	int		x;
-	int		y;
-	int		z;
+	float	x;
+	float	y;
+	float	z;
 	int		color;
 };
 
@@ -43,8 +43,8 @@ struct s_pixmap {
 };
 
 struct s_design {
-	int			width;
-	int			height;
+	float		width;
+	float		height;
 	t_point		*points;
 	t_pixmap	pixmap;
 	void		*mlx;

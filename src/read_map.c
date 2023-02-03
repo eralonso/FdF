@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/02 10:22:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/03 09:26:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,18 @@ int	ft_read_map(int *fd, t_design *design, int width, int height)
 void	ft_create_line_points(t_design *design, int y, char **cord)
 {
 	int			x;
-	static int	idx = -1;
+	static int	idx = 0;
 
 	x = -1;
 	while (++x < design->width)
 	{
-		design->points[++idx].x = x;
-		design->points[idx].y = y;
+		design->points[idx].x = x - (design->width / 2);
+		design->points[idx].y = y - (design->height / 2);
 		design->points[idx].z = ft_atoi(cord[x]);
 		if (ft_strchr(cord[x], ','))
 			design->points[idx].color = ft_atoi(ft_strchr(cord[x], ',') + 1);
 		else
 			design->points[idx].color = WHITE;
+		idx++;
 	}
 }
