@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 12:48:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:59:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,30 @@ int	ft_print_map(t_design *design)
 	return (1);
 }
 
-void	ft_config_point(t_point *p, float angle, float width, float height)
+void	ft_config_point(t_point *p, int	view, float width, float height)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	float	angle[2];
 
 	x = p->x;
 	y = p->y;
-	p->x = (x * cos(angle)) - (y * sin(angle));
-	p->y = (x * sin(angle)) + (y * cos(angle));
-	p->x = ((p->x + ((1920 - width) / 2))); //(width * 2.3)) * 20);
-	p->y = ((p->y + ((1080 - height) / 2))); //(height * 2)) * 20);
-	p->x += p->x * 0.5;
-	p->y += p->y * 0.5;
+	if (view == ISOMETRIC)
+	{
+		angle[0] = (30 * M_PI) / 180;
+		angle[1] = (30 * M_PI) / 180;
+	}
+	else
+	{
+		angle[0] = (view * M_PI) / 180;
+		angle[1] = (view * M_PI) / 180;
+	}
+	p->x = (x * cos(angle[0])) - (y * sin(angle[0]));
+	p->y = (x * sin(angle[1])) + (y * cos(angle[1]));
+	p->x *= 10;
+	p->y *= 10;
+	p->x = ((p->x + ((1920 - (width - (x * 10))) / 2)));
+	p->y = ((p->y + ((1080 - (height - (y * 10))) / 2)));
 }
 
 void	ft_print_line(t_point a, t_point b, t_design *design)
@@ -52,7 +63,6 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	float	y;
 	float	hip;
 	float	len;
-	float	angle;
 
 //	printf("a.x == %f\n", a.x);
 //	printf("a.y == %f\n", a.y);
@@ -74,10 +84,8 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	//a.y = ((a.y + (design->height * 2)) * 20);
 	//b.x = ((b.x + (design->width * 2.3)) * 20);
 	//b.y = ((b.y + (design->height * 2)) * 20);
-	angle = 30  * M_PI / 180;
-	printf("Angulo == %f\n\n", angle);
-	ft_config_point(&a, angle, design->width, design->height);
-	ft_config_point(&b, angle, design->width, design->height);
+	ft_config_point(&a, ISOMETRIC, design->width, design->height);
+	ft_config_point(&b, ISOMETRIC, design->width, design->height);
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	//hip = sqrt(pow(((b.x + design->width) * 50) - ((a.x + design->width) * 50), 2) \
 	//+ pow(((b.y + design->height) * 50) - ((a.y + design->height) * 50), 2));

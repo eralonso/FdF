@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 11:42:13 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:59:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	main(int ac, char **av)
 }
 
 	//ft_print_points(design);
-	//printf("Map stats:\n   Width = %fu\n   Height = %fu\n", design.width, design.height);
+	//printf("Map stats:\n   Width = %fu\n
+	//Height = %fu\n", design.width, design.height);
 
 /*
 typedef struct s_data {

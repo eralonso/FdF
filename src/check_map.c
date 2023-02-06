@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 12:32:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:59:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	ft_check_read(int *fd, int *x, int *y)
 		if (!ft_check_valid_param(line))
 			return (ft_free(line, 1) != NULL);
 		if (*x == 0)
-			*x = ft_matrixlen(line);
-		else if (*x != ft_matrixlen(line))
+			*x = ft_matrixlen(line) - (1 * (*(line[ft_matrixlen(line) - 1]) == '\n'));
+		else if (*x != ft_matrixlen(line) - (1 * (*(line[ft_matrixlen(line) - 1]) == '\n')))
 			return (ft_free(line, 1) != NULL);
 		ft_free(line, 1);
 		str = get_next_line(*fd);
@@ -69,10 +69,11 @@ int	ft_check_valid_param(char **line)
 	char	*num;
 
 	i = -1;
-	while (line[++i])
+	while (line[++i] && *(line[i]) != '\n')
 	{
 		num = ft_strtrim(line[i], "\n");
-		colon = NULL;
+		if (!num)
+			return (0);
 		if (ft_strchr(num, ','))
 		{
 			colon = ft_split(num, ',');
@@ -80,8 +81,8 @@ int	ft_check_valid_param(char **line)
 				return (ft_free(&num, 2) != NULL);
 			if (ft_matrixlen(colon) > 2 || !ft_isnum(colon[0])
 				|| !ft_isint(colon[0]) || !ft_check_hexa(colon[1]))
-				return ((ft_free(&num, 2) == NULL)
-					&& (ft_free(colon, 1) != NULL));
+				return (ft_free(colon, 1) != NULL \
+				|| ft_free(&num, 2) != NULL);
 			ft_free(colon, 1);
 		}
 		else if (!ft_isnum(num) || !ft_isint(num))
