@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/03 11:15:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:42:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_points(t_design design)
 {
-	int			i;
+	int	i;
 
 	i = -1;
 	while (++i < design.width * design.height)
@@ -25,11 +25,24 @@ void	ft_print_points(t_design design)
 	}
 }
 
-/*
-void	ft_events()
+int	ft_init_mlx_design(t_design *design)
 {
+	design->mlx = NULL;
+	design->mlx_win = NULL;
+	design->pixmap.img = NULL;
+	design->mlx = mlx_init();
+	if (!design->mlx)
+		return (0);
+	design->mlx_win = mlx_new_window(design->mlx, 1920, 1080, "FdF eralonso");
+	if (!design->mlx_win)
+		return (ft_clean_design(design, 0));
+	design->pixmap.img = mlx_new_image(design->mlx, 1920, 1080);
+	if (!design->pixmap.img)
+		return (ft_clean_design(design, 0));
+	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
+	&design->pixmap.bpp, &design->pixmap.line_length, &design->pixmap.endian);
+	return (1);
 }
-*/
 
 int	main(int ac, char **av)
 {
@@ -39,13 +52,16 @@ int	main(int ac, char **av)
 		return (1);
 	if (!ft_check_map(av[1], &design))
 		return (ft_error(NULL, NULL, 1));
-	//ft_print_points(design);
-	printf("Map stats:\n   Width = %fu\n   Height = %fu\n", design.width, design.height);
+	if (!ft_init_mlx_design(&design))
+		return (1);
 	if (!ft_print_map(&design))
 		return (ft_error(NULL, NULL, 1));
-	ft_free((char **)&design.points, 2);
-	return (0);
+	mlx_loop(design.mlx);
+	return (ft_clean_design(&design, 0));
 }
+
+	//ft_print_points(design);
+	//printf("Map stats:\n   Width = %fu\n   Height = %fu\n", design.width, design.height);
 
 /*
 typedef struct s_data {
