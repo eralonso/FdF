@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 15:02:05 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:42:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ struct s_design {
 	float		height;
 	t_point		*points;
 	t_pixmap	pixmap;
+	char		*map;
 	float		view;
 	void		*mlx;
 	void		*mlx_win;
@@ -62,14 +63,15 @@ struct s_design {
 
 int		ft_error(char *str, char *file, int err);
 int		ft_check_map(char *map, t_design *design);
-int		ft_check_read(int *fd, int *x, int *y);
+int		ft_check_read(int *fd, int *x, int *y, t_design *design);
 int		ft_check_valid_param(char **line);
 int		ft_check_hexa(char *str);
-int		ft_read_map(int *fd, t_design *design, int x, int y);
-void	ft_create_line_points(t_design *design, int y, char **cord);
+int		ft_load_map(t_design *design, int x, int y);
+void	ft_fill_line_points(t_design *design, int y, char **cord);
 int		ft_print_map(t_design *design);
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 void	ft_print_line(t_point a, t_point b, t_design *design);
 int		ft_clean_design(t_design *design, int num);
+int		ft_events(int key_code, void *design);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 19:59:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:37:23 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (!ft_print_map(&design))
 		return (ft_error(NULL, NULL, 1));
+	mlx_key_hook(design.mlx_win, ft_events, &design);
 	mlx_loop(design.mlx);
 	return (ft_clean_design(&design, 0));
 }

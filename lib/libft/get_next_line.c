@@ -6,11 +6,12 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 19:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/25 17:33:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:33:09 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	<libft.h>
+#define BUFFER_SIZE (int)500000
 
 char	*ft_malloc_strjoin(char *s1, char *s2)
 {

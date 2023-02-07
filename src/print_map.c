@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 19:59:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:24:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ void	ft_config_point(t_point *p, int	view, float width, float height)
 	}
 	p->x = (x * cos(angle[0])) - (y * sin(angle[0]));
 	p->y = (x * sin(angle[1])) + (y * cos(angle[1]));
-	p->x *= 10;
-	p->y *= 10;
+	if (width < 1920 / 2)
+		p->x *= (1920 / width) / 2;
+	if (height < 1080 / 2)
+		p->y *= (1080 / height) / 2;
 	p->x = ((p->x + ((1920 - (width - (x * 10))) / 2)));
 	p->y = ((p->y + ((1080 - (height - (y * 10))) / 2)));
 }
@@ -64,51 +66,20 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	float	hip;
 	float	len;
 
-//	printf("a.x == %f\n", a.x);
-//	printf("a.y == %f\n", a.y);
-//	printf("b.x == %f\n", b.x);
-//	printf("b.y == %f\n", b.y);
-//	printf("a.x == %f\n", a.x);
-//	printf("a.y == %f\n", a.y);
-//	printf("b.x == %f\n", b.x);
-//	printf("b.y == %f\n", b.y);
-	//x = a.x;
-	//y = a.y;
-	//a.x = (x * cos(15)) - (y * sin(15));
-	//a.y = (x * sin(15)) + (y * cos(15));
-	//x = b.x;
-	//y = b.y;
-	//b.x = (x * cos(15)) - (y * sin(15));
-	//b.y = (x * sin(15)) + (y * cos(15));
-	//a.x = ((a.x + (design->width * 2.3)) * 20);
-	//a.y = ((a.y + (design->height * 2)) * 20);
-	//b.x = ((b.x + (design->width * 2.3)) * 20);
-	//b.y = ((b.y + (design->height * 2)) * 20);
 	ft_config_point(&a, ISOMETRIC, design->width, design->height);
 	ft_config_point(&b, ISOMETRIC, design->width, design->height);
+	if (a.x < 0 || a.x > 1920 || a.y < 0 || a.y > 1080 || b.x < 0 \
+	|| b.x > 1920 || b.y < 0 || b.y > 1080)
+		return ;
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
-	//hip = sqrt(pow(((b.x + design->width) * 50) - ((a.x + design->width) * 50), 2) \
-	//+ pow(((b.y + design->height) * 50) - ((a.y + design->height) * 50), 2));
-	//x = ((a.x + design->width) * cos(120) - (a.y + design->height) * sin(120)) * 50 ;
-	//y = ((a.x + design->width) * sin(120) + (a.y + design->height) * cos(120)) * 50;
 	x = a.x;
 	y = a.y;
-	//printf("hip == %f\n", hip);
-	//printf("x == %f\n", x);
-	//printf("y == %f\n", y);
-	printf("a.x == %f\n", a.x);
-	printf("a.y == %f\n", a.y);
-	//printf("b.x == %f\n", b.x);
-	//printf("b.y == %f\n", b.y);
+	//printf("a.x == %f\n", a.x);
+	//printf("a.y == %f\n", a.y);
 	len = hip;
 	while (len > 0)
 	{
-		//printf("hip == %f\n", hip);
-		//printf("x == %f\n", x);
-		//printf("y == %f\n", y);
 		ft_pixel_put(&design->pixmap, x, y, a.color);
-		//x += (((b.x + design->width) * 50) - ((a.x + design->width) * 50)) / hip;
-		//y += (((b.y + design->height) * 50) - ((a.y + design->height) * 50)) / hip;
 		x += (b.x - a.x) / hip;
 		y += (b.y - a.y) / hip;
 		len--;

@@ -6,16 +6,16 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/06 18:52:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:56:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
-int	ft_read_map(int *fd, t_design *design, int width, int height)
+int	ft_load_map(t_design *design, int width, int height)
 {
-	char	*line;
-	char	**cord;
+	char	**map;
+	char	**line;
 	int		y;
 
 	design->width = width;
@@ -24,24 +24,27 @@ int	ft_read_map(int *fd, t_design *design, int width, int height)
 	if (!design->points)
 		return (0);
 	y = 0;
-	line = get_next_line(*fd);
-	while (line)
+	map = ft_split(design->map, '\n');
+	if (!map)
+			return (ft_free((char **)&design->points, 2) == NULL);
+	while (y < height)
 	{
-		cord = ft_split(line, ' ');
-		ft_free(&line, 2);
-		if (!cord)
-			return (ft_free((char **)&design->points, 2) != NULL);
-		ft_create_line_points(design, y, cord);
-		ft_free(cord, 1);
-		line = get_next_line(*fd);
+		line = ft_split(map[y], ' ');
+		if (!line)
+			return (ft_free((char **)&design->points, 2) == NULL && \
+					ft_free(map, 1) != NULL);
+		ft_fill_line_points(design, y, line);
+		ft_free(line, 1);
 		y++;
+		ft_printf(1, "\r  Loading map: %i,%i%%  \r", (width * y * 100)\
+		 / (width * height), (width * y) % (width * height));
 	}
-	if (ft_close(fd) == -1)
-		return (0);
+	ft_free(map, 1);
+	//ft_printf(1, "\n");
 	return (1);
 }
 
-void	ft_create_line_points(t_design *design, int y, char **cord)
+void	ft_fill_line_points(t_design *design, int y, char **cord)
 {
 	int			x;
 	static int	idx = 0;
