@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/02/07 16:41:36 by eralonso         ###   ########.fr        #
+#    Updated: 2023/02/08 16:13:47 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,12 +75,12 @@ CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address
 #<--------------------------------->RULES<----------------------------------->#
 $(OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
-	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
+	@printf "$(PINK)    \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)    \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
 $(B_OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
-	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...		$(DEF_COLOR)\r"
+	@printf "$(PINK)    \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)    \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(B_INCLUDE) -c $< -o $@
 
 all				:
@@ -92,20 +92,20 @@ bonus			:
 
 ifndef BONUS
 
-$(NAME)			::	$(OBJS)
+$(NAME)			:	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
 
 else
 
-$(NAME)		::	$(B_OBJS)
+$(NAME)			:	$(B_OBJS)
 	@$(CC) $(CFLAGS) $(B_OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF bonus has been compiled$(DEF_COLOR)"
 
 endif
 
-$(NAME)			::
-	@echo "$(YELLOW)Nothing to be done for 'FdF'$(DEF_COLOR)"
+#$(NAME)			::
+#	@echo "$(YELLOW)Nothing to be done for 'FdF'$(DEF_COLOR)"
 
 clean			:
 	@$(MAKE) clean -C $(LIBRARY)

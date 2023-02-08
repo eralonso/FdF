@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 13:34:08 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/25 12:59:41 by eralonso         ###   ########.fr        #
+#    Updated: 2023/02/08 16:05:51 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,24 +32,25 @@ all			:
 	@$(MAKE) library
 	@$(MAKE) printf
 	@$(MAKE) mlx
+	@echo ""
 
-library		::
+library		:
 	@$(MAKE) -C $(LIBFT_DIR)
 
-library		::
-	@echo -n
+#library		::
+#	@echo -n
 
-printf		::
+printf		:
 	@$(MAKE) -C $(PRINTF_DIR)
 
-printf		::
-	@echo -n
+#printf		::
+#	@echo -n
 
-mlx			::
+mlx			:
 	@$(MAKE) -C $(MLX_DIR)
 
-mlx			::
-	@echo -n
+#mlx			::
+#	@echo -n
 
 clean		:
 	@$(MAKE) clean -C $(LIBFT_DIR)

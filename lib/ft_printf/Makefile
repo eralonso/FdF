@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/01 14:33:49 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/29 19:03:45 by eralonso         ###   ########.fr        #
+#    Updated: 2023/02/08 16:03:40 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/COLORS/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
@@ -65,20 +65,20 @@ INCLUDE		= -I$(HEADER) -I$(LIBFT_H)
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 $(OBJS_DIR)%.o	:	%.c $(LIB) $(MK)
 	@$(MKD) $(dir $@)
-	@printf "$(PINK)\rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)		\r"
+	@printf "$(PINK)    \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)    \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
 all				:
 	@echo ""
 	@$(MAKE) $(NAME)
 
-$(NAME)			::	$(OBJS)
+$(NAME)			:	$(OBJS)
 	@cp $(LIB) $(NAME)
 	@$(AR) $(NAME) $(OBJS)
 	@echo "$(GREEN)\nLIBRARY: '$(subst .a,,$@)' has been created$(DEF_COLOR)"
 
-$(NAME)			::
-	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$@)'$(DEF_COLOR)"
+#$(NAME)			::
+#	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$@)'$(DEF_COLOR)"
 
 clean			:
 	@$(RM) -r $(OBJS_DIR)

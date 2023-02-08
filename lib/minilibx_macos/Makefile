@@ -31,25 +31,25 @@ MDP		=	mkdir -p
 #<---RULES--->#
 $(OBJ_DIR)src_c/%.o: %.c Makefile
 	@$(MDP) $(dir $@)
-	@printf "$(PINK)\rCompiling: $(YELLOW)$<...$(DEF_COLOR)						\r"
+	@printf "$(PINK)         \rCompiling: $(YELLOW)$<...$(DEF_COLOR)         \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP -c $< -o $@
 
 $(OBJ_DIR)src_m/%.o: %.m Makefile
 	@$(MDP) $(dir $@)
-	@printf "$(PINK)\rCompiling: $(YELLOW)$<...$(DEF_COLOR)						\r"
+	@printf "$(PINK)         \rCompiling: $(YELLOW)$<...$(DEF_COLOR)         \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP -c $< -o $@
 
 all		:
 	@echo ""
 	@$(MAKE) $(NOM)
 
-$(NOM)	::	$(OBJ_C) $(OBJ_M)
+$(NOM)	:	$(OBJ_C) $(OBJ_M)
 	@ar -crs $@ $(OBJ_C) $(OBJ_M)
 	@#ranlib $@
 	@printf "\n$(GREEN)LIBRARY: '$(subst .a,,$@)' has been created.$(DEF_COLOR)\n"
 
-$(NOM)	::
-	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$(NOM))'\n$(DEF_COLOR)"
+#$(NOM)	::
+#	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$(NOM))'\n$(DEF_COLOR)"
 
 clean	:
 	@rm -rf $(OBJ_DIR) *~

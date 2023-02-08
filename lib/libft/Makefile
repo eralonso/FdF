@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/01/31 13:20:22 by eralonso         ###   ########.fr        #
+#    Updated: 2023/02/08 16:03:11 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,19 +60,19 @@ INCLUDE = -I ./
 #------------------------------------>RULES<-----------------------------------#
 $(OBJS_DIR)%.o: %.c Makefile
 	@$(MDP) $(dir $@)
-	@printf "$(PINK)\rCompiling: $(YELLOW)$<...$(DEF_COLOR)				\r"
+	@printf "$(PINK)      \rCompiling: $(YELLOW)$<...$(DEF_COLOR)      \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
 all			: 
 	@echo ""
 	@$(MAKE) $(NAME)
 
-$(NAME)		::	$(OBJS)
+$(NAME)		:	$(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 	@printf "\n$(GREEN)LIBRARY: '$(subst .a,,$@)' has been created.$(DEF_COLOR)\n"
 
-$(NAME)		::
-	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$(NAME))'$(DEF_COLOR)"
+#$(NAME)		:
+#	@echo "$(YELLOW)Nothing to be done for '$(subst .a,,$(NAME))'$(DEF_COLOR)"
 
 clean:
 	@$(RM) -r $(OBJS_DIR)

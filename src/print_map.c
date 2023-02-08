@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/07 10:24:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:04:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ int	ft_print_map(t_design *design)
 	int	i;
 
 	i = -1;
-	while (++i < design->width * design->height)
+	while (++i < design->size)
 	{
-		if (design->points[i].x + 1 < design->width / 2)
+		if (design->points[i].x + 1 < (float)design->width / 2)
 			ft_print_line(design->points[i], design->points[i + 1], \
 			design);
-		if (design->points[i].y + 1 < design->height / 2)
+		if (design->points[i].y + 1 < (float)design->height / 2)
 			ft_print_line(design->points[i], design->points[i + \
-			(int)design->width], design);
+			design->width], design);
 	}
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
 	return (1);
 }
 
-void	ft_config_point(t_point *p, int	view, float width, float height)
+void	ft_config_point(t_point *p, int view, float width, float height)
 {
 	int		x;
 	int		y;
@@ -74,8 +74,6 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	x = a.x;
 	y = a.y;
-	//printf("a.x == %f\n", a.x);
-	//printf("a.y == %f\n", a.y);
 	len = hip;
 	while (len > 0)
 	{
