@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/08 17:04:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:52:24 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,22 @@ void	ft_config_point(t_point *p, int view, float width, float height)
 		angle[1] = (view * M_PI) / 180;
 	}
 	p->x = (x * cos(angle[0])) - (y * sin(angle[0]));
-	p->y = (x * sin(angle[1])) + (y * cos(angle[1]));
+	p->y = (x * sin(angle[1])) + (y * cos(angle[1])) - p->z;
+	p->x = ((p->x + ((1920 - (width - (p->x * 2))) * 1)));
+	p->y = ((p->y + ((1080 - (height - (p->y * 2))) * 1)));
 	if (width < 1920 / 2)
 		p->x *= (1920 / width) / 2;
+	//else
+	//	p->x /= 2;
 	if (height < 1080 / 2)
 		p->y *= (1080 / height) / 2;
-	p->x = ((p->x + ((1920 - (width - (x * 10))) / 2)));
-	p->y = ((p->y + ((1080 - (height - (y * 10))) / 2)));
+	//else
+	//	p->y /= 2;
 }
 
 void	ft_print_line(t_point a, t_point b, t_design *design)
 {
-	float	x;
-	float	y;
+	t_point	c;
 	float	hip;
 	float	len;
 
@@ -72,14 +75,18 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	|| b.x > 1920 || b.y < 0 || b.y > 1080)
 		return ;
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
-	x = a.x;
-	y = a.y;
+	c.x = a.x;
+	c.y = a.y;
 	len = hip;
 	while (len > 0)
 	{
-		ft_pixel_put(&design->pixmap, x, y, a.color);
-		x += (b.x - a.x) / hip;
-		y += (b.y - a.y) / hip;
+		if ((!a.hexa && a.z > 0) || (!b.hexa && b.z > 0))
+			a.color = 0x00FF0000;
+		else if ((!a.hexa && a.z < 0) || (!b.hexa && b.z < 0))
+			a.color = 0x000000FF;
+		ft_pixel_put(&design->pixmap, c.x, c.y, a.color);
+		c.x += (b.x - a.x) / hip;
+		c.y += (b.y - a.y) / hip;
 		len--;
 	}
 }

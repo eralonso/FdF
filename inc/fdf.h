@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/08 15:52:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:30:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ struct s_point {
 	float	y;
 	float	z;
 	int		color;
+	char	hexa;
 };
 
 struct s_pixmap {
