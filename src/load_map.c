@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/09 15:11:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:05:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ void	ft_fill_line_points(t_design *design, int y, char **cord)
 	x = -1;
 	while (++x < design->width)
 	{
-		design->points[idx].x = x - (design->width / 2);
-		design->points[idx].y = y - (design->height / 2);
+		design->points[idx].x = x - ((float)design->width / 2);
+		design->points[idx].y = y - ((float)design->height / 2);
 		design->points[idx].z = ft_atoi(cord[x]);
+		if (design->points[idx].z > design->max_z)
+			design->max_z = design->points[idx].z;
 		design->points[idx].hexa = 0;
 		if (ft_strchr(cord[x], ','))
 		{

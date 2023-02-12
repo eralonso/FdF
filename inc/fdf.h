@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/09 11:30:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:12:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ struct s_pixmap {
 struct s_design {
 	int			width;
 	int			height;
+	int			max_z;
 	int			size;
 	t_point		*points;
 	t_pixmap	pixmap;
@@ -67,6 +68,7 @@ struct s_design {
 int		ft_error(char *str, char *file, int err);
 int		ft_clean_design(t_design *design, int num);
 int		ft_close_program(void *param);
+void	ft_config_point(t_point *p, t_design *design, float width, float height);
 
 //Check Map
 int		ft_check_map(char *map, t_design *design);
