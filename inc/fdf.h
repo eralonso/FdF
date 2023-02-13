@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/13 12:19:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:12:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 # include	<stdio.h>
 
 //COLORS
-# define WHITE (int)0x00FFFFFF
+# define WHITE	(int)0x00FFFFFF
+# define RED	(int)0x00FF0000
+# define GREEN	(int)0x0000FF00
+# define BLUE	(int)0x000000FF
 
 //KEY_CODES
 # define KEY_ESC (int)53

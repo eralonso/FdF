@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/13 13:45:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:01:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,49 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	//p->y = ((p->y + ((1080 - (height - (p->y * 2))) * 1)));
 }
 
+/*
+int	ft_get_gradient(int start, int end, float hip)
+{
+	int	result = 0;
+
+	result = start;
+	if (start - end > 0)
+		result -= ((start - end) / hip);
+	else if (start - end < 0)
+		result += ((end - start) / hip);
+	return (result);
+}
+*/
+
+int	ft_round(double num)
+{
+	int	rounded;
+
+	rounded = (int)num;
+	if (num - rounded >= 0.5)
+		rounded++;
+	return (rounded);
+}
+
+int	gradient(int startcolor, int endcolor, int len, int pix)
+{
+	double	increment[3];
+	int		new[3];
+	int		newcolor;
+
+	increment[0] = (double)((endcolor >> 16) - \
+					(startcolor >> 16)) / (double)len;
+	increment[1] = (double)(((endcolor >> 8) & 0xFF) - \
+					((startcolor >> 8) & 0xFF)) / (double)len;
+	increment[2] = (double)((endcolor & 0xFF) - (startcolor & 0xFF)) \
+					/ (double)len;
+	new[0] = (startcolor >> 16) + ft_round(pix * increment[0]);
+	new[1] = ((startcolor >> 8) & 0xFF) + ft_round(pix * increment[1]);
+	new[2] = (startcolor & 0xFF) + ft_round(pix * increment[2]);
+	newcolor = (new[0] << 16) + (new[1] << 8) + new[2];
+	return (newcolor);
+}
+
 void	ft_print_line(t_point a, t_point b, t_design *design)
 {
 	t_point	c;
@@ -142,6 +185,25 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	//printf("Print_line:\n");
 	c.z = a.z;
 	c.hexa = a.hexa | b.hexa;
+	/*if (a.hexa)
+		c.color = a.color;
+	else if (b.hexa)
+		c.color = b.color;
+	else if (c.z < 0 || b.z < 0)
+		c.color = BLUE;
+	else if (c.z > 0 || b.z > 0)
+		c.color = RED;
+	else
+		c.color = WHITE;
+	*/
+	if (!b.hexa && b.z < 0)
+		b.color = BLUE;
+	else if (!b.hexa && b.z > 0)
+		b.color = RED;
+	if (!a.hexa && a.z < 0)
+		a.color = BLUE;
+	else if (!a.hexa && a.z > 0)
+		a.color = RED;
 	//printf("Config a:\n");
 	//ft_config_point(&a, design, design->width, design->height);
 	//printf("Config b:\n");
@@ -153,6 +215,7 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;
+	c.color = a.color;
 	//printf("c point:\n");
 	//printf("c.x = %f\n", c.x);
 	//printf("c.y = %f\n", c.y);
@@ -160,11 +223,10 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	len = hip;
 	while (len > 0)
 	{
-		if (!c.hexa && c.z > 0)
-			a.color = 0x00FF0000;
-		else if (!c.hexa && c.z < 0)
-			a.color = 0x000000FF;
-		ft_pixel_put(&design->pixmap, c.x, c.y, a.color);
+		if (a.color != b.color)
+			c.color = gradient(a.color, b.color, hip, hip - len);
+			//c.color = ft_get_gradient(c.color, b.color, hip - len);
+		ft_pixel_put(&design->pixmap, c.x, c.y, c.color);
 		c.x += (b.x - a.x) / hip;
 		c.y += (b.y - a.y) / hip;
 		len--;
