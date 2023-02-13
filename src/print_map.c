@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/12 18:49:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:45:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@ int	ft_print_map(t_design *design)
 
 	i = -1;
 	while (++i < design->size)
-	{
 		ft_config_point(&design->points[i], design, design->width, design->height);
-		//printf("After Config:\n");
-		//printf("p->x = %f\n", design->points[i].x);
-		//printf("p->y = %f\n", design->points[i].y);
-		//printf("p->z = %f\n", design->points[i].z);
-	}
 	i = -1;
 	k = 0;
 	while (++i < design->height)
@@ -50,119 +44,87 @@ int	ft_print_map(t_design *design)
 	return (1);
 }
 
-void	ft_rotate_x(/*t_point *reference, */t_point *p, float angle)
+void	ft_rotate_x(t_point *p, float angle)
 {
-	float	x;
 	float	y;
 	float	z;
 	float	rad;
 
 	rad = (angle * M_PI) / 180;
-	//x = reference->x;
-	//y = reference->y;
-	//z = reference->z;
-	x = p->x;
 	y = p->y;
 	z = p->z;
-	//p->x = x;
-	p->y = (y * cos(rad)) - (z * sin(rad));
+	p->y = (y * cos(rad)) + (z * (-sin(rad)));
 	p->z = (y * sin(rad)) + (z * cos(rad));
 }
 
-void	ft_rotate_y(/*t_point *reference, */t_point *p, float angle)
+void	ft_rotate_y(t_point *p, float angle)
 {
 	float	x;
-	float	y;
 	float	z;
 	float	rad;
 
 	rad = (angle * M_PI) / 180;
-	//x = reference->x;
-	//y = reference->y;
-	//z = reference->z;
 	x = p->x;
-	y = p->y;
 	z = p->z;
 	p->x = (x * cos(rad)) + (z * sin(rad));
-	//p->y += y;
 	p->z = (x * (-sin(rad))) + (z * cos(rad));
 }
 
-void	ft_rotate_z(/*t_point *reference, */t_point *p, float angle)
+void	ft_rotate_z(t_point *p, float angle)
 {
 	float	x;
 	float	y;
-	float	z;
 	float	rad;
 
 	rad = (angle * M_PI) / 180;
-	//x = reference->x;
-	//y = reference->y;
-	//z = reference->z;
 	x = p->x;
 	y = p->y;
-	z = p->z;
 	p->x = (x * cos(rad)) + (y * (-sin(rad)));
 	p->y = (x * sin(rad)) + (y * cos(rad));
-	//p->z += z;
 }
 
 void	ft_config_point(t_point *p, t_design *design, float width, float height)
 {
-	t_point	tmp;
-	float	proportion;
-	float	divisor;
+	float			mod;
+	float			real_z;
+	float			dif_z;
+	//static float	div = 0;
 
-	(void) height;
-	tmp.x = p->x;
-	tmp.y = p->y;
-	tmp.z = p->z;
-	divisor = 1;
-	proportion = design->max_z / width;
-	if (proportion > 0.5)
-		divisor = proportion * 30;
-	//p->z /= divisor;
-	/*if (!i)
+	(void) design;
+	real_z = p->z;
+	mod = sqrt(pow(width, 2) + pow(height, 2));
+	dif_z = design->max_z - design->min_z;
+	/*if (!div)
 	{
-		printf("Before rotate_x:\n");
-		printf("p->x = %f\n", p->x);
-		printf("p->y = %f\n", p->y);
-		printf("p->z = %f\n", p->z);
-	}*/
-	ft_rotate_x(p, 30);
-	/*if (!i)
+		while (dif_z > ((height * sin(45)) / 2))
+		{
+			div++;
+			printf("dif_z == %f\n", dif_z);
+			printf("div == %f\n", div);
+			printf("height == %f\n", height);
+			printf("sin(45) == %f\n", sin(45));
+			printf("mod == %f\n", mod);
+			printf("height * sin(45) == %f\n\n", height * sin(45));
+			dif_z /= div;
+		}
+	}
+	*/
+	//p->z /= div;
+	ft_rotate_z(p, 45);
+	ft_rotate_x(p, 45);
+	ft_rotate_y(p, 0);
+	p->z = real_z;
+	if (mod < 1080)
 	{
-		printf("After rotate_x:\n");
-		printf("p->x = %f\n", p->x);
-		printf("p->y = %f\n", p->y);
-		printf("p->z = %f\n", p->z);
-	}*/
-	ft_rotate_y(p, 330);
-	/*if (!i)
-	{
-		printf("After rotate_y:\n");
-		printf("p->x = %f\n", p->x);
-		printf("p->y = %f\n", p->y);
-		printf("p->z = %f\n", p->z);
-	}*/
-	ft_rotate_z(p, 30);
-	/*if (!i)
-	{
-		printf("After rotate_z:\n");
-		printf("p->x = %f\n", p->x);
-		printf("p->y = %f\n", p->y);
-		printf("p->z = %f\n", p->z);
-	}*/
-	//p->y -= p->z;
-	p->z = tmp.z;
-	//p->x = (x * cos(angle[0])) - (y * sin(angle[0]));
-	//p->y = (x * sin(angle[0])) + (y * cos(angle[0])) - p->z;
-	if (width < 1920 / 2)
-		p->x *= ((1920 / width) / 3);
+		p->x *= (1080 / mod);
+		p->y *= (1080 / mod);
+	}
+	//if (width < 1920 / 2)
+	//	p->x *= ((1920 / width) / 3);
 	//else
 	//	p->x /= 2;
-	if (height < 1080 / 2)
-		p->y *= ((1080 / height) / 3);
+	//if (height < 1080 / 2)
+	//	p->y *= ((1080 / height) / 3);
 	//else
 	//	p->y /= 2;
 	p->x += ((1920 / 2));
@@ -187,6 +149,7 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	if (a.x < 0 || a.x > 1920 || a.y < 0 || a.y > 1080 || b.x < 0 \
 	|| b.x > 1920 || b.y < 0 || b.y > 1080)
 		return ;
+		
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;

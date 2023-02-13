@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/10 12:12:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:19:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ struct s_design {
 	int			width;
 	int			height;
 	int			max_z;
+	int			min_z;
 	int			size;
 	t_point		*points;
 	t_pixmap	pixmap;
