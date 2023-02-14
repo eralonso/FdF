@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/08 13:28:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:40:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int	ft_close_program(void *param)
 	mlx_destroy_image(design->mlx, design->pixmap.img);
 	mlx_destroy_window(design->mlx, design->mlx_win);
 	ft_clean_design(design, 0);
+	exit(0);
 	return (1);
 }
