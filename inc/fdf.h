@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/13 17:12:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:29:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,36 @@
 # define GREEN	(int)0x0000FF00
 # define BLUE	(int)0x000000FF
 
-//KEY_CODES
+//EVENT CODES
+# define KEY_P (int)2
+# define KEY_R (int)3
+# define BUTTON_P (int)4
+# define BUTTON_R (int)5
+# define POINTER_M (int)6
+# define DESTROY_N (int)17
+
+//EVENTS MASKS
+# define KEY_P_MASK (long)1L << 0
+# define KEY_R_MASK (long)1L << 1
+# define BUTTON_P_MASK (long)1L << 2
+# define BUTTON_R_MASK (long)1L << 3
+# define POINTER_M_MASK (long)1L << 6
+# define DESTROY_N_MASK (long)1L << 17
+
+//KEY CODES
 # define KEY_ESC (int)53
+# define KEY_ARROW_LEFT (int)123
+# define KEY_ARROW_RIGHT (int)124
+# define KEY_ARROW_DOWN (int)125
+# define KEY_ARROW_UP (int)126
 
 //ERRORS
 # define ERR_PARAM (char *)"Invalid number of arguments"
 # define ERR_MAP (char *)"Map is incorrect"
+
+//WINDOW
+# define WIN_WIDTH (int)1920
+# define WIN_HEIGHT (int)1080
 
 //VIEWS
 # define ISOMETRIC (int)30
@@ -50,7 +74,7 @@ struct s_pixmap {
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_length;
+	int		line_len;
 	int		endian;
 };
 
@@ -91,6 +115,10 @@ void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 void	ft_print_line(t_point a, t_point b, t_design *design);
 
 //Events
-int		ft_events(int key_code, void *design);
+int		ft_key_press(int key_code, t_design *design);
+int		ft_key_release(int key_code, t_design *design);
+int		ft_button_press(int button, int x, int y, t_design *design);
+int		ft_button_release(int button, int x, int y, t_design *design);
+int		ft_mouse_move(int x, int y, t_design *design);
 
 #endif

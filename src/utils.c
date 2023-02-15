@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/14 13:40:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:33:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,19 @@ int	ft_error(char *str, char *file, int err)
 
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)
 {
-	char	*dst;
+	char	*pixel;
 
-	dst = pixmap->addr + (y * pixmap->line_length + x * (pixmap->bpp / 8));
-	*(unsigned int *)dst = color;
+	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
+		return ;
+	pixel = pixmap->addr + (y * pixmap->line_len + x * (pixmap->bpp / 8));
+	if (pixel[0] != (color & 0xFF))
+		pixel[0] = color & 0xFF;
+	if (pixel[1] != ((color >> 8) & 0xFF))
+		pixel[1] = (color >> 8) & 0xFF;
+	if (pixel[2] != ((color >> 16) & 0xFF))
+		pixel[2] = (color >> 16) & 0xFF;
+	if (pixel[3] != ((color >> 24) & 0xFF))
+		pixel[3] = (color >> 24) & 0xFF;
 }
 
 int	ft_clean_design(t_design *design, int num)
