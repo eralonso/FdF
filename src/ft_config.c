@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/15 18:37:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:29:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 {
 	float			mod;
 	float			real_z;
-	float			dif_z;
+	//float			dif_z;
 	//static float	div = 0;
 
 	(void) design;
 	real_z = p->z;
 	mod = sqrt(pow(width, 2) + pow(height, 2));
-	dif_z = design->max_z - design->min_z;
+	//dif_z = design->max_z - design->min_z;
 	/*if (!div)
 	{
 		while (dif_z > ((height * sin(45)) / 2))
@@ -79,9 +79,12 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	*/
 	//p->z /= div;
 	//Vista Isométrica
-	ft_rotate_z(p, 45);
-	ft_rotate_x(p, 45);
-	ft_rotate_y(p, 0);
+	printf("design->angle[0] == %f\n", design->angle[0]);
+	printf("design->angle[1] == %f\n", design->angle[1]);
+	printf("design->angle[2] == %f\n", design->angle[2]);
+	ft_rotate_z(p, design->angle[2]);
+	ft_rotate_x(p, design->angle[0]);
+	ft_rotate_y(p, design->angle[1]);
 	//Vista paralela
 	//ft_rotate_z(p, 0);
 	//ft_rotate_x(p, 90);

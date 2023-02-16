@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/15 18:45:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:15:14 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ft_init_mlx_design(t_design *design)
 		return (ft_clean_design(design, 0));
 	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
 	&design->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
+	ft_isometric(design);
 	return (1);
 }
 
@@ -44,13 +45,13 @@ int	main(int ac, char **av)
 		return (1);
 	if (!ft_print_map(&design))
 		return (ft_error(NULL, NULL, 1));
-	mlx_hook(design.mlx_win, KEY_P, KEY_P_MASK, ft_key_press, &design);
-	mlx_hook(design.mlx_win, KEY_R, KEY_R_MASK, ft_key_release, &design);
-	mlx_hook(design.mlx_win, BUTTON_P, BUTTON_P_MASK, ft_button_press, &design);
-	mlx_hook(design.mlx_win, BUTTON_R, BUTTON_R_MASK, \
+	mlx_hook(design.mlx_win, E_KEY_P, KEY_P_MASK, ft_key_press, &design);
+	mlx_hook(design.mlx_win, E_KEY_R, KEY_R_MASK, ft_key_release, &design);
+	mlx_hook(design.mlx_win, E_BUTTON_P, BUTTON_P_MASK, ft_button_press, &design);
+	mlx_hook(design.mlx_win, E_BUTTON_R, BUTTON_R_MASK, \
 	ft_button_release, &design);
-	mlx_hook(design.mlx_win, POINTER_M, POINTER_M_MASK, ft_mouse_move, &design);
-	mlx_hook(design.mlx_win, DESTROY_N, DESTROY_N_MASK, \
+	//mlx_hook(design.mlx_win, POINTER_M, POINTER_M_MASK, ft_mouse_move, &design);
+	mlx_hook(design.mlx_win, E_DESTROY_N, DESTROY_N_MASK, \
 	ft_close_program, &design);
 	mlx_loop(design.mlx);
 	ft_clean_design(&design, 0);

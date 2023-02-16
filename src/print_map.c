@@ -6,11 +6,69 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/15 18:35:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:53:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
+
+void	ft_print_cord_map(t_design *design)
+{
+	t_point axis_o;
+	t_point	axis_x;
+	t_point	axis_y;
+	t_point	axis_z;
+
+	axis_o.x = 250;
+	axis_o.y = 150;
+	axis_o.z = 0;
+	axis_x.x = 300;
+	axis_x.y = 150;
+	axis_x.z = 0;
+	axis_y.x = 250;
+	axis_y.y = 200;
+	axis_y.z = 0;
+	axis_z.x = 250;
+	axis_z.y = 150;
+	axis_z.z = 50;
+	ft_rotate_z(&axis_o, design->angle[2]);
+	ft_rotate_x(&axis_o, design->angle[0]);
+	ft_rotate_y(&axis_o, design->angle[1]);
+	ft_rotate_z(&axis_x, design->angle[2]);
+	ft_rotate_x(&axis_x, design->angle[0]);
+	ft_rotate_y(&axis_x, design->angle[1]);
+	ft_rotate_z(&axis_y, design->angle[2]);
+	ft_rotate_x(&axis_y, design->angle[0]);
+	ft_rotate_y(&axis_y, design->angle[1]);
+	ft_rotate_z(&axis_z, design->angle[2]);
+	ft_rotate_x(&axis_z, design->angle[0]);
+	ft_rotate_y(&axis_z, design->angle[1]);
+	axis_o.z = 0;
+	axis_x.z = 0;
+	axis_y.z = 0;
+	axis_z.z = 0;
+	axis_o.color = WHITE;
+	axis_x.color = RED;
+	axis_y.color = BLUE;
+	axis_z.color = GREEN;
+	ft_print_line(axis_o, axis_x, design);
+	ft_print_line(axis_o, axis_y, design);
+	ft_print_line(axis_o, axis_z, design);
+}
+
+t_point	*ft_copy_map(t_point *points, int size)
+{
+	t_point	*copy;
+	int		i;
+	
+	copy = ft_calloc(sizeof(t_point), size + 1);
+	if (!copy)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		copy[i] = points[i];
+	return (copy);
+}
 
 int	ft_print_map(t_design *design)
 {
@@ -18,127 +76,35 @@ int	ft_print_map(t_design *design)
 	int	j;
 	int	k;
 
+	design->copy = ft_copy_map(design->points, design->size);
 	i = -1;
 	while (++i < design->size)
-		ft_config_point(&design->points[i], design, design->width, design->height);
+		ft_config_point(&design->copy[i], design, design->width, design->height);
 	i = -1;
 	k = 0;
 	while (++i < design->height)
 	{
+		printf("i == %i\n", i);
 		j = -1;
 		while (++j < design->width)
 		{
 			if (j < design->width - 1 && k + 1 < design->size)
-				ft_print_line(design->points[k], design->points[k + 1], \
+				ft_print_line(design->copy[k], design->copy[k + 1], \
 				design);
 			if (k + design->width < design->size)
-				ft_print_line(design->points[k], design->points[k + \
+				ft_print_line(design->copy[k], design->copy[k + \
 				design->width], design);
 			if (j < design->width - 1)
 				k++;
 		}
 		k++;
 	}
+	ft_free((char **)&design->copy, 2);
+	//ft_print_cord_map(design);
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
 	return (1);
 }
-
-/*
-void	ft_rotate_x(t_point *p, float angle)
-{
-	float	y;
-	float	z;
-	float	rad;
-
-	rad = (angle * M_PI) / 180;
-	y = p->y;
-	z = p->z;
-	p->y = (y * cos(rad)) + (z * (-sin(rad)));
-	p->z = (y * sin(rad)) + (z * cos(rad));
-}
-
-void	ft_rotate_y(t_point *p, float angle)
-{
-	float	x;
-	float	z;
-	float	rad;
-
-	rad = (angle * M_PI) / 180;
-	x = p->x;
-	z = p->z;
-	p->x = (x * cos(rad)) + (z * sin(rad));
-	p->z = (x * (-sin(rad))) + (z * cos(rad));
-}
-
-void	ft_rotate_z(t_point *p, float angle)
-{
-	float	x;
-	float	y;
-	float	rad;
-
-	rad = (angle * M_PI) / 180;
-	x = p->x;
-	y = p->y;
-	p->x = (x * cos(rad)) + (y * (-sin(rad)));
-	p->y = (x * sin(rad)) + (y * cos(rad));
-}
-
-void	ft_config_point(t_point *p, t_design *design, float width, float height)
-{
-	float			mod;
-	float			real_z;
-	float			dif_z;
-	//static float	div = 0;
-
-	(void) design;
-	real_z = p->z;
-	mod = sqrt(pow(width, 2) + pow(height, 2));
-	dif_z = design->max_z - design->min_z;
-	*//*if (!div)
-	{
-		while (dif_z > ((height * sin(45)) / 2))
-		{
-			div++;
-			printf("dif_z == %f\n", dif_z);
-			printf("div == %f\n", div);
-			printf("height == %f\n", height);
-			printf("sin(45) == %f\n", sin(45));
-			printf("mod == %f\n", mod);
-			printf("height * sin(45) == %f\n\n", height * sin(45));
-			dif_z /= div;
-		}
-	}
-	*//*
-	//p->z /= div;
-	//Vista Isométrica
-	ft_rotate_z(p, 45);
-	ft_rotate_x(p, 45);
-	ft_rotate_y(p, 0);
-	//Vista paralela
-	//ft_rotate_z(p, 0);
-	//ft_rotate_x(p, 90);
-	//ft_rotate_y(p, 0);
-	p->z = real_z;
-	if (mod < 1080)
-	{
-		p->x *= (1080 / mod);
-		p->y *= (1080 / mod);
-	}
-	//if (width < 1920 / 2)
-	//	p->x *= ((1920 / width) / 3);
-	//else
-	//	p->x /= 2;
-	//if (height < 1080 / 2)
-	//	p->y *= ((1080 / height) / 3);
-	//else
-	//	p->y /= 2;
-	p->x += ((1920 / 2));
-	p->y += ((1080 / 2));
-	//p->x = ((p->x + ((1920 - (width - (p->x * 2))) * 1)));
-	//p->y = ((p->y + ((1080 - (height - (p->y * 2))) * 1)));
-}
-*/
 
 int ft_get_gradient(int start, int end, float len, float pos)
 {
@@ -172,9 +138,6 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 		a.color = BLUE;
 	else if (!a.hexa && a.z > 0)
 		a.color = RED;
-	if (a.x < 0 || a.x > 1920 || a.y < 0 || a.y > 1080 || b.x < 0 \
-	|| b.x > 1920 || b.y < 0 || b.y > 1080)
-		return ;
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;

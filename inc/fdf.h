@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/15 19:29:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:01:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 # define BLUE	(int)0x000000FF
 
 //EVENT CODES
-# define KEY_P (int)2
-# define KEY_R (int)3
-# define BUTTON_P (int)4
-# define BUTTON_R (int)5
-# define POINTER_M (int)6
-# define DESTROY_N (int)17
+# define E_KEY_P (int)2
+# define E_KEY_R (int)3
+# define E_BUTTON_P (int)4
+# define E_BUTTON_R (int)5
+# define E_POINTER_M (int)6
+# define E_DESTROY_N (int)17
 
 //EVENTS MASKS
 # define KEY_P_MASK (long)1L << 0
@@ -41,6 +41,9 @@
 # define DESTROY_N_MASK (long)1L << 17
 
 //KEY CODES
+# define KEY_R (int)15
+# define KEY_I (int)34
+# define KEY_P (int)35
 # define KEY_ESC (int)53
 # define KEY_ARROW_LEFT (int)123
 # define KEY_ARROW_RIGHT (int)124
@@ -86,6 +89,7 @@ struct s_design {
 	int			size;
 	t_point		*points;
 	t_pixmap	pixmap;
+	float		angle[3];
 	char		*map;
 	float		view;
 	void		*mlx;
@@ -97,6 +101,15 @@ int		ft_error(char *str, char *file, int err);
 int		ft_clean_design(t_design *design, int num);
 int		ft_close_program(void *param);
 void	ft_config_point(t_point *p, t_design *design, float width, float height);
+
+//Config view
+void	ft_rotate_x(t_point *p, float angle);
+void	ft_rotate_y(t_point *p, float angle);
+void	ft_rotate_z(t_point *p, float angle);
+
+//View
+void	ft_isometric(t_design *design);
+void	ft_parallel(t_design *design);
 
 //Check Map
 int		ft_check_map(char *map, t_design *design);

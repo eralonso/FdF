@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/15 18:33:05 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:06:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)
 {
 	char	*pixel;
 
+	printf("YES\n");
 	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
 		return ;
 	pixel = pixmap->addr + (y * pixmap->line_len + x * (pixmap->bpp / 8));
