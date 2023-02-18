@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/16 18:15:14 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:40:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_init_mlx_design(t_design *design)
 		return (ft_clean_design(design, 0));
 	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
 	&design->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
-	ft_isometric(design);
+	ft_neutral(design);
 	return (1);
 }
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av)
 	mlx_hook(design.mlx_win, E_BUTTON_P, BUTTON_P_MASK, ft_button_press, &design);
 	mlx_hook(design.mlx_win, E_BUTTON_R, BUTTON_R_MASK, \
 	ft_button_release, &design);
-	//mlx_hook(design.mlx_win, POINTER_M, POINTER_M_MASK, ft_mouse_move, &design);
+	mlx_hook(design.mlx_win, E_POINTER_M, POINTER_M_MASK, ft_mouse_move, &design);
 	mlx_hook(design.mlx_win, E_DESTROY_N, DESTROY_N_MASK, \
 	ft_close_program, &design);
 	mlx_loop(design.mlx);

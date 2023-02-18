@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/16 18:29:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:40:23 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,33 +55,26 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 {
 	float			mod;
 	float			real_z;
-	//float			dif_z;
-	//static float	div = 0;
+	long			dif_z;
+	//static float	div = 1;
 
 	(void) design;
 	real_z = p->z;
 	mod = sqrt(pow(width, 2) + pow(height, 2));
-	//dif_z = design->max_z - design->min_z;
-	/*if (!div)
-	{
-		while (dif_z > ((height * sin(45)) / 2))
-		{
-			div++;
-			printf("dif_z == %f\n", dif_z);
-			printf("div == %f\n", div);
-			printf("height == %f\n", height);
-			printf("sin(45) == %f\n", sin(45));
-			printf("mod == %f\n", mod);
-			printf("height * sin(45) == %f\n\n", height * sin(45));
-			dif_z /= div;
-		}
-	}
-	*/
+	dif_z = fabs((double)design->max_z - design->min_z);
+	//if (div == 1)
+	//{
+	//	while (((dif_z / width) * div) >=  WIN_HEIGHT)
+	//		div++;
+	//}
 	//p->z /= div;
+	if (dif_z / width > 0.5)
+		p->z /= ((dif_z / width) * 30);
+	//printf("Real z: %f || Div z: %f\n", real_z, p->z);
 	//Vista Isométrica
-	printf("design->angle[0] == %f\n", design->angle[0]);
-	printf("design->angle[1] == %f\n", design->angle[1]);
-	printf("design->angle[2] == %f\n", design->angle[2]);
+	//printf("design->angle[0] == %f\n", design->angle[0]);
+	//printf("design->angle[1] == %f\n", design->angle[1]);
+	//printf("design->angle[2] == %f\n", design->angle[2]);
 	ft_rotate_z(p, design->angle[2]);
 	ft_rotate_x(p, design->angle[0]);
 	ft_rotate_y(p, design->angle[1]);

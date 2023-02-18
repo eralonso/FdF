@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/16 19:01:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:40:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ struct s_design {
 	int			min_z;
 	int			size;
 	t_point		*points;
+	t_point		*copy;
 	t_pixmap	pixmap;
 	float		angle[3];
 	char		*map;
@@ -101,6 +102,7 @@ int		ft_error(char *str, char *file, int err);
 int		ft_clean_design(t_design *design, int num);
 int		ft_close_program(void *param);
 void	ft_config_point(t_point *p, t_design *design, float width, float height);
+int		ft_valid_point(t_point p);
 
 //Config view
 void	ft_rotate_x(t_point *p, float angle);
@@ -110,6 +112,7 @@ void	ft_rotate_z(t_point *p, float angle);
 //View
 void	ft_isometric(t_design *design);
 void	ft_parallel(t_design *design);
+void	ft_neutral(t_design *design);
 
 //Check Map
 int		ft_check_map(char *map, t_design *design);

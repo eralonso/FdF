@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:37:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/16 19:00:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:40:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	ft_key_press(int key_code, t_design *design)
 		ft_parallel(design);
 	if (key_code == KEY_I)
 		ft_isometric(design);
-	if (key_code == KEY_I || key_code == KEY_P)
+	if (key_code == KEY_R)
+		ft_neutral(design);
+	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R)
 	{
 		mlx_destroy_image(design->mlx, design->pixmap.img);
 		design->pixmap.img = mlx_new_image(design->mlx, \

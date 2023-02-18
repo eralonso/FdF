@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/16 18:53:57 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:40:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,16 @@ int	ft_print_map(t_design *design)
 	k = 0;
 	while (++i < design->height)
 	{
-		printf("i == %i\n", i);
 		j = -1;
 		while (++j < design->width)
 		{
+			//printf("x == %i\n", j);
+			//printf("Horizontal\n");
+			//printf("k == %i\n", k);
 			if (j < design->width - 1 && k + 1 < design->size)
 				ft_print_line(design->copy[k], design->copy[k + 1], \
 				design);
+			//printf("Vertical\n\n\n");
 			if (k + design->width < design->size)
 				ft_print_line(design->copy[k], design->copy[k + \
 				design->width], design);
@@ -128,6 +131,8 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	float	hip;
 	float	len;
 
+	if (!ft_valid_point(a) || !ft_valid_point(b))
+		return ;
 	c.z = a.z;
 	c.hexa = a.hexa | b.hexa;
 	if (!b.hexa && b.z < 0)
@@ -142,12 +147,20 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	c.x = a.x;
 	c.y = a.y;
 	len = hip;
+	//printf("Antes: len == %f\n\n", len);
 	while (len > 0)
 	{
+		//printf("a.x: %f\n", a.x);
+		//printf("b.x: %f\n", b.x);
+		//printf("a.y: %f\n", a.y);
+		//printf("b.y: %f\n", b.y);
+		//printf("vuelta\n\n");
 		ft_pixel_put(&design->pixmap, c.x, c.y, ft_get_gradient\
 			(a.color, b.color, hip, hip - len));
 		c.x += (b.x - a.x) / hip;
 		c.y += (b.y - a.y) / hip;
 		len--;
+		//printf("len == %f\n", len);
 	}
+	//printf("Después\n\n");
 }
