@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:30 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:51:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define DESTROY_N_MASK (long)1L << 17
 
 //KEY CODES
+# define KEY_Q (int)12
+# define KEY_W (int)13
 # define KEY_R (int)15
 # define KEY_I (int)34
 # define KEY_P (int)35
@@ -49,6 +51,13 @@
 # define KEY_ARROW_RIGHT (int)124
 # define KEY_ARROW_DOWN (int)125
 # define KEY_ARROW_UP (int)126
+
+//MOUSE CODES
+# define BUTTON_LEFT (int)1
+# define BUTTON_RIGHT (int)2
+# define BUTTON_MIDDLE (int)3
+# define SCROLL_UP (int)4
+# define SCROLL_DOWN (int)5
 
 //ERRORS
 # define ERR_PARAM (char *)"Invalid number of arguments"
@@ -87,12 +96,15 @@ struct s_design {
 	int			max_z;
 	int			min_z;
 	int			size;
+	float		angle[3];
+	t_point		button_l;
+	t_point		button_r;
+	float		zoom;
+	t_point		shift;
 	t_point		*points;
 	t_point		*copy;
 	t_pixmap	pixmap;
-	float		angle[3];
 	char		*map;
-	float		view;
 	void		*mlx;
 	void		*mlx_win;
 };
@@ -104,7 +116,7 @@ int		ft_close_program(void *param);
 void	ft_config_point(t_point *p, t_design *design, float width, float height);
 int		ft_valid_point(t_point p);
 
-//Config view
+//Config View
 void	ft_rotate_x(t_point *p, float angle);
 void	ft_rotate_y(t_point *p, float angle);
 void	ft_rotate_z(t_point *p, float angle);
@@ -129,6 +141,7 @@ void	ft_fill_line_points(t_design *design, int y, char **cord);
 int		ft_print_map(t_design *design);
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 void	ft_print_line(t_point a, t_point b, t_design *design);
+void	ft_print_axis(t_design *design);
 
 //Events
 int		ft_key_press(int key_code, t_design *design);
@@ -136,5 +149,9 @@ int		ft_key_release(int key_code, t_design *design);
 int		ft_button_press(int button, int x, int y, t_design *design);
 int		ft_button_release(int button, int x, int y, t_design *design);
 int		ft_mouse_move(int x, int y, t_design *design);
+
+//Events Utils
+void	ft_print_cord(int x, int y, t_design *design);
+void	ft_redraw(t_design *design);
 
 #endif

@@ -6,31 +6,32 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:26:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
-void	ft_print_cord_map(t_design *design)
+void	ft_print_axis(t_design *design)
 {
 	t_point axis_o;
 	t_point	axis_x;
 	t_point	axis_y;
 	t_point	axis_z;
+	int		multi;
 
-	axis_o.x = 250;
-	axis_o.y = 150;
-	axis_o.z = 0;
-	axis_x.x = 300;
-	axis_x.y = 150;
-	axis_x.z = 0;
-	axis_y.x = 250;
-	axis_y.y = 200;
-	axis_y.z = 0;
-	axis_z.x = 250;
-	axis_z.y = 150;
-	axis_z.z = 50;
+	axis_o.x = 0; // 5 / 250
+	axis_o.y = 0; // 3 / 150
+	axis_o.z = 0;   // 0 / 0
+	axis_x.x = 1; // 6 / 300
+	axis_x.y = 0; // 3 / 150
+	axis_x.z = 0;   // 0 / 0
+	axis_y.x = 0; // 5 / 250
+	axis_y.y = 1; // 4 / 200
+	axis_y.z = 0;   // 0 / 0
+	axis_z.x = 0; // 5 / 250
+	axis_z.y = 0; // 3 / 150
+	axis_z.z = 1;  // 1 / 50
 	ft_rotate_z(&axis_o, design->angle[2]);
 	ft_rotate_x(&axis_o, design->angle[0]);
 	ft_rotate_y(&axis_o, design->angle[1]);
@@ -47,6 +48,23 @@ void	ft_print_cord_map(t_design *design)
 	axis_x.z = 0;
 	axis_y.z = 0;
 	axis_z.z = 0;
+	multi = 40;
+	axis_o.x *= multi;
+	axis_o.y *= multi;
+	axis_x.x *= multi;
+	axis_x.y *= multi;
+	axis_y.x *= multi;
+	axis_y.y *= multi;
+	axis_z.x *= multi;
+	axis_z.y *= multi;
+	axis_o.x += (250 / 2);
+	axis_o.y += (150 / 2);
+	axis_x.x += (250 / 2);
+	axis_x.y += (150 / 2);
+	axis_y.x += (250 / 2);
+	axis_y.y += (150 / 2);
+	axis_z.x += (250 / 2);
+	axis_z.y += (150 / 2);
 	axis_o.color = WHITE;
 	axis_x.color = RED;
 	axis_y.color = BLUE;
@@ -103,7 +121,7 @@ int	ft_print_map(t_design *design)
 		k++;
 	}
 	ft_free((char **)&design->copy, 2);
-	//ft_print_cord_map(design);
+	ft_print_axis(design);
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
 	return (1);

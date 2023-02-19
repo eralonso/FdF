@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:37:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:13:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ int	ft_key_press(int key_code, t_design *design)
 		ft_isometric(design);
 	if (key_code == KEY_R)
 		ft_neutral(design);
-	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R)
-	{
-		mlx_destroy_image(design->mlx, design->pixmap.img);
-		design->pixmap.img = mlx_new_image(design->mlx, \
-		WIN_WIDTH, WIN_HEIGHT);
-		design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, &design\
-		->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
-		ft_print_map(design);
-	}
+	if (key_code == KEY_ARROW_UP)
+		design->angle[0] += 10;
+	if (key_code == KEY_ARROW_DOWN)
+		design->angle[0] -= 10;
+	if (key_code == KEY_ARROW_LEFT)
+		design->angle[1] += 10;
+	if (key_code == KEY_ARROW_RIGHT)
+		design->angle[1] -= 10;
+	if (key_code == KEY_Q)
+		design->angle[2] += 10;
+	if (key_code == KEY_W)
+		design->angle[2] -= 10;
+	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R || \
+	(key_code >= KEY_ARROW_LEFT && key_code <= KEY_ARROW_UP) || \
+	key_code == KEY_Q || key_code == KEY_W)
+		ft_redraw(design);
 	return (0);
 }
 
@@ -43,10 +50,24 @@ int	ft_key_release(int key_code, t_design *design)
 
 int	ft_button_press(int button, int x, int y, t_design *design)
 {
-	(void) x;
-	(void) y;
-	(void) button;
-	(void) design;
+	if (button == BUTTON_LEFT)
+	{
+		design->button_l.z = 1;
+		design->button_l.x = x;
+		design->button_l.y = y;
+	}
+	if (button == BUTTON_RIGHT)
+	{
+		design->button_r.z = 1;
+		design->button_r.x = x;
+		design->button_r.y = y;
+	}
+	if (button == SCROLL_UP)
+		design->zoom *= 1.5;
+	if (button == SCROLL_DOWN)
+		design->zoom /= 1.5;
+	if (button == SCROLL_UP || button == SCROLL_DOWN)
+		ft_redraw(design);
 	return (0);
 }
 
@@ -54,25 +75,34 @@ int	ft_button_release(int button, int x, int y, t_design *design)
 {
 	(void) x;
 	(void) y;
-	(void) button;
-	(void) design;
+	if (button == BUTTON_LEFT)
+		design->button_l.z = 0;
+	if (button == BUTTON_RIGHT)
+		design->button_r.z = 0;
 	return (0);
 }
 
 int	ft_mouse_move(int x, int y, t_design *design)
 {
-	char	*cord_x;
-	char	*cord_y;
-
 	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
 		return (0);
-	cord_x = ft_itoa(x);
-	cord_y = ft_itoa(y);
-	mlx_clear_window(design->mlx, design->mlx_win);
-	ft_print_map(design);
-	mlx_string_put(design->mlx, design->mlx_win, 250, 10, 0XFFFFFF, cord_x);
-	mlx_string_put(design->mlx, design->mlx_win, 250, 50, 0xFFFFFF, cord_y);
-	ft_free(&cord_x, 2);
-	ft_free(&cord_y, 2);
+	if (design->button_l.z)
+	{
+		design->angle[1] -= (int)design->button_l.x - x;
+		design->angle[0] += (int)design->button_l.y - y;
+		design->button_l.x = x;
+		design->button_l.y = y;
+		ft_print_map(design);
+	}
+	if (design->button_r.z)
+	{
+		design->shift.x -= (int)design->button_r.x - x;
+		design->shift.y -= (int)design->button_r.y - y;
+		design->button_r.x = x;
+		design->button_r.y = y;
+		ft_print_map(design);
+	}
+	ft_redraw(design);
+	ft_print_cord(x, y, design);
 	return (0);
 }

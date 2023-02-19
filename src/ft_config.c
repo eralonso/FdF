@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:16:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	//ft_rotate_x(p, 90);
 	//ft_rotate_y(p, 0);
 	p->z = real_z;
-	if (mod < 1080)
-	{
-		p->x *= (1080 / mod);
-		p->y *= (1080 / mod);
-	}
+	//if (mod < 1080)
+	//{
+		p->x = (p->x * (1080 / mod)) * design->zoom;
+		p->y = (p->y * (1080 / mod)) * design->zoom;
+	//}
 	//if (width < 1920 / 2)
 	//	p->x *= ((1920 / width) / 3);
 	//else
@@ -96,8 +96,8 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	//	p->y *= ((1080 / height) / 3);
 	//else
 	//	p->y /= 2;
-	p->x += ((1920 / 2));
-	p->y += ((1080 / 2));
+	p->x = (p->x + (1920 / 2)) + design->shift.x;
+	p->y = (p->y + (1080 / 2)) + design->shift.y;
 	//p->x = ((p->x + ((1920 - (width - (p->x * 2))) * 1)));
 	//p->y = ((p->y + ((1080 - (height - (p->y * 2))) * 1)));
 }

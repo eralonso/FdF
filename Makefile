@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/02/16 16:14:57 by eralonso         ###   ########.fr        #
+#    Updated: 2023/02/19 11:55:40 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
 FILES		=	fdf utils check_map load_map print_map ft_events \
-				ft_config views
+				ft_config views event_utils
 
 B_FILES		=
 

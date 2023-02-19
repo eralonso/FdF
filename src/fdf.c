@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:14:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int	ft_init_mlx_design(t_design *design)
 	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
 	&design->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
 	ft_neutral(design);
+	design->zoom = 1;
+	design->shift.x = 0;
+	design->shift.y = 0;
+	design->button_l.z = 0;
+	design->button_r.z = 0;
 	return (1);
 }
 
