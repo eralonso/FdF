@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/19 12:16:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:59:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ void	ft_rotate_z(t_point *p, float angle)
 	p->y = (x * sin(rad)) + (y * cos(rad));
 }
 
+float	ft_module(float x, float y)
+{
+	float	mod;
+
+	mod = sqrt(pow(x, 2) + pow(y, 2));
+	return (mod);
+}
+
 void	ft_config_point(t_point *p, t_design *design, float width, float height)
 {
 	float			mod;
@@ -60,7 +68,8 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 
 	(void) design;
 	real_z = p->z;
-	mod = sqrt(pow(width, 2) + pow(height, 2));
+	//mod = sqrt(pow(width, 2) + pow(height, 2));
+	mod = ft_module(width, height);
 	dif_z = fabs((double)design->max_z - design->min_z);
 	//if (div == 1)
 	//{
@@ -68,8 +77,8 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	//		div++;
 	//}
 	//p->z /= div;
-	if (dif_z / width > 0.5)
-		p->z /= ((dif_z / width) * 30);
+	if (dif_z / height >= 1)
+		p->z /= ((dif_z / height) * (WIN_HEIGHT / mod));
 	//printf("Real z: %f || Div z: %f\n", real_z, p->z);
 	//Vista Isométrica
 	//printf("design->angle[0] == %f\n", design->angle[0]);
@@ -85,8 +94,8 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	p->z = real_z;
 	//if (mod < 1080)
 	//{
-		p->x = (p->x * (1080 / mod)) * design->zoom;
-		p->y = (p->y * (1080 / mod)) * design->zoom;
+		p->x = (p->x * (WIN_HEIGHT / mod)) * design->zoom;
+		p->y = (p->y * (WIN_HEIGHT / mod)) * design->zoom;
 	//}
 	//if (width < 1920 / 2)
 	//	p->x *= ((1920 / width) / 3);
@@ -96,8 +105,8 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	//	p->y *= ((1080 / height) / 3);
 	//else
 	//	p->y /= 2;
-	p->x = (p->x + (1920 / 2)) + design->shift.x;
-	p->y = (p->y + (1080 / 2)) + design->shift.y;
+	p->x = (p->x + (WIN_WIDTH / 2)) + design->shift.x;
+	p->y = (p->y + (WIN_HEIGHT / 2)) + design->shift.y;
 	//p->x = ((p->x + ((1920 - (width - (p->x * 2))) * 1)));
 	//p->y = ((p->y + ((1080 - (height - (p->y * 2))) * 1)));
 }

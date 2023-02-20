@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/19 11:51:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:32:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,35 @@
 # include	<stdio.h>
 
 //COLORS
-# define WHITE	(int)0x00FFFFFF
-# define RED	(int)0x00FF0000
-# define GREEN	(int)0x0000FF00
-# define BLUE	(int)0x000000FF
+# define WHITE		(int)0x00FFFFFF
+# define RED		(int)0x00FF0000
+# define GREEN		(int)0x0000FF00
+# define BLUE		(int)0x000000FF
+# define YELLOW		(int)0x00FFFF99
+# define CYAN		(int)0x0017E0E3
+# define GRAY		(int)0x00FAF6F5
+# define D_GRAY		(int)0x00333333
+# define ORANGE		(int)0x00FA910C
+# define PINK		(int)0x00FF66FF
+# define N_GRAY		(int)0x00F1F0E6
+# define N_ORANGE	(int)0x00FF0A35
+# define N_GREEN	(int)0x003CE5FB
 
 //EVENT CODES
 # define E_KEY_P (int)2
 # define E_KEY_R (int)3
-# define E_BUTTON_P (int)4
-# define E_BUTTON_R (int)5
-# define E_POINTER_M (int)6
+# define E_BTN_P (int)4
+# define E_BTN_R (int)5
+# define E_PTR_M (int)6
 # define E_DESTROY_N (int)17
 
 //EVENTS MASKS
-# define KEY_P_MASK (long)1L << 0
-# define KEY_R_MASK (long)1L << 1
-# define BUTTON_P_MASK (long)1L << 2
-# define BUTTON_R_MASK (long)1L << 3
-# define POINTER_M_MASK (long)1L << 6
-# define DESTROY_N_MASK (long)1L << 17
+# define KEY_P_MASK (long)1
+# define KEY_R_MASK (long)2
+# define BTN_P_MASK (long)4
+# define BTN_R_MASK (long)8
+# define PTR_M_MASK (long)64
+# define DESTROY_N_MASK (long)131072
 
 //KEY CODES
 # define KEY_Q (int)12
@@ -73,6 +82,7 @@
 typedef struct s_design	t_design;
 typedef struct s_point	t_point;
 typedef struct s_pixmap	t_pixmap;
+typedef struct s_color	t_color;
 
 struct s_point {
 	float	x;
@@ -90,6 +100,13 @@ struct s_pixmap {
 	int		endian;
 };
 
+struct	s_color {
+	int		top;
+	int		std;
+	int		btm;
+	int		bckg;
+};
+
 struct s_design {
 	int			width;
 	int			height;
@@ -101,6 +118,7 @@ struct s_design {
 	t_point		button_r;
 	float		zoom;
 	t_point		shift;
+	t_color		color;
 	t_point		*points;
 	t_point		*copy;
 	t_pixmap	pixmap;
@@ -113,8 +131,12 @@ struct s_design {
 int		ft_error(char *str, char *file, int err);
 int		ft_clean_design(t_design *design, int num);
 int		ft_close_program(void *param);
-void	ft_config_point(t_point *p, t_design *design, float width, float height);
+void	ft_config_point(t_point *p, t_design *design, float width, \
+		float height);
 int		ft_valid_point(t_point p);
+t_point	*ft_copy_map(t_point *points, int size);
+void	ft_init_design(t_design *design);
+int		ft_init_mlx(t_design *design);
 
 //Config View
 void	ft_rotate_x(t_point *p, float angle);
@@ -124,7 +146,7 @@ void	ft_rotate_z(t_point *p, float angle);
 //View
 void	ft_isometric(t_design *design);
 void	ft_parallel(t_design *design);
-void	ft_neutral(t_design *design);
+void	ft_top(t_design *design);
 
 //Check Map
 int		ft_check_map(char *map, t_design *design);
@@ -135,13 +157,20 @@ int		ft_check_hexa(char *str);
 
 //Load Map
 int		ft_load_map(t_design *design);
+int		ft_load_points(t_design *design);
 void	ft_fill_line_points(t_design *design, int y, char **cord);
+void	ft_color(t_design *design);
 
 //Print
 int		ft_print_map(t_design *design);
-void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 void	ft_print_line(t_point a, t_point b, t_design *design);
 void	ft_print_axis(t_design *design);
+void	ft_print_background(t_design *design);
+
+//Print Utils
+void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
+void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z);
+int		ft_get_gradient(int start, int end, float len, float pos);
 
 //Events
 int		ft_key_press(int key_code, t_design *design);
@@ -153,5 +182,7 @@ int		ft_mouse_move(int x, int y, t_design *design);
 //Events Utils
 void	ft_print_cord(int x, int y, t_design *design);
 void	ft_redraw(t_design *design);
+void	ft_change_view(int key_code, t_design *design);
+void	ft_change_angle(int key_code, t_design *design);
 
 #endif

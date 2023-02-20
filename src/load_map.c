@@ -6,13 +6,21 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:24 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:37:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
 int	ft_load_map(t_design *design)
+{
+	if (!ft_load_points(design))
+		return (0);
+	ft_color(design);
+	return (1);
+}
+
+int	ft_load_points(t_design *design)
 {
 	char	**map;
 	char	**line;
@@ -61,8 +69,15 @@ void	ft_fill_line_points(t_design *design, int y, char **cord)
 			design->points[idx].color = ft_atoi(ft_strchr(cord[x], ',') + 1);
 			design->points[idx].hexa = 1;
 		}
-		else
-			design->points[idx].color = WHITE;
 		idx++;
 	}
+}
+
+void	ft_color(t_design *design)
+{
+	int	i;
+
+	i = -1;
+	while (++i < design->size)
+		ft_set_color(design, &design->points[i], design->min_z, design->max_z);
 }

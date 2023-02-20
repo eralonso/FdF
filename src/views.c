@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:10:39 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:40:24 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:19:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_parallel(t_design *design)
 	design->angle[2] = 0;
 }
 
-void	ft_neutral(t_design *design)
+void	ft_top(t_design *design)
 {
 	design->angle[0] = 0;
 	design->angle[1] = 0;

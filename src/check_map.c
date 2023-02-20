@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/18 16:09:04 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:38:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_check_map(char *file, t_design *design)
 {
 	int	fd;
 
+	ft_init_design(design);
 	if (ft_strrncmp(file, ".fdf\0", 4))
 		exit(ft_error("FdF: Extension incorrect", NULL, 1));
 	fd = open(file, O_RDONLY);
@@ -43,13 +44,11 @@ int	ft_check_map(char *file, t_design *design)
 int	ft_read_all(int *fd, t_design *design)
 {
 	char			*tmp;
-	char			*buffer;
+	char			buffer[B_READ + 1];
 	int				bytes;
 	static int		print_bytes = 0;
 
-	buffer = ft_calloc(sizeof(char), B_READ + 1);
-	if (!buffer)
-		return (0);
+	ft_bzero(buffer, B_READ);
 	bytes = read(*fd, buffer, B_READ);
 	while (bytes > 0)
 	{
@@ -58,12 +57,11 @@ int	ft_read_all(int *fd, t_design *design)
 		tmp = design->map;
 		design->map = ft_strjoin(design->map, buffer);
 		if (!design->map)
-			return (ft_free(&buffer, 1) == 0 && ft_free(&tmp, 2) != 0);
+			return (ft_free(&tmp, 2) != 0);
 		ft_free(&tmp, 2);
 		ft_bzero(buffer, B_READ);
 		bytes = read(*fd, buffer, B_READ);
 	}
-	ft_free(&buffer, 2);
 	if (bytes == -1)
 		return (ft_error("FdF: Read error", ft_free(&tmp, 2), 1));
 	return (1);

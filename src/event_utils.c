@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/19 11:56:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:30:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ void	ft_print_cord(int x, int y, t_design *design)
 	char	*cord_x;
 	char	*cord_y;
 
-	cord_x = ft_itoa(x);
-	cord_y = ft_itoa(y);
+	cord_x = ft_itoa(x - (1920 / 2));
+	cord_y = ft_itoa(-(y - (1080 / 2)));
 	mlx_clear_window(design->mlx, design->mlx_win);
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
-	//ft_print_map(design);
 	mlx_string_put(design->mlx, design->mlx_win, 250, 10, 0XFFFFFF, cord_x);
 	mlx_string_put(design->mlx, design->mlx_win, 250, 50, 0xFFFFFF, cord_y);
 	ft_free(&cord_x, 2);
@@ -34,7 +33,43 @@ void	ft_redraw(t_design *design)
 	mlx_destroy_image(design->mlx, design->pixmap.img);
 	design->pixmap.img = mlx_new_image(design->mlx, \
 	WIN_WIDTH, WIN_HEIGHT);
-	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, &design\
-	->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
+	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
+	&design->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
 	ft_print_map(design);
+}
+
+void	ft_change_view(int key_code, t_design *design)
+{
+	if (key_code == KEY_I)
+		ft_isometric(design);
+	if (key_code == KEY_P)
+		ft_parallel(design);
+	if (key_code == KEY_R)
+		ft_top(design);
+	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R)
+	{
+		design->zoom = 1;
+		design->shift.x = 0;
+		design->shift.y = 0;
+		ft_redraw(design);
+	}
+}
+
+void	ft_change_angle(int key_code, t_design *design)
+{
+	if (key_code == KEY_ARROW_UP)
+		design->angle[0] += 10;
+	if (key_code == KEY_ARROW_DOWN)
+		design->angle[0] -= 10;
+	if (key_code == KEY_ARROW_LEFT)
+		design->angle[1] += 10;
+	if (key_code == KEY_ARROW_RIGHT)
+		design->angle[1] -= 10;
+	if (key_code == KEY_Q)
+		design->angle[2] += 10;
+	if (key_code == KEY_W)
+		design->angle[2] -= 10;
+	if ((key_code >= KEY_ARROW_LEFT && key_code <= KEY_ARROW_UP) || \
+	key_code == KEY_Q || key_code == KEY_W)
+		ft_redraw(design);
 }

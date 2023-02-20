@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/19 11:26:59 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:39:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ void	ft_print_axis(t_design *design)
 	ft_rotate_z(&axis_z, design->angle[2]);
 	ft_rotate_x(&axis_z, design->angle[0]);
 	ft_rotate_y(&axis_z, design->angle[1]);
-	axis_o.z = 0;
-	axis_x.z = 0;
-	axis_y.z = 0;
-	axis_z.z = 0;
 	multi = 40;
 	axis_o.x *= multi;
 	axis_o.y *= multi;
@@ -57,14 +53,14 @@ void	ft_print_axis(t_design *design)
 	axis_y.y *= multi;
 	axis_z.x *= multi;
 	axis_z.y *= multi;
-	axis_o.x += (250 / 2);
-	axis_o.y += (150 / 2);
-	axis_x.x += (250 / 2);
-	axis_x.y += (150 / 2);
-	axis_y.x += (250 / 2);
-	axis_y.y += (150 / 2);
-	axis_z.x += (250 / 2);
-	axis_z.y += (150 / 2);
+	axis_o.x += (1920 - (250 / 2));
+	axis_o.y += ((150 / 2));
+	axis_x.x += (1920 - (250 / 2));
+	axis_x.y += ((150 / 2));
+	axis_y.x += (1920 - (250 / 2));
+	axis_y.y += ((150 / 2));
+	axis_z.x += (1920 - (250 / 2));
+	axis_z.y += ((150 / 2));
 	axis_o.color = WHITE;
 	axis_x.color = RED;
 	axis_y.color = BLUE;
@@ -98,6 +94,7 @@ int	ft_print_map(t_design *design)
 	i = -1;
 	while (++i < design->size)
 		ft_config_point(&design->copy[i], design, design->width, design->height);
+	ft_print_background(design);
 	i = -1;
 	k = 0;
 	while (++i < design->height)
@@ -105,13 +102,9 @@ int	ft_print_map(t_design *design)
 		j = -1;
 		while (++j < design->width)
 		{
-			//printf("x == %i\n", j);
-			//printf("Horizontal\n");
-			//printf("k == %i\n", k);
 			if (j < design->width - 1 && k + 1 < design->size)
 				ft_print_line(design->copy[k], design->copy[k + 1], \
 				design);
-			//printf("Vertical\n\n\n");
 			if (k + design->width < design->size)
 				ft_print_line(design->copy[k], design->copy[k + \
 				design->width], design);
@@ -127,58 +120,38 @@ int	ft_print_map(t_design *design)
 	return (1);
 }
 
-int ft_get_gradient(int start, int end, float len, float pos)
-{
-	float	dif[3];
-	int		new[3];
-
-	dif[0] = ((end >> 16) - (start >> 16)) / len;
-	dif[1] = (((end >> 8) & 0xFF) - ((start >> 8) & 0xFF)) \
-			 / len;
-	dif[2] = ((end & 0xFF) - (start & 0xFF)) \
-			 / len;
-	new[0] = (start >> 16) + (pos * dif[0]);
-	new[1] = ((start >> 8) & 0xFF) + (pos * dif[1]);
-	new[2] = (start & 0xFF) + (pos * dif[2]);
-	return ((new[0] << 16) + (new[1] << 8) + new[2]);
-}
-
 void	ft_print_line(t_point a, t_point b, t_design *design)
 {
 	t_point	c;
 	float	hip;
 	float	len;
 
-	if (!ft_valid_point(a) || !ft_valid_point(b))
+	if (!ft_valid_point(a) && !ft_valid_point(b))
 		return ;
-	c.z = a.z;
-	c.hexa = a.hexa | b.hexa;
-	if (!b.hexa && b.z < 0)
-		b.color = BLUE;
-	else if (!b.hexa && b.z > 0)
-		b.color = RED;
-	if (!a.hexa && a.z < 0)
-		a.color = BLUE;
-	else if (!a.hexa && a.z > 0)
-		a.color = RED;
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;
-	len = hip;
-	//printf("Antes: len == %f\n\n", len);
-	while (len > 0)
+	len = hip + 1;
+	while (--len > 0)
 	{
-		//printf("a.x: %f\n", a.x);
-		//printf("b.x: %f\n", b.x);
-		//printf("a.y: %f\n", a.y);
-		//printf("b.y: %f\n", b.y);
-		//printf("vuelta\n\n");
-		ft_pixel_put(&design->pixmap, c.x, c.y, ft_get_gradient\
+		if (ft_valid_point(c))
+			ft_pixel_put(&design->pixmap, c.x, c.y, ft_get_gradient\
 			(a.color, b.color, hip, hip - len));
 		c.x += (b.x - a.x) / hip;
 		c.y += (b.y - a.y) / hip;
-		len--;
-		//printf("len == %f\n", len);
 	}
-	//printf("Después\n\n");
+}
+
+void	ft_print_background(t_design *design)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y <= WIN_HEIGHT)
+	{
+		x = -1;
+		while (++x <= WIN_WIDTH)
+			ft_pixel_put(&design->pixmap, x, y, design->color.bckg);
+	}
 }
