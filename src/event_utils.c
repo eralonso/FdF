@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/20 11:30:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:16:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,19 @@ void	ft_change_view(int key_code, t_design *design)
 		ft_isometric(design);
 	if (key_code == KEY_P)
 		ft_parallel(design);
-	if (key_code == KEY_R)
+	if (key_code == KEY_T)
 		ft_top(design);
-	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R)
+	if (key_code == KEY_R)
+		ft_reverse(design);
+	if (key_code == KEY_X)
+		design->angle[0] += 180;
+	if (key_code == KEY_Y)
+		design->angle[1] += 180;
+	if (key_code == KEY_Z)
+		design->angle[2] += 180;
+	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R || \
+		key_code == KEY_T || key_code == KEY_X || key_code == KEY_Y || \
+		key_code == KEY_Z)
 	{
 		design->zoom = 1;
 		design->shift.x = 0;
@@ -62,13 +72,13 @@ void	ft_change_angle(int key_code, t_design *design)
 	if (key_code == KEY_ARROW_DOWN)
 		design->angle[0] -= 10;
 	if (key_code == KEY_ARROW_LEFT)
-		design->angle[1] += 10;
-	if (key_code == KEY_ARROW_RIGHT)
 		design->angle[1] -= 10;
+	if (key_code == KEY_ARROW_RIGHT)
+		design->angle[1] += 10;
 	if (key_code == KEY_Q)
-		design->angle[2] += 10;
-	if (key_code == KEY_W)
 		design->angle[2] -= 10;
+	if (key_code == KEY_W)
+		design->angle[2] += 10;
 	if ((key_code >= KEY_ARROW_LEFT && key_code <= KEY_ARROW_UP) || \
 	key_code == KEY_Q || key_code == KEY_W)
 		ft_redraw(design);

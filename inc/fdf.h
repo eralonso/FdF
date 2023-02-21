@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/20 18:32:15 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:52:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define YELLOW		(int)0x00FFFF99
 # define CYAN		(int)0x0017E0E3
 # define GRAY		(int)0x00FAF6F5
-# define D_GRAY		(int)0x00333333
+# define D_GRAY		(int)0x00222222
 # define ORANGE		(int)0x00FA910C
 # define PINK		(int)0x00FF66FF
 # define N_GRAY		(int)0x00F1F0E6
@@ -50,12 +50,18 @@
 # define DESTROY_N_MASK (long)131072
 
 //KEY CODES
+# define KEY_Z (int)6
+# define KEY_X (int)7
 # define KEY_Q (int)12
 # define KEY_W (int)13
 # define KEY_R (int)15
+# define KEY_Y (int)16
+# define KEY_W (int)13
+# define KEY_T (int)17
 # define KEY_I (int)34
 # define KEY_P (int)35
 # define KEY_ESC (int)53
+# define KEY_CMD (int)259
 # define KEY_ARROW_LEFT (int)123
 # define KEY_ARROW_RIGHT (int)124
 # define KEY_ARROW_DOWN (int)125
@@ -89,6 +95,7 @@ struct s_point {
 	float	y;
 	float	z;
 	int		color;
+	char	select;
 	char	hexa;
 };
 
@@ -116,6 +123,8 @@ struct s_design {
 	float		angle[3];
 	t_point		button_l;
 	t_point		button_r;
+	t_point		sel_line;
+	char		k_cmd;
 	float		zoom;
 	t_point		shift;
 	t_color		color;
@@ -147,6 +156,13 @@ void	ft_rotate_z(t_point *p, float angle);
 void	ft_isometric(t_design *design);
 void	ft_parallel(t_design *design);
 void	ft_top(t_design *design);
+void	ft_reverse(t_design *design);
+
+//View Utils
+int		ft_point_selected(t_design *design, t_point *p);
+
+//Math Utils
+float	ft_module(float x, float y);
 
 //Check Map
 int		ft_check_map(char *map, t_design *design);

@@ -6,15 +6,12 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/20 18:31:24 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:22:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
-void	ft_init_design(t_design *design)
-{
-	ft_top(design);
 	//design->color.top = RED;
 	//design->color.std = WHITE;
 	//design->color.btm = BLUE;
@@ -24,8 +21,12 @@ void	ft_init_design(t_design *design)
 	//design->color.top = ORANGE;
 	//design->color.std = GRAY;
 	//design->color.btm = CYAN;
+
+void	ft_init_design(t_design *design)
+{
+	ft_top(design);
 	design->color.top = N_ORANGE;
-	design->color.std = N_GRAY;
+	design->color.std = ORANGE;
 	design->color.btm = N_GREEN;
 	design->color.bckg = D_GRAY;
 	design->zoom = 1;
@@ -33,6 +34,8 @@ void	ft_init_design(t_design *design)
 	design->shift.y = 0;
 	design->button_l.z = 0;
 	design->button_r.z = 0;
+	design->k_cmd = 0;
+	design->sel_line.z = 0;
 }
 
 int	ft_init_mlx(t_design *design)

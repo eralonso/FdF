@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:37:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/20 12:28:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:57:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_key_press(int key_code, t_design *design)
 {
 	if (key_code == KEY_ESC)
 		exit(ft_clean_design(design, 0));
+	if (key_code == KEY_CMD)
+		design->k_cmd = 1;
 	ft_change_view(key_code, design);
 	ft_change_angle(key_code, design);
 	return (0);
@@ -23,13 +25,51 @@ int	ft_key_press(int key_code, t_design *design)
 
 int	ft_key_release(int key_code, t_design *design)
 {
-	(void) key_code;
-	(void) design;
+	if (key_code == KEY_CMD)
+	{
+		design->k_cmd = 0;
+		design->sel_line.z = 0;
+		ft_redraw(design);
+	}
+	return (0);
+}
+
+int	ft_point_selected(t_design *design, t_point *p)
+{
+	float	dif_x;
+	float	dif_y;
+	float	max_dif;
+	float	mod;
+
+	dif_x = design->sel_line.x - p->x;
+	dif_y = design->sel_line.y - p->y;
+	dif_x = fabs(dif_x);
+	dif_y = fabs(dif_y);
+	mod = ft_module(design->width, design->height);
+	max_dif = ((WIN_HEIGHT - design->height) / mod) * design->zoom;
+	printf("max_dif == %f\n", max_dif);
+	printf("dif_x == %f\n", dif_x);
+	printf("dif_y == %f\n", dif_y);
+	if (dif_x < (max_dif / 2) && dif_y < (max_dif / 2))
+	{
+		printf("p->x == %f\n", p->x);
+		printf("p->y == %f\n", p->y);
+		printf("NO ENTRO\n");
+		p->select = 1;
+		return (1);
+	}
 	return (0);
 }
 
 int	ft_button_press(int button, int x, int y, t_design *design)
 {
+	if (button == BUTTON_LEFT && design->k_cmd)
+	{
+		design->sel_line.z = 1;
+		design->sel_line.x = x;
+		design->sel_line.y = y;
+		ft_redraw(design);
+	}
 	if (button == BUTTON_LEFT)
 	{
 		design->button_l.z = 1;

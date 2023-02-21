@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/20 18:39:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:03:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void	ft_print_axis(t_design *design)
 {
-	t_point axis_o;
+	t_point	axis_o;
 	t_point	axis_x;
 	t_point	axis_y;
 	t_point	axis_z;
 	int		multi;
 
-	axis_o.x = 0; // 5 / 250
-	axis_o.y = 0; // 3 / 150
-	axis_o.z = 0;   // 0 / 0
-	axis_x.x = 1; // 6 / 300
-	axis_x.y = 0; // 3 / 150
-	axis_x.z = 0;   // 0 / 0
-	axis_y.x = 0; // 5 / 250
-	axis_y.y = 1; // 4 / 200
-	axis_y.z = 0;   // 0 / 0
-	axis_z.x = 0; // 5 / 250
-	axis_z.y = 0; // 3 / 150
-	axis_z.z = 1;  // 1 / 50
+	axis_o.x = 0;
+	axis_o.y = 0;
+	axis_o.z = 0;
+	axis_x.x = 1;
+	axis_x.y = 0;
+	axis_x.z = 0;
+	axis_y.x = 0;
+	axis_y.y = 1;
+	axis_y.z = 0;
+	axis_z.x = 0;
+	axis_z.y = 0;
+	axis_z.z = 1;
 	ft_rotate_z(&axis_o, design->angle[2]);
 	ft_rotate_x(&axis_o, design->angle[0]);
 	ft_rotate_y(&axis_o, design->angle[1]);
@@ -74,7 +74,7 @@ t_point	*ft_copy_map(t_point *points, int size)
 {
 	t_point	*copy;
 	int		i;
-	
+
 	copy = ft_calloc(sizeof(t_point), size + 1);
 	if (!copy)
 		return (NULL);
@@ -125,9 +125,22 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	t_point	c;
 	float	hip;
 	float	len;
+	int		col_a;
+	int		col_b;
 
 	if (!ft_valid_point(a) && !ft_valid_point(b))
 		return ;
+	col_a = a.color;
+	col_b = b.color;
+	if (design->sel_line.z && !a.select && !b.select)
+	{
+		b.color = b.color << 8;
+		b.color = 0xAA000000 | (b.color >> 8);
+		a.color = a.color << 8;
+		a.color = 0xAA000000 | (a.color >> 8);
+	}
+	else if (design->sel_line.z)
+		printf("Punto seleccionado");
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;
@@ -140,6 +153,8 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 		c.x += (b.x - a.x) / hip;
 		c.y += (b.y - a.y) / hip;
 	}
+	a.color = col_a;
+	b.color = col_b;
 }
 
 void	ft_print_background(t_design *design)
