@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 20:03:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:14:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 		a.color = a.color << 8;
 		a.color = 0xAA000000 | (a.color >> 8);
 	}
-	else if (design->sel_line.z)
-		printf("Punto seleccionado");
+	//else if (design->sel_line.z)
+	//	printf("Punto seleccionado");
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 20:05:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:07:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,53 @@ float	ft_module(float x, float y)
 	return (mod);
 }
 
+void	ft_zoom_in(t_point *p, t_design *design)
+{
+	if (design->zoom.x < 0)
+	{
+		p->x += -(design->zoom.x);// * 1.2);//design->zoom.z);
+		//printf("NEG: p->zoom.x = %f\n", design->zoom.x);
+	}
+	if (design->zoom.x > 0)
+	{
+		p->x -= (design->zoom.x);// * 1.2);//design->zoom.z);
+		//printf("POS: p->zoom.x = %f\n", design->zoom.x);
+	}
+	if (design->zoom.y < 0)
+	{
+		p->y += (design->zoom.y);// * 1.2);//design->zoom.z);
+		//printf("NEG: p->zoom.y = %f\n", design->zoom.y);
+	}
+	if (design->zoom.y > 0)
+	{
+		p->y += (design->zoom.y);// * 1.2);//design->zoom.z);
+		//printf("POS: p->zoom.y = %f\n", design->zoom.y);
+	}
+}
+
+void	ft_zoom_out(t_point *p, t_design *design)
+{
+	if (design->zoom.x < 0)
+		p->x += -(design->zoom.x);// * 1.2);//design->zoom.z);
+	if (design->zoom.x > 0)
+		p->x -= (design->zoom.x);// * 1.2);//design->zoom.z);
+	if (design->zoom.y < 0)
+		p->y += (design->zoom.y);// * 1.2);//design->zoom.z);
+	if (design->zoom.y > 0)
+		p->y += (design->zoom.y);// * 1.2);//design->zoom.z);
+}
+
 void	ft_config_point(t_point *p, t_design *design, float width, float height)
 {
 	float			mod;
 	float			real_z;
 	t_lli			dif_z;
-	int		sel = 0;
+	static int		sel = 0;
 	static int		i = 0;
+	//static int		j = 0;
 
+	if (design->width - 15 <= p->x)
+		sel = 0;
 	real_z = p->z;
 	mod = ft_module(width, height);
 	dif_z = (design->max_z - design->min_z);
@@ -80,6 +119,7 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 		printf("dif_z == %lld\n", dif_z);
 		printf("width == %f\n", width);
 		printf("height == %f\n", height);
+		printf("size == %i\n", design->size);
 		printf("mod == %f\n", mod);
 		printf("max_z == %d\n", design->max_z);
 		printf("min_z == %d\n", design->min_z);
@@ -89,10 +129,12 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	ft_rotate_x(p, design->angle[0]);
 	ft_rotate_y(p, design->angle[1]);
 	p->z = real_z;
-	p->x = (p->x * ((WIN_HEIGHT - height) / mod)) * design->zoom;
-	p->y = (p->y * ((WIN_HEIGHT - height) / mod)) * design->zoom;
+	p->x = (p->x * ((WIN_HEIGHT - height) / mod)) * design->zoom.z;
+	p->y = (p->y * ((WIN_HEIGHT - height) / mod)) * design->zoom.z;
 	p->x = (p->x + (WIN_WIDTH / 2)) + design->shift.x;
 	p->y = (p->y + (WIN_HEIGHT / 2)) + design->shift.y;
+	ft_zoom_in(p, design);
+	ft_zoom_out(p, design);
 	if (design->sel_line.z && !sel)
 		sel = ft_point_selected(design, p);
 }

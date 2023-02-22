@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 18:16:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:35:06 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ft_print_cord(int x, int y, t_design *design)
 	char	*cord_x;
 	char	*cord_y;
 
-	cord_x = ft_itoa(x - (1920 / 2));
-	cord_y = ft_itoa(-(y - (1080 / 2)));
+	cord_x = ft_itoa(x - (WIN_WIDTH / 2));
+	cord_y = ft_itoa(-(y - (WIN_HEIGHT / 2)));
 	mlx_clear_window(design->mlx, design->mlx_win);
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
@@ -58,7 +58,9 @@ void	ft_change_view(int key_code, t_design *design)
 		key_code == KEY_T || key_code == KEY_X || key_code == KEY_Y || \
 		key_code == KEY_Z)
 	{
-		design->zoom = 1;
+		design->zoom.z = 1;
+		design->zoom.x = 0;
+		design->zoom.y = 0;
 		design->shift.x = 0;
 		design->shift.y = 0;
 		ft_redraw(design);

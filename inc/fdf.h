@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 19:52:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:44:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ struct s_design {
 	t_point		button_r;
 	t_point		sel_line;
 	char		k_cmd;
-	float		zoom;
+	t_point		zoom;
 	t_point		shift;
 	t_color		color;
 	t_point		*points;

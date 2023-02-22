@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 19:22:13 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:12:46 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	ft_init_design(t_design *design)
 	design->color.std = ORANGE;
 	design->color.btm = N_GREEN;
 	design->color.bckg = D_GRAY;
-	design->zoom = 1;
+	design->zoom.z = 1;
+	design->zoom.x = 0;
+	design->zoom.y = 0;
 	design->shift.x = 0;
 	design->shift.y = 0;
 	design->button_l.z = 0;
