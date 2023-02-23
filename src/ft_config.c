@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/22 19:07:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:21:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	ft_zoom_in(t_point *p, t_design *design)
 void	ft_zoom_out(t_point *p, t_design *design)
 {
 	if (design->zoom.x < 0)
-		p->x += -(design->zoom.x);// * 1.2);//design->zoom.z);
+		p->x += (design->zoom.x);// * 1.2);//design->zoom.z);
 	if (design->zoom.x > 0)
-		p->x -= (design->zoom.x);// * 1.2);//design->zoom.z);
+		p->x += (design->zoom.x);// * 1.2);//design->zoom.z);
 	if (design->zoom.y < 0)
-		p->y += (design->zoom.y);// * 1.2);//design->zoom.z);
+		p->y -= (design->zoom.y);// * 1.2);//design->zoom.z);
 	if (design->zoom.y > 0)
-		p->y += (design->zoom.y);// * 1.2);//design->zoom.z);
+		p->y += -(design->zoom.y);// * 1.2);//design->zoom.z);
 }
 
 void	ft_config_point(t_point *p, t_design *design, float width, float height)
@@ -101,29 +101,44 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	float			real_z;
 	t_lli			dif_z;
 	static int		sel = 0;
-	static int		i = 0;
-	//static int		j = 0;
 
-	if (design->width - 15 <= p->x)
+	if ((height / 2 - ((int)height % 2) - 1 == p->y \
+	&& width / 2 - ((int)width % 2) - 1 == p->x))
+	{
+		printf("sel == 0\n");
 		sel = 0;
+	}
 	real_z = p->z;
 	mod = ft_module(width, height);
 	dif_z = (design->max_z - design->min_z);
 	dif_z = llabs(dif_z);
-	//if (dif_z / width >= 0.5 && p->z != 0)// && p->z / dif_z > 0.1)
-	//if (dif_z >> 1 > width || dif_z > height)
 	if (dif_z >> 1 > width)
 		p->z /= (dif_z >> 4);//((dif_z / width) * width);
+	static int		i = 0;
 	if (!i)
 	{
-		printf("dif_z == %lld\n", dif_z);
+		printf("\nINIT:\ndif_z == %lld\n", dif_z);
 		printf("width == %f\n", width);
+		printf("width / 2 - width %% 2 == %f\n", width / 2 - ((int)width % 2));
+		printf("points[0]: p->x == %f\n", p->x);
+		printf("height == %f\n", height);
+		printf("size == %i\n", design->size);
+		printf("mod == %f\n", mod);
+		printf("max_z == %d\n", design->max_z);
+		printf("min_z == %d\n\n", design->min_z);
+	}
+	i++;
+	if (i == (width))
+	{
+		printf("FINISH:\ndif_z == %lld\n", dif_z);
+		printf("width == %f\n", width);
+		printf("width / 2 == %f\n", width / 2);
+		printf("points[%i]: p->x == %f\n", i, p->x);
 		printf("height == %f\n", height);
 		printf("size == %i\n", design->size);
 		printf("mod == %f\n", mod);
 		printf("max_z == %d\n", design->max_z);
 		printf("min_z == %d\n", design->min_z);
-		i++;
 	}
 	ft_rotate_z(p, design->angle[2]);
 	ft_rotate_x(p, design->angle[0]);
@@ -138,3 +153,33 @@ void	ft_config_point(t_point *p, t_design *design, float width, float height)
 	if (design->sel_line.z && !sel)
 		sel = ft_point_selected(design, p);
 }
+
+	//if (dif_z / width >= 0.5 && p->z != 0)// && p->z / dif_z > 0.1)
+	//if (dif_z >> 1 > width || dif_z > height)
+
+	//static int		i = 0;
+	/*if (!i)
+	{
+		printf("dif_z == %lld\n", dif_z);
+		printf("width == %f\n", width);
+		printf("width / 2 - width %% 2 == %f\n", width / 2 - ((int)width % 2));
+		printf("points[0]: p->x == %f\n", p->x);
+		printf("height == %f\n", height);
+		printf("size == %i\n", design->size);
+		printf("mod == %f\n", mod);
+		printf("max_z == %d\n", design->max_z);
+		printf("min_z == %d\n", design->min_z);
+	}
+	i++;
+	if (i == (width))
+	{
+		printf("dif_z == %lld\n", dif_z);
+		printf("width == %f\n", width);
+		printf("width / 2 == %f\n", width / 2);
+		printf("points[%i]: p->x == %f\n", i, p->x);
+		printf("height == %f\n", height);
+		printf("size == %i\n", design->size);
+		printf("mod == %f\n", mod);
+		printf("max_z == %d\n", design->max_z);
+		printf("min_z == %d\n", design->min_z);
+	}*/

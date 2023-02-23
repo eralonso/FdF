@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/22 10:44:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:34:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include	<ft_printf.h>
 # include	<mlx.h>
 # include	<math.h>
+# include	<float.h>
 # include	<stdio.h>
 
 //COLORS

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/22 12:14:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:33:46 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,15 +132,20 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 		return ;
 	col_a = a.color;
 	col_b = b.color;
-	if (design->sel_line.z && !a.select && !b.select)
+	if (design->sel_line.z && a.select != design->sel_line.z \
+	&& b.select != design->sel_line.z)
 	{
-		b.color = b.color << 8;
-		b.color = 0xAA000000 | (b.color >> 8);
-		a.color = a.color << 8;
-		a.color = 0xAA000000 | (a.color >> 8);
+		//b.color = b.color << 8;
+		b.color = 0xFF000000 | (b.color & 0xFFFFFFFF);
+		//a.color = a.color << 8;
+		a.color = 0xFF000000 | (a.color & 0xFFFFFFFF);
 	}
-	//else if (design->sel_line.z)
-	//	printf("Punto seleccionado");
+	/*else if (design->sel_line.z)
+	{
+		printf("ENTRO\n");
+		b.color &= 0x00FFFFFF;
+		a.color &= 0x00FFFFFF;
+	}*/
 	hip = sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 	c.x = a.x;
 	c.y = a.y;

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:37:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/22 16:22:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:39:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ft_key_release(int key_code, t_design *design)
 
 int	ft_point_selected(t_design *design, t_point *p)
 {
+	static float	max_dif_acul = FLT_MAX;
 	float	dif_x;
 	float	dif_y;
 	float	max_dif;
@@ -50,12 +51,16 @@ int	ft_point_selected(t_design *design, t_point *p)
 	//printf("max_dif == %f\n", max_dif);
 	//printf("dif_x == %f\n", dif_x);
 	//printf("dif_y == %f\n", dif_y);
-	if (dif_x < (max_dif / 2) && dif_y < (max_dif / 2))
+	//if (dif_x < (max_dif / 2) && dif_y < (max_dif / 2) && )
+	if (ft_module(dif_x, dif_y) < (max_dif) && ft_module(dif_x, dif_y) < max_dif_acul)
 	{
-		//printf("p->x == %f\n", p->x);
-		//printf("p->y == %f\n", p->y);
-		//printf("NO ENTRO\n");
-		p->select = 1;
+		max_dif_acul = ft_module(dif_x, dif_y);
+		printf("modulo == %f\n", ft_module(dif_x, dif_y));
+		printf("p->x == %f\n", p->x);
+		printf("p->y == %f\n", p->y);
+		printf("NO ENTRO\n");
+		design->sel_line.z++;
+		p->select = design->sel_line.z;
 		return (1);
 	}
 	return (0);
@@ -89,7 +94,7 @@ int	ft_button_press(int button, int x, int y, t_design *design)
 	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
 		design->zoom.x = x - (WIN_WIDTH / 2);
-		design->zoom.y = (WIN_HEIGHT / 2) - y;
+		design->zoom.y = y - (WIN_HEIGHT / 2);
 		printf("SCROLL: design->zoom.x == %f && design->zoom.y == %f\n", \
 		design->zoom.x, design->zoom.y);
 		ft_redraw(design);
@@ -112,7 +117,7 @@ int	ft_mouse_move(int x, int y, t_design *design)
 {
 	if (design->k_cmd)
 	{
-		design->sel_line.z = 1;
+		design->sel_line.z = -1;
 		design->sel_line.x = x;
 		design->sel_line.y = y;
 		ft_redraw(design);
