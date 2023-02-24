@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 19:11:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:00:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 int	ft_load_map(t_design *design)
 {
+	float	mod;
+
 	if (!ft_load_points(design))
 		return (0);
 	ft_color(design);
+	mod = ft_module(design->width, design->height);
+	design->scale = (WIN_HEIGHT - design->height) / mod;
 	return (1);
 }
 

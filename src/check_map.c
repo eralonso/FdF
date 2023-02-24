@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/20 18:38:39 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:17:25 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_map(char *file, t_design *design)
 {
 	int	fd;
 
-	ft_init_design(design);
+	//ft_init_design(design);
 	if (ft_strrncmp(file, ".fdf\0", 4))
 		exit(ft_error("FdF: Extension incorrect", NULL, 1));
 	fd = open(file, O_RDONLY);
@@ -79,7 +79,7 @@ int	ft_check_valid_map(int x, int y, t_design *design)
 	{
 		line = ft_split(cord[y], ' ');
 		if (!line)
-			return (ft_error(ft_free(cord, 1), NULL, 0));
+			return (ft_error("Malloc error\n", ft_free(cord, 1), 0));
 		if (x == 0)
 			x = ft_matrixlen(line) - (*(line[ft_matrixlen(line) - 1]) == 10);
 		if (!ft_check_valid_param(line, -1) || x != ft_matrixlen(line) - \

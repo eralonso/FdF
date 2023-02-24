@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/23 19:34:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:41:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ struct s_point {
 	float	y;
 	float	z;
 	int		color;
-	char	select;
+	float	select;
 	char	hexa;
 };
 
@@ -121,6 +121,7 @@ struct s_design {
 	int			max_z;
 	int			min_z;
 	int			size;
+	float		scale;
 	float		angle[3];
 	t_point		button_l;
 	t_point		button_r;
@@ -141,17 +142,14 @@ struct s_design {
 int		ft_error(char *str, char *file, int err);
 int		ft_clean_design(t_design *design, int num);
 int		ft_close_program(void *param);
-void	ft_config_point(t_point *p, t_design *design, float width, \
-		float height);
+void	ft_config_points(t_point *copy, t_design *design);
 int		ft_valid_point(t_point p);
 t_point	*ft_copy_map(t_point *points, int size);
-void	ft_init_design(t_design *design);
-int		ft_init_mlx(t_design *design);
 
 //Config View
-void	ft_rotate_x(t_point *p, float angle);
-void	ft_rotate_y(t_point *p, float angle);
-void	ft_rotate_z(t_point *p, float angle);
+void	ft_rotate_x(t_point *points, float angle, int size);
+void	ft_rotate_y(t_point *points, float angle, int size);
+void	ft_rotate_z(t_point *points, float angle, int size);
 
 //View
 void	ft_isometric(t_design *design);
@@ -160,7 +158,7 @@ void	ft_top(t_design *design);
 void	ft_reverse(t_design *design);
 
 //View Utils
-int		ft_point_selected(t_design *design, t_point *p);
+int		ft_point_selected(t_design *design, t_point *p, int restart);
 
 //Math Utils
 float	ft_module(float x, float y);
@@ -192,8 +190,8 @@ int		ft_get_gradient(int start, int end, float len, float pos);
 //Events
 int		ft_key_press(int key_code, t_design *design);
 int		ft_key_release(int key_code, t_design *design);
-int		ft_button_press(int button, int x, int y, t_design *design);
-int		ft_button_release(int button, int x, int y, t_design *design);
+int		ft_btn_press(int button, int x, int y, t_design *design);
+int		ft_btn_release(int button, int x, int y, t_design *design);
 int		ft_mouse_move(int x, int y, t_design *design);
 
 //Events Utils
