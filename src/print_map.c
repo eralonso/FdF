@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/24 14:02:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:30:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,12 @@ t_point	*ft_copy_map(t_point *points, int size)
 	return (copy);
 }
 
-int	ft_print_map(t_design *design)
+void	ft_put_map(t_point *points, t_design *design)
 {
 	int	i;
 	int	j;
 	int	k;
 
-	design->copy = ft_copy_map(design->points, design->size);
-	ft_config_points(design->copy, design);
-	ft_print_background(design);
 	i = -1;
 	k = 0;
 	while (++i < design->height)
@@ -87,16 +84,25 @@ int	ft_print_map(t_design *design)
 		while (++j < design->width)
 		{
 			if (j < design->width - 1 && k + 1 < design->size)
-				ft_print_line(design->copy[k], design->copy[k + 1], \
+				ft_print_line(points[k], points[k + 1], \
 				design);
 			if (k + design->width < design->size)
-				ft_print_line(design->copy[k], design->copy[k + \
+				ft_print_line(points[k], points[k + \
 				design->width], design);
 			if (j < design->width - 1)
 				k++;
 		}
 		k++;
 	}
+}
+
+int	ft_print_map(t_design *design)
+{
+
+	design->copy = ft_copy_map(design->points, design->size);
+	ft_config_points(design->copy, design);
+	ft_print_background(design);
+	ft_put_map(design->copy, design);
 	ft_free((char **)&design->copy, 2);
 	ft_print_axis(design);
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
@@ -109,27 +115,15 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	t_point	c;
 	float	hip;
 	float	len;
-	//int		col_a;
-	//int		col_b;
 
 	if (!ft_valid_point(a) && !ft_valid_point(b))
 		return ;
-	//col_a = a.color;
-	//col_b = b.color;
 	if (design->sel_line.z && a.select != design->sel_line.z \
 	&& b.select != design->sel_line.z)
 	{
-		//b.color = b.color << 8;
 		b.color = 0xFF000000 | (b.color & 0xFFFFFFFF);
-		//a.color = a.color << 8;
 		a.color = 0xFF000000 | (a.color & 0xFFFFFFFF);
 	}
-	/*else if (design->sel_line.z)
-	{
-		printf("design->sel_line.z == %f\n", design->sel_line.z);
-		//b.color &= 0x00FFFFFF;
-		//a.color &= 0x00FFFFFF;
-	}*/
 	hip = ft_module(b.x - a.x, b.y - a.y);
 	c.x = a.x;
 	c.y = a.y;
@@ -137,13 +131,40 @@ void	ft_print_line(t_point a, t_point b, t_design *design)
 	while (--len > 0)
 	{
 		if (ft_valid_point(c))
+		{
 			ft_pixel_put(&design->pixmap, c.x, c.y, ft_get_gradient\
 			(a.color, b.color, hip, hip - len));
+			ft_pixel_put(&design->pixmap, c.x + 1, c.y, ft_get_gradient\
+			(a.color, b.color, hip, hip - len));
+			ft_pixel_put(&design->pixmap, c.x, c.y + 1, ft_get_gradient\
+			(a.color, b.color, hip, hip - len));
+			ft_pixel_put(&design->pixmap, c.x + 1, c.y + 1, ft_get_gradient\
+			(a.color, b.color, hip, hip - len));
+			ft_pixel_put(&design->pixmap, c.x, c.y - 1, ft_get_gradient\
+			(a.color, b.color, hip, hip - len));
+			ft_pixel_put(&design->pixmap, c.x - 1, c.y, ft_get_gradient\
+			(a.color, b.color, hip, hip - len));
+			ft_pixel_put(&design->pixmap, c.x - 1, c.y - 1, ft_get_gradient\
+			(a.color, b.color, hip, hip - len));
+			/*if (c.x - ((int)c.x) != 0)
+			{
+				ft_pixel_put(&design->pixmap, c.x + 1, c.y, ft_get_gradient\
+				(a.color, b.color, hip, hip - len));
+			}
+			if (c.y - ((int)c.y) != 0)
+			{
+				ft_pixel_put(&design->pixmap, c.x, c.y + 1, ft_get_gradient\
+				(a.color, b.color, hip, hip - len));
+			}
+			if (c.x - ((int)c.x) != 0 && c.y - ((int)c.y) != 0)
+			{
+				ft_pixel_put(&design->pixmap, c.x + 1, c.y + 1, ft_get_gradient\
+				(a.color, b.color, hip, hip - len));
+			}*/
+		}
 		c.x += (b.x - a.x) / hip;
 		c.y += (b.y - a.y) / hip;
 	}
-	//a.color = col_a;
-	//b.color = col_b;
 }
 
 void	ft_print_background(t_design *design)

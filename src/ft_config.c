@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/24 13:52:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:04:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,10 @@ void	ft_config_points(t_point *copy, t_design *design)
 	ft_zoom_out(copy, design->zoom.x, design->zoom.y, design->size);
 	if (design->sel_line.z)
 		ft_sel_point(copy, design);
+	//static int i = -1;
+	//if (i < 0 && design->sel_line.z)
+	//	while (++i < design->size)
+	//		printf("points[%i].select == %f\n", i, copy[i].select);
 }
 /*
 void	ft_config_point(t_point *p, t_design *design, float width, float height)

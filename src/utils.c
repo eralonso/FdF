@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/21 16:09:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:51:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_error(char *str, char *file, int err)
 		perror("");
 	}
 	else if (err)
-		perror("");
+		perror("Error: ");
 	return (err);
 }
 
