@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/25 12:04:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 13:52:21 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,39 +74,55 @@ float	ft_module(float x, float y)
 	return (mod);
 }
 
-void	ft_zoom_in(t_point *points, float x, float y, int size)
+void	ft_zoom_in(t_point *points, t_design *design, int size)
 {
 	int	i;
 
 	i = -1;
 	while (++i < size)
 	{
-		if (x < 0)
-			points[i].x += -x;// * 1.2);//design->zoom.z);
-		if (x > 0)
-			points[i].x -= x;// * 1.2);//design->zoom.z);
-		if (y < 0)
-			points[i].y += y;// * 1.2);//design->zoom.z);
-		if (y > 0)
-			points[i].y += y;// * 1.2);//design->zoom.z);
+		if (design->zoom.x < 0)
+			points[i].x += -(design->zoom.x / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+		if (design->zoom.x > 0)
+			points[i].x -= (design->zoom.x / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+		if (design->zoom.y < 0)
+			points[i].y += -(design->zoom.y / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+		if (design->zoom.y > 0)
+			points[i].y -= (design->zoom.y / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
 	}
 }
 
-void	ft_zoom_out(t_point *points, float x, float y, int size)
+void	ft_zoom_out(t_point *points, t_design *design, int size)
 {
 	int	i;
 
 	i = -1;
 	while (++i < size)
 	{
-		if (x < 0)
-			points[i].x += x;// * 1.2);//design->zoom.z);
-		if (x > 0)
-			points[i].x += x;// * 1.2);//design->zoom.z);
-		if (y < 0)
-			points[i].y -= y;// * 1.2);//design->zoom.z);
-		if (y > 0)
-			points[i].y += -y;// * 1.2);//design->zoom.z);
+		if (design->zoom.x < 0)
+			points[i].x -= -(design->zoom.x / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+		if (design->zoom.x > 0)
+			points[i].x += (design->zoom.x / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+		if (design->zoom.y < 0)
+			points[i].y -= -(design->zoom.y / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+		if (design->zoom.y > 0)
+			points[i].y += (design->zoom.y / (design->scale * design->zoom.z));// * 1.2);//design->zoom.z);
+	}
+}
+
+void	ft_set_transparency(t_point *points, t_design *design)
+{
+	int	i;
+
+	i = -1;
+	while (++i < design->size)
+	{
+		if (points[i].select != design->sel_line.z)
+		{
+			points[i].color = (((points[i].color & 0xFF) >> 2)) + \
+			((((points[i].color >> 8) & 0xFF) >> 2) << 8) + \
+			((((points[i].color >> 16) & 0xFF) >> 2) << 16);
+		}
 	}
 }
 
@@ -130,6 +146,7 @@ void	ft_sel_point(t_point *copy, t_design *design)
 			copy[i].select = design->sel_line.z;
 		}
 	}
+	ft_set_transparency(copy, design);
 }
 
 void	ft_proportion_z(t_point *copy, t_design *design)
@@ -161,7 +178,7 @@ void	ft_scale(t_point *points, float x, float y, int size)
 	}
 }
 
-void	ft_translate(t_point *points, float x, float y, int size)
+void	ft_traslate(t_point *points, float x, float y, int size)
 {
 	int	i;
 
@@ -181,10 +198,12 @@ void	ft_config_points(t_point *copy, t_design *design)
 	ft_rotate_y(copy, design->angle[1], design->size);
 	ft_scale(copy, design->scale * design->zoom.z, \
 		design->scale * design->zoom.z, design->size);
-	ft_translate(copy, (WIN_WIDTH / 2) + design->shift.x, \
+	ft_traslate(copy, (WIN_WIDTH / 2) + design->shift.x, \
 		(WIN_HEIGHT / 2) + design->shift.y, design->size);
-	ft_zoom_in(copy, design->zoom.x, design->zoom.y, design->size);
-	ft_zoom_out(copy, design->zoom.x, design->zoom.y, design->size);
+	if (design->zoom.color == 1)
+		ft_zoom_in(copy, design, design->size);
+	if (design->zoom.color == 2)
+		ft_zoom_out(copy, design, design->size);
 	if (design->sel_line.z)
 		ft_sel_point(copy, design);
 	//static int i = -1;

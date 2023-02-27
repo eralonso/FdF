@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/24 12:43:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 13:38:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ static void	ft_init_design(t_design *design)
 	design->zoom.z = 1;
 	design->zoom.x = 0;
 	design->zoom.y = 0;
+	design->zoom.color = 0;
 	design->shift.x = 0;
 	design->shift.y = 0;
 	design->button_l.z = 0;
 	design->button_r.z = 0;
 	design->k_cmd = 0;
 	design->sel_line.z = 0;
+	design->density = 1;
 }
 
 static void	ft_init_mlx(t_design *design)

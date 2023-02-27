@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/24 12:41:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:41:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define DESTROY_N_MASK (long)131072
 
 //KEY CODES
+# define KEY_S (int)1
+# define KEY_D (int)2
 # define KEY_Z (int)6
 # define KEY_X (int)7
 # define KEY_Q (int)12
@@ -123,6 +125,7 @@ struct s_design {
 	int			size;
 	float		scale;
 	float		angle[3];
+	int			density;
 	t_point		button_l;
 	t_point		button_r;
 	t_point		sel_line;
@@ -150,6 +153,8 @@ t_point	*ft_copy_map(t_point *points, int size);
 void	ft_rotate_x(t_point *points, float angle, int size);
 void	ft_rotate_y(t_point *points, float angle, int size);
 void	ft_rotate_z(t_point *points, float angle, int size);
+void	ft_scale(t_point *points, float x, float y, int size);
+void	ft_traslate(t_point *points, float x, float y, int size);
 
 //View
 void	ft_isometric(t_design *design);
@@ -162,6 +167,7 @@ int		ft_point_selected(t_design *design, t_point *p, int restart);
 
 //Math Utils
 float	ft_module(float x, float y);
+int		ft_round(float n);
 
 //Check Map
 int		ft_check_map(char *map, t_design *design);
@@ -178,13 +184,14 @@ void	ft_color(t_design *design);
 
 //Print
 int		ft_print_map(t_design *design);
-void	ft_print_line(t_point a, t_point b, t_design *design);
+void	ft_print_line(t_point a, t_point b, t_design *design, int density);
 void	ft_print_axis(t_design *design);
 void	ft_print_background(t_design *design);
 
 //Print Utils
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z);
+void	ft_put_density(t_design *design, t_point c, int density);
 int		ft_get_gradient(int start, int end, float len, float pos);
 
 //Events
@@ -197,7 +204,8 @@ int		ft_mouse_move(int x, int y, t_design *design);
 //Events Utils
 void	ft_print_cord(int x, int y, t_design *design);
 void	ft_redraw(t_design *design);
-void	ft_change_view(int key_code, t_design *design);
-void	ft_change_angle(int key_code, t_design *design);
+int		ft_change_view(int key_code, t_design *design);
+int		ft_change_angle(int key_code, t_design *design);
+int		ft_change_density(int key_code, t_design *design);
 
 #endif
