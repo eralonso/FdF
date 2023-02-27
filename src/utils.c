@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 12:30:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:48:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ int	ft_valid_point(t_point p)
 	if (p.x < 0 || p.x >= WIN_WIDTH || p.y < 0 || p.y >= WIN_HEIGHT)
 		return (0);
 	return (1);
-}
-
-int	ft_round(float n)
-{
-	int	rounded;
-
-	rounded = n;
-	if (n - rounded >= 0.5)
-		rounded++;
-	return (rounded);
 }
 
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)

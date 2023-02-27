@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 12:46:39 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:10:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void	ft_print_cord(int x, int y, t_design *design)
 	ft_free(&cord_y, 2);
 }
 
-void	ft_redraw(t_design *design)
+void	ft_restore_vars(t_design *design)
 {
-	mlx_destroy_image(design->mlx, design->pixmap.img);
-	design->pixmap.img = mlx_new_image(design->mlx, \
-	WIN_WIDTH, WIN_HEIGHT);
-	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
-	&design->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
-	ft_print_map(design);
+		design->zoom.z = 1;
+		design->zoom.x = 0;
+		design->zoom.y = 0;
+		design->shift.x = 0;
+		design->shift.y = 0;
 }
 
 int	ft_change_view(int key_code, t_design *design)
@@ -58,11 +57,7 @@ int	ft_change_view(int key_code, t_design *design)
 		key_code == KEY_T || key_code == KEY_X || key_code == KEY_Y || \
 		key_code == KEY_Z)
 	{
-		design->zoom.z = 1;
-		design->zoom.x = 0;
-		design->zoom.y = 0;
-		design->shift.x = 0;
-		design->shift.y = 0;
+		ft_restore_vars(design);
 		ft_print_map(design);
 		return (1);
 	}

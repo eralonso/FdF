@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/24 11:17:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:05:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_check_map(char *file, t_design *design)
 {
 	int	fd;
 
-	//ft_init_design(design);
 	if (ft_strrncmp(file, ".fdf\0", 4))
 		exit(ft_error("FdF: Extension incorrect", NULL, 1));
 	fd = open(file, O_RDONLY);
@@ -29,7 +28,6 @@ int	ft_check_map(char *file, t_design *design)
 	ft_printf(1, "Reading map...\n");
 	if (!ft_read_all(&fd, design))
 		exit (ft_error(ERR_MAP, NULL, 1));
-	ft_printf(1, "\n");
 	if (ft_close(&fd) == -1)
 		exit (ft_error(ERR_MAP, "close", 1));
 	ft_printf(1, "Checking map...\n");
@@ -37,7 +35,6 @@ int	ft_check_map(char *file, t_design *design)
 		return (0);
 	if (!ft_load_map(design))
 		return (0);
-	ft_printf(1, "\n");
 	return (1);
 }
 
@@ -64,6 +61,7 @@ int	ft_read_all(int *fd, t_design *design)
 	}
 	if (bytes == -1)
 		return (ft_error("FdF: Read error", ft_free(&tmp, 2), 1));
+	ft_printf(1, "\n");
 	return (1);
 }
 

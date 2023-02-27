@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 13:39:39 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:13:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_print_axis(t_design *design)
 {
 	t_point	axis[4];
 	int		i;
-	int		multi;
 
 	i = -1;
 	while (++i < 4)
@@ -31,16 +30,8 @@ void	ft_print_axis(t_design *design)
 	ft_rotate_z(axis, design->angle[2], 4);
 	ft_rotate_x(axis, design->angle[0], 4);
 	ft_rotate_y(axis, design->angle[1], 4);
-	multi = 40;
-	ft_scale(axis, multi, multi, 4);
-	axis[0].x += (1920 - (250 / 2));
-	axis[0].y += ((150 / 2));
-	axis[1].x += (1920 - (250 / 2));
-	axis[1].y += ((150 / 2));
-	axis[2].x += (1920 - (250 / 2));
-	axis[2].y += ((150 / 2));
-	axis[3].x += (1920 - (250 / 2));
-	axis[3].y += ((150 / 2));
+	ft_scale(axis, 40, 40, 4);
+	ft_traslate(axis, WIN_WIDTH - 125, 75, 4);
 	axis[0].color = WHITE;
 	axis[1].color = RED;
 	axis[2].color = BLUE;
@@ -92,7 +83,6 @@ void	ft_put_map(t_point *points, t_design *design)
 
 int	ft_print_map(t_design *design)
 {
-
 	design->copy = ft_copy_map(design->points, design->size);
 	ft_config_points(design->copy, design);
 	ft_print_background(design);
@@ -136,39 +126,6 @@ void	ft_print_line(t_point a, t_point b, t_design *design, int density)
 		{
 			c.color = ft_get_gradient(a.color, b.color, hip, hip - len);
 			ft_put_density(design, c, density);
-			/*ft_pixel_put(&design->pixmap, c.x, c.y, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x, c.y - 1, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x, c.y + 1, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x - 1, c.y + 1, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x - 1, c.y, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x - 1, c.y + 1, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x - 1, c.y - 1, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x + 1, c.y, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));
-			ft_pixel_put(&design->pixmap, c.x + 1, c.y + 1, ft_get_gradient\
-			(a.color, b.color, hip, hip - len));*/
-			/*if (c.x - ((int)c.x) != 0)
-			{
-				ft_pixel_put(&design->pixmap, c.x + 1, c.y, ft_get_gradient\
-				(a.color, b.color, hip, hip - len));
-			}
-			if (c.y - ((int)c.y) != 0)
-			{
-				ft_pixel_put(&design->pixmap, c.x, c.y + 1, ft_get_gradient\
-				(a.color, b.color, hip, hip - len));
-			}
-			if (c.x - ((int)c.x) != 0 && c.y - ((int)c.y) != 0)
-			{
-				ft_pixel_put(&design->pixmap, c.x + 1, c.y + 1, ft_get_gradient\
-				(a.color, b.color, hip, hip - len));
-			}*/
 		}
 		c.x += (b.x - a.x) / hip;
 		c.y += (b.y - a.y) / hip;
