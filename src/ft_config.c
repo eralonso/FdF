@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 19:12:09 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:02:21 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,43 +66,7 @@ void	ft_rotate_z(t_point *points, float angle, int size)
 	}
 }
 
-void	ft_zoom_in(t_point *points, t_design *design, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-	{
-		if (design->zoom.x < 0)
-			points[i].x += -(design->zoom.x / (design->scale));
-		if (design->zoom.x > 0)
-			points[i].x -= (design->zoom.x / (design->scale));
-		if (design->zoom.y < 0)
-			points[i].y += -(design->zoom.y / (design->scale));
-		if (design->zoom.y > 0)
-			points[i].y -= (design->zoom.y / (design->scale));
-	}
-}
-
-void	ft_zoom_out(t_point *points, t_design *design, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-	{
-		if (design->zoom.x < 0)
-			points[i].x -= -(design->zoom.x / (design->zoom.z));
-		if (design->zoom.x > 0)
-			points[i].x += (design->zoom.x / (design->zoom.z));
-		if (design->zoom.y < 0)
-			points[i].y -= -(design->zoom.y / (design->zoom.z));
-		if (design->zoom.y > 0)
-			points[i].y += (design->zoom.y / (design->zoom.z));
-	}
-}
-
-void	ft_set_transparency(t_point *points, t_design *design)
+void	ft_set_opacity(t_point *points, t_design *design)
 {
 	int	i;
 
@@ -138,24 +102,7 @@ void	ft_sel_point(t_point *copy, t_design *design)
 			copy[i].select = design->sel_line.z;
 		}
 	}
-	ft_set_transparency(copy, design);
-}
-
-void	ft_proportion_z(t_point *copy, t_design *design)
-{
-	float	mod;
-	int		i;
-	t_lli	dif_z;
-
-	mod = ft_module(design->width, design->height);
-	dif_z = design->max_z - design->min_z;
-	dif_z = llabs(dif_z);
-	if (dif_z >> 1 > design->width)
-	{
-		i = -1;
-		while (++i < design->size)
-			copy[i].z /= (dif_z >> 4);
-	}
+	ft_set_opacity(copy, design);
 }
 
 void	ft_scale(t_point *points, float x, float y, int size)
@@ -182,6 +129,23 @@ void	ft_traslate(t_point *points, float x, float y, int size)
 	}
 }
 
+void	ft_proportion_z(t_point *copy, t_design *design)
+{
+	float	mod;
+	int		i;
+	t_lli	dif_z;
+
+	mod = ft_module(design->width, design->height);
+	dif_z = design->max_z - design->min_z;
+	dif_z = llabs(dif_z);
+	if (dif_z >> 1 > design->width)
+	{
+		i = -1;
+		while (++i < design->size)
+			copy[i].z /= (dif_z >> 4);
+	}
+}
+
 void	ft_config_points(t_point *copy, t_design *design)
 {
 	ft_proportion_z(copy, design);
@@ -190,12 +154,8 @@ void	ft_config_points(t_point *copy, t_design *design)
 	ft_rotate_y(copy, design->angle[1], design->size);
 	ft_scale(copy, design->scale * design->zoom.z, \
 		design->scale * design->zoom.z, design->size);
-	ft_traslate(copy, (WIN_WIDTH / 2) + design->shift.x, \
-		(WIN_HEIGHT / 2) + design->shift.y, design->size);
-	if (design->zoom.color == 1)
-		ft_zoom_in(copy, design, design->size);
-	else if (design->zoom.color == 2)
-		ft_zoom_out(copy, design, design->size);
+	ft_traslate(copy, (design->new_center[0] + design->shift.x), \
+		(design->new_center[1] + design->shift.x), design->size);
 	if (design->sel_line.z)
 		ft_sel_point(copy, design);
 }

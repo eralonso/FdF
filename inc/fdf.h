@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 12:41:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:03:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,13 @@
 # define KEY_Y (int)16
 # define KEY_W (int)13
 # define KEY_T (int)17
+# define KEY_SUM (int)30
 # define KEY_I (int)34
 # define KEY_P (int)35
+# define KEY_RES (int)44
 # define KEY_ESC (int)53
+# define KEY_SUM2 (int)69
+# define KEY_RES2 (int)78
 # define KEY_CMD (int)259
 # define KEY_ARROW_LEFT (int)123
 # define KEY_ARROW_RIGHT (int)124
@@ -84,9 +88,6 @@
 //WINDOW
 # define WIN_WIDTH (int)1920
 # define WIN_HEIGHT (int)1080
-
-//VIEWS
-# define ISOMETRIC (int)30
 
 typedef struct s_design	t_design;
 typedef struct s_point	t_point;
@@ -123,18 +124,20 @@ struct s_design {
 	int			max_z;
 	int			min_z;
 	int			size;
-	float		scale;
-	float		angle[3];
 	int			density;
+	float		angle[3];
+	char		k_cmd;
 	t_point		button_l;
 	t_point		button_r;
+	float		new_center[2];
+	float		scale;
 	t_point		sel_line;
-	char		k_cmd;
 	t_point		zoom;
 	t_point		shift;
 	t_color		color;
 	t_point		*points;
 	t_point		*copy;
+	t_point		*current;
 	t_pixmap	pixmap;
 	char		*map;
 	void		*mlx;

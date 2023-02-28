@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:37:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 19:29:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:03:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ int	ft_key_release(int key_code, t_design *design)
 
 void	ft_scroll_zoom(int button, int x, int y, t_design *design)
 {
+	design->zoom.x = x - design->new_center[0];
+	design->zoom.y = y - design->new_center[1];
 	if (button == SCROLL_UP)
 	{
-		design->zoom.z *= (1 + (0.2 * (design->zoom.z < \
+		design->zoom.z *= (1 + (0.1 * (design->zoom.z < \
 		(design->height * 10))));
-		design->zoom.color = 1;
+		design->new_center[0] -= ((design->zoom.x * 1.1) - (design->zoom.x));
+		design->new_center[1] -= ((design->zoom.y * 1.1) - (design->zoom.y));
 	}
 	else if (button == SCROLL_DOWN)
 	{
-		design->zoom.z /= (1 + (0.2 * (design->zoom.z > 0.000)));
-		design->zoom.color = 2;
+		design->zoom.z /= (1 + (0.1 * (design->zoom.z > 0.000)));
+		design->new_center[0] -= ((design->zoom.x / 1.1) - design->zoom.x);
+		design->new_center[1] -= ((design->zoom.y / 1.1) - design->zoom.y);
 	}
-	design->zoom.x = x - (WIN_WIDTH / 2);
-	design->zoom.y = y - (WIN_HEIGHT / 2);
-	printf("SCROLL: design->zoom.x == %f && design->zoom.y == %f\n", \
-	design->zoom.x, design->zoom.y);
 	ft_print_map(design);
 }
 

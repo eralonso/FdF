@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 19:10:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:03:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_restore_vars(t_design *design)
 		design->zoom.y = 0;
 		design->shift.x = 0;
 		design->shift.y = 0;
+		design->new_center[0] = WIN_WIDTH / 2;
+		design->new_center[1] = WIN_HEIGHT / 2;
 }
 
 int	ft_change_view(int key_code, t_design *design)
