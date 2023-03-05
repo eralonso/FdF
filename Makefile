@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/02/27 18:49:21 by eralonso         ###   ########.fr        #
+#    Updated: 2023/03/05 10:01:52 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,9 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	fdf utils check_map load_map print_map ft_events \
-				ft_config views event_utils print_utils math_utils
+FILES		=	fdf utils check_map load_map print_map ft_key_events \
+				ft_move_events ft_button_events ft_config views \
+				event_utils print_utils math_utils config_utils
 
 B_FILES		=
 
@@ -76,12 +77,12 @@ CFLAGS		=	-Wall -Wextra -Werror -O3
 #<--------------------------------->RULES<----------------------------------->#
 $(OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
-	@printf "$(PINK)    \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)    \r"
+	@printf "$(PINK)       \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)       \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
 
 $(B_OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
-	@printf "$(PINK)    \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)    \r"
+	@printf "$(PINK)       \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)       \r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(B_INCLUDE) -c $< -o $@
 
 all				:

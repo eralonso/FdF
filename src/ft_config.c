@@ -6,65 +6,11 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/28 19:02:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:15:46 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
-
-void	ft_rotate_x(t_point *points, float angle, int size)
-{
-	float	y;
-	float	z;
-	float	rad;
-	int		i;
-
-	rad = (angle * M_PI) / 180;
-	i = -1;
-	while (++i < size)
-	{
-		y = points[i].y;
-		z = points[i].z;
-		points[i].y = (y * cos(rad)) + (z * (-sin(rad)));
-		points[i].z = (y * sin(rad)) + (z * cos(rad));
-	}
-}
-
-void	ft_rotate_y(t_point *points, float angle, int size)
-{
-	float	x;
-	float	z;
-	float	rad;
-	int		i;
-
-	rad = (angle * M_PI) / 180;
-	i = -1;
-	while (++i < size)
-	{
-		x = points[i].x;
-		z = points[i].z;
-		points[i].x = (x * cos(rad)) + (z * sin(rad));
-		points[i].z = (x * (-sin(rad))) + (z * cos(rad));
-	}
-}
-
-void	ft_rotate_z(t_point *points, float angle, int size)
-{
-	float	x;
-	float	y;
-	float	rad;
-	int		i;
-
-	rad = (angle * M_PI) / 180;
-	i = -1;
-	while (++i < size)
-	{
-		x = points[i].x;
-		y = points[i].y;
-		points[i].x = (x * cos(rad)) + (y * (-sin(rad)));
-		points[i].y = (x * sin(rad)) + (y * cos(rad));
-	}
-}
 
 void	ft_set_opacity(t_point *points, t_design *design)
 {
@@ -73,7 +19,7 @@ void	ft_set_opacity(t_point *points, t_design *design)
 	i = -1;
 	while (++i < design->size)
 	{
-		if (points[i].select != design->sel_line.z)
+		if (points[i].select != design->event.sel_line.z)
 		{
 			points[i].color = (((points[i].color & 0xFF) >> 2)) + \
 			((((points[i].color >> 8) & 0xFF) >> 2) << 8) + \
@@ -93,40 +39,16 @@ void	ft_sel_point(t_point *copy, t_design *design)
 	max_dif = FLT_MAX;
 	while (++i < design->size)
 	{
-		dif_x = design->sel_line.x - copy[i].x;
-		dif_y = design->sel_line.y - copy[i].y;
+		dif_x = design->event.sel_line.x - copy[i].x;
+		dif_y = design->event.sel_line.y - copy[i].y;
 		if (ft_module(dif_x, dif_y) < max_dif)
 		{
 			max_dif = ft_module(dif_x, dif_y);
-			design->sel_line.z++;
-			copy[i].select = design->sel_line.z;
+			design->event.sel_line.z++;
+			copy[i].select = design->event.sel_line.z;
 		}
 	}
 	ft_set_opacity(copy, design);
-}
-
-void	ft_scale(t_point *points, float x, float y, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-	{
-		points[i].x *= x;
-		points[i].y *= y;
-	}
-}
-
-void	ft_traslate(t_point *points, float x, float y, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-	{
-		points[i].x += x;
-		points[i].y += y;
-	}
 }
 
 void	ft_proportion_z(t_point *copy, t_design *design)
@@ -152,10 +74,10 @@ void	ft_config_points(t_point *copy, t_design *design)
 	ft_rotate_z(copy, design->angle[2], design->size);
 	ft_rotate_x(copy, design->angle[0], design->size);
 	ft_rotate_y(copy, design->angle[1], design->size);
-	ft_scale(copy, design->scale * design->zoom.z, \
-		design->scale * design->zoom.z, design->size);
-	ft_traslate(copy, (design->new_center[0] + design->shift.x), \
-		(design->new_center[1] + design->shift.x), design->size);
-	if (design->sel_line.z)
+	ft_scale(copy, design->event.scale * design->event.zoom.z, \
+		design->event.scale * design->event.zoom.z, design->size);
+	ft_traslate(copy, (design->new_center[0]), \
+		(design->new_center[1]), design->size);
+	if (design->event.sel_line.z)
 		ft_sel_point(copy, design);
 }

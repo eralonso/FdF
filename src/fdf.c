@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/28 19:02:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:46:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,22 @@ static void	ft_init_design(t_design *design)
 	design->color.std = ORANGE;
 	design->color.btm = N_GREEN;
 	design->color.bckg = D_GRAY;
-	design->zoom.z = 1;
-	design->zoom.x = 0;
-	design->zoom.y = 0;
-	design->shift.x = 0;
-	design->shift.y = 0;
-	design->button_l.z = 0;
-	design->button_r.z = 0;
-	design->k_cmd = 0;
-	design->sel_line.z = 0;
+	design->event.zoom.z = 1;
+	design->event.zoom.x = 0;
+	design->event.zoom.y = 0;
+	design->event.shift.x = 0;
+	design->event.shift.y = 0;
+	design->event.button_l.z = 0;
+	design->event.button_r.z = 0;
+	design->event.k_cmd = 0;
+	design->event.sel_line.z = 0;
 	design->density = 1;
 	design->new_center[0] = WIN_WIDTH / 2;
 	design->new_center[1] = WIN_HEIGHT / 2;
+	design->copy = NULL;
+	design->current = NULL;
+	design->dots = 0;
+	design->lines = 1;
 }
 
 static void	ft_init_mlx(t_design *design)

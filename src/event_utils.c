@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/28 19:03:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:46:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,19 @@ void	ft_print_cord(int x, int y, t_design *design)
 
 void	ft_restore_vars(t_design *design)
 {
-		design->zoom.z = 1;
-		design->zoom.x = 0;
-		design->zoom.y = 0;
-		design->shift.x = 0;
-		design->shift.y = 0;
-		design->new_center[0] = WIN_WIDTH / 2;
-		design->new_center[1] = WIN_HEIGHT / 2;
+	design->event.zoom.z = 1;
+	design->event.zoom.x = 0;
+	design->event.zoom.y = 0;
+	design->event.shift.x = 0;
+	design->event.shift.y = 0;
+	design->new_center[0] = WIN_WIDTH / 2;
+	design->new_center[1] = WIN_HEIGHT / 2;
+	design->lines = 1;
+	design->dots = 0;
+	design->angle[0] = 0;
+	design->angle[1] = 0;
+	design->angle[2] = 0;
+	design->density = 1;
 }
 
 int	ft_change_view(int key_code, t_design *design)
@@ -59,7 +65,6 @@ int	ft_change_view(int key_code, t_design *design)
 		key_code == KEY_T || key_code == KEY_X || key_code == KEY_Y || \
 		key_code == KEY_Z)
 	{
-		ft_restore_vars(design);
 		ft_print_map(design);
 		return (1);
 	}
@@ -91,11 +96,11 @@ int	ft_change_angle(int key_code, t_design *design)
 
 int	ft_change_density(int key_code, t_design *design)
 {
-	if (key_code == KEY_S)
+	if (key_code == KEY_V)
 		design->density -= (design->density > 0);
-	else if (key_code == KEY_D)
+	else if (key_code == KEY_B)
 		design->density++;
-	if (key_code == KEY_S || key_code == KEY_D)
+	if (key_code == KEY_V || key_code == KEY_B)
 	{
 		ft_print_map(design);
 		return (1);

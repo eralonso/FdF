@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 18:48:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/05 10:39:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,12 @@ int	ft_valid_point(t_point p)
 	return (1);
 }
 
-void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)
-{
-	char	*pixel;
-	float	opacity;
-	int		rgb[4];
-
-	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
-		return ;
-	pixel = pixmap->addr + (y * pixmap->line_len + x * (pixmap->bpp / 8));
-	rgb[0] = color & 0xFF;
-	rgb[1] = (color >> 8) & 0xFF;
-	rgb[2] = (color >> 16) & 0xFF;
-	opacity = (float)(1 - ((float)((color >> 24) & 0xFF) / 0xFF));
-	pixel[0] = ft_round(opacity * rgb[0]);
-	pixel[1] = ft_round(opacity * rgb[1]);
-	pixel[2] = ft_round(opacity * rgb[2]);
-}
-
 int	ft_clean_design(t_design *design, int num)
 {
 	ft_free((char **)&(design->points), 2);
 	ft_free(&design->map, 2);
+	ft_free((char **)&(design->copy), 2);
+	ft_free((char **)&(design->current), 2);
 	return (num);
 }
 
@@ -68,4 +52,18 @@ int	ft_close_program(void *param)
 	ft_clean_design(design, 0);
 	exit(0);
 	return (1);
+}
+
+t_point	*ft_copy_map(t_point *points, int size)
+{
+	t_point	*copy;
+	int		i;
+
+	copy = ft_calloc(sizeof(t_point), size + 1);
+	if (!copy)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		copy[i] = points[i];
+	return (copy);
 }

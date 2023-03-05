@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/28 19:03:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:47:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,21 @@
 //KEY CODES
 # define KEY_S (int)1
 # define KEY_D (int)2
+# define KEY_G (int)5
 # define KEY_Z (int)6
 # define KEY_X (int)7
+# define KEY_C (int)8
+# define KEY_V (int)9
+# define KEY_B (int)11
 # define KEY_Q (int)12
 # define KEY_W (int)13
 # define KEY_R (int)15
 # define KEY_Y (int)16
-# define KEY_W (int)13
 # define KEY_T (int)17
 # define KEY_SUM (int)30
 # define KEY_I (int)34
 # define KEY_P (int)35
+# define KEY_L (int)37
 # define KEY_RES (int)44
 # define KEY_ESC (int)53
 # define KEY_SUM2 (int)69
@@ -93,6 +97,7 @@ typedef struct s_design	t_design;
 typedef struct s_point	t_point;
 typedef struct s_pixmap	t_pixmap;
 typedef struct s_color	t_color;
+typedef struct s_events	t_events;
 
 struct s_point {
 	float	x;
@@ -118,6 +123,16 @@ struct	s_color {
 	int		bckg;
 };
 
+struct	s_events {
+	int			k_cmd;
+	t_point		button_l;
+	t_point		button_r;
+	float		scale;
+	t_point		sel_line;
+	t_point		zoom;
+	t_point		shift;
+};
+
 struct s_design {
 	int			width;
 	int			height;
@@ -126,14 +141,10 @@ struct s_design {
 	int			size;
 	int			density;
 	float		angle[3];
-	char		k_cmd;
-	t_point		button_l;
-	t_point		button_r;
 	float		new_center[2];
-	float		scale;
-	t_point		sel_line;
-	t_point		zoom;
-	t_point		shift;
+	int			lines;
+	int			dots;
+	t_events	event;
 	t_color		color;
 	t_point		*points;
 	t_point		*copy;
@@ -196,6 +207,7 @@ void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z);
 void	ft_put_density(t_design *design, t_point c, int density);
 int		ft_get_gradient(int start, int end, float len, float pos);
+void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
 
 //Events
 int		ft_key_press(int key_code, t_design *design);
@@ -210,5 +222,6 @@ void	ft_redraw(t_design *design);
 int		ft_change_view(int key_code, t_design *design);
 int		ft_change_angle(int key_code, t_design *design);
 int		ft_change_density(int key_code, t_design *design);
+void	ft_restore_vars(t_design *design);
 
 #endif
