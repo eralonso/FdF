@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 17:16:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:23:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_print_map(t_design *design)
 	design->copy = ft_copy_map(design->points, design->size);
 	if (!design->copy)
 		return (ft_clean_design(design, 0));
+	ft_polarize(design, design->copy, design->size);
+	ft_convert_rect(design, design->copy, design->size);
 	ft_config_points(design->copy, design);
 	ft_print_background(design);
 	ft_print_axis(design);

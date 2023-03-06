@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 19:47:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:24:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ struct s_point {
 	float	x;
 	float	y;
 	float	z;
+	float	r;
+	float	fi;
+	float	fita;
 	int		color;
 	float	select;
 	char	hexa;
@@ -208,6 +211,10 @@ void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z);
 void	ft_put_density(t_design *design, t_point c, int density);
 int		ft_get_gradient(int start, int end, float len, float pos);
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
+
+//Polar
+void	ft_polarize(t_design *design, t_point *points, int size);
+void	ft_convert_rect(t_design *design, t_point *points, int size);
 
 //Events
 int		ft_key_press(int key_code, t_design *design);
