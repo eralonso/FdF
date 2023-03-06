@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:53:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 16:39:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:16:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_print_line(t_point a, t_point b, t_design *design, int density)
 	float	hip;
 	float	len;
 
-	if (!ft_valid_point(a) && !ft_valid_point(b))
+	if ((!ft_valid_point(a) && !ft_valid_point(b)) || a.z < 0 || b.z < 0)
 		return ;
 	hip = ft_module(b.x - a.x, b.y - a.y);
 	c.x = a.x;

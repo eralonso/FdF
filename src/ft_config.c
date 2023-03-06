@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 11:15:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:16:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_proportion_z(t_point *copy, t_design *design)
 void	ft_config_points(t_point *copy, t_design *design)
 {
 	ft_proportion_z(copy, design);
+	ft_convert_rect(design, design->copy, design->size);
 	ft_rotate_z(copy, design->angle[2], design->size);
 	ft_rotate_x(copy, design->angle[0], design->size);
 	ft_rotate_y(copy, design->angle[1], design->size);

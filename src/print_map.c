@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/06 13:23:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:16:04 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	ft_print_map(t_design *design)
 	design->copy = ft_copy_map(design->points, design->size);
 	if (!design->copy)
 		return (ft_clean_design(design, 0));
-	ft_polarize(design, design->copy, design->size);
-	ft_convert_rect(design, design->copy, design->size);
 	ft_config_points(design->copy, design);
 	ft_print_background(design);
 	ft_print_axis(design);
@@ -41,45 +39,16 @@ void	ft_put_map(t_point *points, t_design *design)
 	i = -1;
 	while (++i < design->size)
 	{
-		if (i + 1 < design->size && design->points[i].y == design->points[i + 1].y)
-			if (design->lines)
-				ft_print_line(points[i], points[i + 1], design, design->density);
-		if (i + design->width < design->size)
-			if (design->lines)
-				ft_print_line(points[i], points[i + \
-				design->width], design, design->density);
+		if (i + 1 < design->size && design->points[i].y == \
+		design->points[i + 1].y && design->lines)
+			ft_print_line(points[i], points[i + 1], design, design->density);
+		if (i + design->width < design->size && design->lines)
+			ft_print_line(points[i], points[i + \
+			design->width], design, design->density);
 		if (design->dots)
 			ft_put_density(design, points[i], ft_round(design->density * 1.5));
 	}
 }
-
-/*
-void	ft_put_map(t_point *points, t_design *design)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	i = -1;
-	k = 0;
-	while (++i < design->height)
-	{
-		j = -1;
-		while (++j < design->width)
-		{
-			if (j < design->width - 1 && k + 1 < design->size)
-				ft_print_line(points[k], points[k + 1], \
-				design, design->density);
-			if (k + design->width < design->size)
-				ft_print_line(points[k], points[k + \
-				design->width], design, design->density);
-			if (j < design->width - 1)
-				k++;
-		}
-		k++;
-	}
-}
-*/
 
 void	ft_print_axis(t_design *design)
 {
