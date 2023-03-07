@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 09:55:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:31:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,19 @@ void	ft_sel_point(t_point *copy, t_design *design)
 {
 	int		i;
 	float	max_dif;
-	float	dif_x;
-	float	dif_y;
+	t_point	dif;
+	float	mod;
 
 	i = -1;
 	max_dif = FLT_MAX;
 	while (++i < design->size)
 	{
-		dif_x = design->event.sel_line.x - copy[i].x;
-		dif_y = design->event.sel_line.y - copy[i].y;
-		if (ft_module(dif_x, dif_y) < max_dif)
+		dif.x = design->event.sel_line.x - copy[i].x;
+		dif.y = design->event.sel_line.y - copy[i].y;
+		mod = ft_module(dif.x, dif.y);
+		if (mod < max_dif)
 		{
-			max_dif = ft_module(dif_x, dif_y);
+			max_dif = mod;
 			design->event.sel_line.z++;
 			copy[i].select = design->event.sel_line.z;
 		}
@@ -56,15 +57,17 @@ void	ft_proportion_z(t_point *copy, t_design *design)
 	float	mod;
 	int		i;
 	t_lli	dif_z;
+	t_lli	dif;
 
 	mod = ft_module(design->width, design->height);
 	dif_z = design->max_z - design->min_z;
 	dif_z = llabs(dif_z);
-	if (dif_z >> 1 > design->width)
+	if (dif_z >> 1 > design->width >> 1)
 	{
 		i = -1;
+		dif = (dif_z >> design->z_div);
 		while (++i < design->size)
-			copy[i].z /= (dif_z >> 4);
+			copy[i].z /= dif;
 	}
 }
 

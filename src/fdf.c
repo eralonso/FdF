@@ -6,23 +6,13 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 11:57:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:32:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
 
-	//design->color.top = RED;
-	//design->color.std = WHITE;
-	//design->color.btm = BLUE;
-	//design->color.top = ORANGE;
-	//design->color.std = GRAY;
-	//design->color.btm = CYAN;
-	//design->color.top = ORANGE;
-	//design->color.std = GRAY;
-	//design->color.btm = CYAN;
-
-static void	ft_init_colors(t_design *design)
+static void	ft_init_palette(t_design *design)
 {
 	design->palette.def.top = N_ORANGE;
 	design->palette.def.std = ORANGE;
@@ -45,7 +35,7 @@ static void	ft_init_colors(t_design *design)
 static void	ft_init_design(t_design *design)
 {
 	ft_top(design);
-	ft_init_colors(design);
+	ft_init_palette(design);
 	design->color = design->palette.def;
 	design->event.zoom.z = 1;
 	design->event.zoom.x = 0;
@@ -65,6 +55,7 @@ static void	ft_init_design(t_design *design)
 	design->lines = 1;
 	design->event.sphere = 0;
 	design->event.shadow = 0;
+	design->z_div = 5;
 }
 
 static void	ft_init_mlx(t_design *design)

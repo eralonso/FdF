@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 10:50:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:19:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ void	ft_put_map(t_point *points, t_design *design)
 			design->width], design, design->density);
 		if (design->dots)
 			ft_put_density(design, points[i], ft_round(design->density * 1.5));
+	}
+	if (design->event.sphere)
+	{
+		i = -1;
+		while (++i < design->height)
+		{
+			ft_print_line(points[i * design->height], points[(i * \
+			design->height) + design->width - 1], design, design->density);
+		}
 	}
 }
 
