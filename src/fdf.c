@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 19:46:57 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:57:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,31 @@
 	//design->color.std = GRAY;
 	//design->color.btm = CYAN;
 
+static void	ft_init_colors(t_design *design)
+{
+	design->palette.def.top = N_ORANGE;
+	design->palette.def.std = ORANGE;
+	design->palette.def.btm = N_GREEN;
+	design->palette.def.bckg = D_GRAY;
+	design->palette.wb.top = WHITE;
+	design->palette.wb.std = WHITE;
+	design->palette.wb.btm = WHITE;
+	design->palette.wb.bckg = BLACK;
+	design->palette.bw.top = BLACK;
+	design->palette.bw.std = BLACK;
+	design->palette.bw.btm = BLACK;
+	design->palette.bw.bckg = WHITE;
+	design->palette.real.top = RED;
+	design->palette.real.std = GREEN;
+	design->palette.real.btm = BLUE;
+	design->palette.real.bckg = D_GRAY;
+}
+
 static void	ft_init_design(t_design *design)
 {
 	ft_top(design);
-	design->color.top = N_ORANGE;
-	design->color.std = ORANGE;
-	design->color.btm = N_GREEN;
-	design->color.bckg = D_GRAY;
+	ft_init_colors(design);
+	design->color = design->palette.def;
 	design->event.zoom.z = 1;
 	design->event.zoom.x = 0;
 	design->event.zoom.y = 0;
@@ -45,6 +63,8 @@ static void	ft_init_design(t_design *design)
 	design->current = NULL;
 	design->dots = 0;
 	design->lines = 1;
+	design->event.sphere = 0;
+	design->event.shadow = 0;
 }
 
 static void	ft_init_mlx(t_design *design)

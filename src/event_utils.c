@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 19:46:57 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 09:58:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_change_view(int key_code, t_design *design)
 		ft_top(design);
 	else if (key_code == KEY_R)
 		ft_reverse(design);
+	else if (key_code == KEY_G)
+		design->event.sphere = !design->event.sphere;
 	else if (key_code == KEY_X)
 		design->angle[0] += 180;
 	else if (key_code == KEY_Y)
@@ -63,7 +65,7 @@ int	ft_change_view(int key_code, t_design *design)
 		design->angle[2] += 180;
 	if (key_code == KEY_I || key_code == KEY_P || key_code == KEY_R || \
 		key_code == KEY_T || key_code == KEY_X || key_code == KEY_Y || \
-		key_code == KEY_Z)
+		key_code == KEY_Z || key_code == KEY_G)
 	{
 		ft_print_map(design);
 		return (1);

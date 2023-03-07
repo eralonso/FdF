@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:53:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/06 19:16:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:57:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	ft_put_density(t_design *design, t_point c, int density)
 	int	y;
 
 	y = -density;
+	if (!design->event.shadow && design->event.sphere && c.z < 0)
+		return ;
 	while (++y < density)
 	{
 		x = -density;
@@ -81,11 +83,10 @@ void	ft_print_line(t_point a, t_point b, t_design *design, int density)
 	float	hip;
 	float	len;
 
-	if ((!ft_valid_point(a) && !ft_valid_point(b)) || a.z < 0 || b.z < 0)
+	if (!ft_valid_point(a) && !ft_valid_point(b))
 		return ;
 	hip = ft_module(b.x - a.x, b.y - a.y);
-	c.x = a.x;
-	c.y = a.y;
+	c = a;
 	len = hip + 1;
 	while (--len > 0)
 	{

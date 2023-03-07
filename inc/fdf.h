@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/06 19:16:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:56:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 //COLORS
 # define WHITE		(int)0x00FFFFFF
+# define BLACK		(int)0x00000000
 # define RED		(int)0x00FF0000
 # define GREEN		(int)0x0000FF00
 # define BLUE		(int)0x000000FF
@@ -64,6 +65,10 @@
 # define KEY_R (int)15
 # define KEY_Y (int)16
 # define KEY_T (int)17
+# define KEY_1 (int)18
+# define KEY_2 (int)19
+# define KEY_3 (int)20
+# define KEY_4 (int)21
 # define KEY_SUM (int)30
 # define KEY_I (int)34
 # define KEY_P (int)35
@@ -93,11 +98,12 @@
 # define WIN_WIDTH (int)1920
 # define WIN_HEIGHT (int)1080
 
-typedef struct s_design	t_design;
-typedef struct s_point	t_point;
-typedef struct s_pixmap	t_pixmap;
-typedef struct s_color	t_color;
-typedef struct s_events	t_events;
+typedef struct s_design		t_design;
+typedef struct s_point		t_point;
+typedef struct s_pixmap		t_pixmap;
+typedef struct s_color		t_color;
+typedef struct s_events		t_events;
+typedef struct s_palette	t_palette;
 
 struct s_point {
 	float	x;
@@ -134,6 +140,15 @@ struct	s_events {
 	t_point		sel_line;
 	t_point		zoom;
 	t_point		shift;
+	int			sphere;
+	int			shadow;
+};
+
+struct	s_palette {
+	t_color		def;
+	t_color		wb;
+	t_color		bw;
+	t_color		real;
 };
 
 struct s_design {
@@ -149,6 +164,7 @@ struct s_design {
 	int			dots;
 	t_events	event;
 	t_color		color;
+	t_palette	palette;
 	t_point		*points;
 	t_point		*copy;
 	t_point		*current;
