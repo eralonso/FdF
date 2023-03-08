@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 17:31:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:30:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,41 @@ void	ft_sel_point(t_point *copy, t_design *design)
 	ft_set_opacity(copy, design);
 }
 
+static long long int	ft_llabs(long long int num)
+{
+	if (num < 0)
+		return (-num);
+	return (num);
+}
+
+void	ft_div_z(t_point *points, float div, int size)
+{
+	int		i;
+
+	i = -1;
+	while (++i < size)
+		points[i].z /= div;
+}
+
 void	ft_proportion_z(t_point *copy, t_design *design)
 {
 	float	mod;
-	int		i;
 	t_lli	dif_z;
 	t_lli	dif;
 
 	mod = ft_module(design->width, design->height);
 	dif_z = design->max_z - design->min_z;
-	dif_z = llabs(dif_z);
-	if (dif_z >> 1 > design->width >> 1)
+	dif_z = ft_llabs(dif_z);
+	if ((dif_z * design->event.scale) > WIN_HEIGHT / 2)
 	{
-		i = -1;
-		dif = (dif_z >> design->z_div);
-		while (++i < design->size)
-			copy[i].z /= dif;
+		dif = ft_round(((float)dif_z * design->event.scale) / \
+			((float)WIN_HEIGHT / 2));
+		ft_div_z(copy, design->z_div * dif, design->size);
 	}
 }
+	//if (dif_z >> 1 > design->width >> 1)
+		//dif = (dif_z >> design->z_div);
+			//copy[i].z /= dif;
 
 void	ft_config_points(t_point *copy, t_design *design)
 {

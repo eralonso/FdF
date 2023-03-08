@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:53:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 11:57:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:39:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)
 	rgb[1] = (color >> 8) & 0xFF;
 	rgb[2] = (color >> 16) & 0xFF;
 	opacity = (float)(1 - ((float)((color >> 24) & 0xFF) / 0xFF));
-	pixel[0] = ft_round(opacity * rgb[0]);
-	pixel[1] = ft_round(opacity * rgb[1]);
-	pixel[2] = ft_round(opacity * rgb[2]);
+	pixel[0] = opacity * rgb[0];
+	pixel[1] = opacity * rgb[1];
+	pixel[2] = opacity * rgb[2];
 	pixel[3] = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 17:32:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:18:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	ft_init_design(t_design *design)
 	design->lines = 1;
 	design->event.sphere = 0;
 	design->event.shadow = 0;
-	design->z_div = 5;
+	design->z_div = 20;
 }
 
 static void	ft_init_mlx(t_design *design)

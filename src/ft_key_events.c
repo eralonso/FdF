@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 09:56:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 11:59:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:56:22 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ void	ft_change_palette(int key_code, t_design *design)
 	}
 }
 
+void	ft_change_z_div(int key_code, t_design *design)
+{
+	if (key_code == KEY_SUM)
+		design->z_div *= 2;
+	else if (key_code == KEY_RES)
+		design->z_div /= 2;
+	if (design->z_div == 0)
+		design->z_div = 1;
+	if (key_code == KEY_SUM || key_code == KEY_RES)
+		ft_print_map(design);
+}
+
 int	ft_key_press(int key_code, t_design *design)
 {
 	if (key_code == KEY_ESC)
@@ -59,6 +71,7 @@ int	ft_key_press(int key_code, t_design *design)
 	ft_change_density(key_code, design);
 	ft_change_visibility(key_code, design);
 	ft_change_palette(key_code, design);
+	ft_change_z_div(key_code, design);
 	if (key_code == KEY_CMD || key_code == KEY_C)
 		ft_print_map(design);
 	return (0);

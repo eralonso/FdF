@@ -6,27 +6,43 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 17:19:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:19:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
+#include	<time.h>
 
 void	ft_put_map(t_point *points, t_design *design);
 
-int	ft_print_map(t_design *design)
+int	ft_first_map(t_design *design, int *first)
 {
 	design->copy = ft_copy_map(design->points, design->size);
 	if (!design->copy)
 		return (ft_clean_design(design, 0));
 	ft_config_points(design->copy, design);
+	(*first)++;
+	return (1);
+}
+
+int	ft_print_map(t_design *design)
+{
+	static int	first = 0;
+	clock_t	time;
+
+	time = clock();
+	if (!first)
+		if (!ft_first_map(design, &first))
+			return (0);
 	ft_print_background(design);
 	ft_print_axis(design);
 	ft_put_map(design->copy, design);
-	design->current = ft_copy_map(design->copy, design->size);
+	/*design->current = ft_copy_map(design->copy, design->size);
 	if (!design->current)
 		return (ft_clean_design(design, 0));
 	ft_free((char **)&design->copy, 2);
+	*/
+	printf("TIME == %i\n", ft_round((((double)clock() - time) / CLOCKS_PER_SEC) * 1000));
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
 	return (1);
@@ -46,9 +62,9 @@ void	ft_put_map(t_point *points, t_design *design)
 			ft_print_line(points[i], points[i + \
 			design->width], design, design->density);
 		if (design->dots)
-			ft_put_density(design, points[i], ft_round(design->density * 1.5));
+			ft_put_density(design, points[i], design->density * 2);
 	}
-	if (design->event.sphere)
+	if (design->event.sphere && design->lines)
 	{
 		i = -1;
 		while (++i < design->height)
@@ -93,6 +109,8 @@ void	ft_print_background(t_design *design)
 	int	y;
 	int	x;
 
+	if (!design->lines && !design->dots)
+		return ;
 	y = -1;
 	while (++y <= WIN_HEIGHT)
 	{

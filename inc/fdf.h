@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 11:56:59 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:56:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,12 @@
 # define KEY_2 (int)19
 # define KEY_3 (int)20
 # define KEY_4 (int)21
-# define KEY_SUM (int)30
 # define KEY_I (int)34
 # define KEY_P (int)35
 # define KEY_L (int)37
-# define KEY_RES (int)44
 # define KEY_ESC (int)53
-# define KEY_SUM2 (int)69
-# define KEY_RES2 (int)78
+# define KEY_SUM (int)69
+# define KEY_RES (int)78
 # define KEY_CMD (int)259
 # define KEY_ARROW_LEFT (int)123
 # define KEY_ARROW_RIGHT (int)124
@@ -162,6 +160,7 @@ struct s_design {
 	float		new_center[2];
 	int			lines;
 	int			dots;
+	float		z_div;
 	t_events	event;
 	t_color		color;
 	t_palette	palette;
