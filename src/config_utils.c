@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 16:13:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/08 13:34:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:15:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,55 @@
 
 void	ft_rotate_x(t_point *points, float angle, int size)
 {
-	t_point	p;
+	float	y;
+	float	z;
 	float	rad;
 	int		i;
-	double	sinus;
-	double	cosinus;
 
 	rad = (angle * M_PI) / 180;
-	sinus = sin(rad);
-	cosinus = cos(rad);
 	i = -1;
 	while (++i < size)
 	{
-		p = points[i];
-		points[i].y = (p.y * cosinus) + (p.z * (-sinus));
-		points[i].z = (p.y * sinus) + (p.z * cosinus);
+		y = points[i].y;
+		z = points[i].z;
+		points[i].y = (y * cos(rad)) + (z * (-sin(rad)));
+		points[i].z = (y * sin(rad)) + (z * cos(rad));
 	}
 }
 
 void	ft_rotate_y(t_point *points, float angle, int size)
 {
-	t_point	p;
+	float	x;
+	float	z;
 	float	rad;
 	int		i;
-	double	sinus;
-	double	cosinus;
 
 	rad = (angle * M_PI) / 180;
-	sinus = sin(rad);
-	cosinus = cos(rad);
 	i = -1;
 	while (++i < size)
 	{
-		p = points[i];
-		points[i].x = (p.x * cosinus) + (p.z * sinus);
-		points[i].z = (p.x * (-sinus)) + (p.z * cosinus);
+		x = points[i].x;
+		z = points[i].z;
+		points[i].x = (x * cos(rad)) + (z * sin(rad));
+		points[i].z = (x * (-sin(rad))) + (z * cos(rad));
 	}
 }
 
 void	ft_rotate_z(t_point *points, float angle, int size)
 {
-	t_point	p;
+	float	x;
+	float	y;
 	float	rad;
 	int		i;
-	double	sinus;
-	double	cosinus;
 
 	rad = (angle * M_PI) / 180;
-	sinus = sin(rad);
-	cosinus = cos(rad);
 	i = -1;
 	while (++i < size)
 	{
-		p = points[i];
-		points[i].x = (p.x * cosinus) + (p.y * (-sinus));
-		points[i].y = (p.x * sinus) + (p.y * cosinus);
+		x = points[i].x;
+		y = points[i].y;
+		points[i].x = (x * cos(rad)) + (y * (-sin(rad)));
+		points[i].y = (x * sin(rad)) + (y * cos(rad));
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 09:55:21 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/08 19:32:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/05 11:14:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,8 @@ void	ft_button_l_move(int x, int y, t_design *design)
 	}
 	if (design->event.button_l.z)
 	{
-		design->angle[1] = ((float)((int)design->event.button_l.x - x) / 5);
-		design->angle[0] = ((float)((int)design->event.button_l.y - y) / 5);
-		ft_rotate_z(design->copy, design->angle[2], design->size);
-		ft_rotate_x(design->copy, design->angle[0], design->size);
-		ft_rotate_y(design->copy, design->angle[1], design->size);
-		//design->angle[1] -= ((float)((int)design->event.button_l.x - x) / 5);
-		//design->angle[0] += ((float)((int)design->event.button_l.y - y) / 5);
+		design->angle[1] -= ((float)((int)design->event.button_l.x - x) / 5);
+		design->angle[0] += ((float)((int)design->event.button_l.y - y) / 5);
 		design->event.button_l.x = x;
 		design->event.button_l.y = y;
 	}

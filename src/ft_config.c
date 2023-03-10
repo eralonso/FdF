@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/08 19:30:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:34:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,23 @@ void	ft_sel_point(t_point *copy, t_design *design)
 {
 	int		i;
 	float	max_dif;
-	t_point	dif;
-	float	mod;
+	float	dif_x;
+	float	dif_y;
 
 	i = -1;
 	max_dif = FLT_MAX;
 	while (++i < design->size)
 	{
-		dif.x = design->event.sel_line.x - copy[i].x;
-		dif.y = design->event.sel_line.y - copy[i].y;
-		mod = ft_module(dif.x, dif.y);
-		if (mod < max_dif)
+		dif_x = design->event.sel_line.x - copy[i].x;
+		dif_y = design->event.sel_line.y - copy[i].y;
+		if (ft_module(dif_x, dif_y) < max_dif)
 		{
-			max_dif = mod;
+			max_dif = ft_module(dif_x, dif_y);
 			design->event.sel_line.z++;
 			copy[i].select = design->event.sel_line.z;
 		}
 	}
 	ft_set_opacity(copy, design);
-}
-
-static long long int	ft_llabs(long long int num)
-{
-	if (num < 0)
-		return (-num);
-	return (num);
 }
 
 void	ft_div_z(t_point *points, float div, int size)
@@ -70,23 +62,20 @@ void	ft_div_z(t_point *points, float div, int size)
 
 void	ft_proportion_z(t_point *copy, t_design *design)
 {
-	float	mod;
-	t_lli	dif_z;
-	t_lli	dif;
+	static int	i = 0;
+	float		mod;
+	t_lli		dif_z;
 
 	mod = ft_module(design->width, design->height);
 	dif_z = design->max_z - design->min_z;
-	dif_z = ft_llabs(dif_z);
-	if ((dif_z * design->event.scale) > WIN_HEIGHT / 2)
+	dif_z = llabs(dif_z);
+	if (!i && dif_z >> 1 <= design->width)
 	{
-		dif = ft_round(((float)dif_z * design->event.scale) / \
-			((float)WIN_HEIGHT / 2));
-		ft_div_z(copy, design->z_div * dif, design->size);
+		design->z_div = 1;
+		i++;
 	}
+	ft_div_z(copy, design->z_div, design->size);
 }
-	//if (dif_z >> 1 > design->width >> 1)
-		//dif = (dif_z >> design->z_div);
-			//copy[i].z /= dif;
 
 void	ft_config_points(t_point *copy, t_design *design)
 {

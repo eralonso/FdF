@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/08 12:56:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:34:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define N_GRAY		(int)0x00F1F0E6
 # define N_ORANGE	(int)0x00FF0A35
 # define N_GREEN	(int)0x003CE5FB
+# define BROWN		(int)0x00562B05
 
 //EVENT CODES
 # define E_KEY_P (int)2
@@ -187,6 +188,7 @@ void	ft_rotate_y(t_point *points, float angle, int size);
 void	ft_rotate_z(t_point *points, float angle, int size);
 void	ft_scale(t_point *points, float x, float y, int size);
 void	ft_traslate(t_point *points, float x, float y, int size);
+void	ft_div_z(t_point *points, float div, int size);
 
 //View
 void	ft_isometric(t_design *design);
