@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/06 19:16:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/12 19:10:22 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_load_map(t_design *design)
 	mod = ft_module(design->width, design->height);
 	design->event.scale = (WIN_HEIGHT) / mod;
 	ft_polarize(design, design->points, design->size);
+	design->inc_x = 1;
+	design->inc_y = design->width;
 	ft_printf(1, "\n");
 	printf("scale == %f\n", design->event.scale);
 	return (1);

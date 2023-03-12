@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/10 19:34:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:09:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ struct s_pixmap {
 	void	*img;
 	char	*addr;
 	int		bpp;
+	int		bytes_pp;
 	int		line_len;
 	int		endian;
 };
@@ -157,6 +158,8 @@ struct s_design {
 	int			min_z;
 	int			size;
 	int			density;
+	int			inc_x;
+	int			inc_y;
 	float		angle[3];
 	float		new_center[2];
 	int			lines;

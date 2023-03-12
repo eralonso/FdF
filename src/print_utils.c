@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:53:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 11:57:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:57:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_get_gradient(int start, int end, float len, float pos)
 {
 	float	dif[4];
 	int		new[4];
+	float	opacity;
 
 	dif[0] = ((end >> 24) - (start >> 24)) / len;
 	dif[1] = (((end >> 16) & 0xFF) - ((start >> 16) & 0xFF)) / len;
@@ -25,7 +26,9 @@ int	ft_get_gradient(int start, int end, float len, float pos)
 	new[1] = ((start >> 16) & 0xFF) + (pos * dif[1]);
 	new[2] = ((start >> 8) & 0xFF) + (pos * dif[2]);
 	new[3] = (start & 0xFF) + (pos * dif[3]);
-	return ((new[0] << 24) | (new[1] << 16) | (new[2] << 8) | new[3]);
+	opacity = 1 - (new[0] / 0xFF);
+	return ((int)((new[1] << 16) * opacity) | (int)((new[2] << 8) * opacity) \
+		| (int)(new[3] * opacity));
 }
 
 void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z)
@@ -45,21 +48,25 @@ void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z)
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)
 {
 	char	*pixel;
-	float	opacity;
 	int		rgb[4];
 
 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
 		return ;
-	pixel = pixmap->addr + (y * pixmap->line_len + x * (pixmap->bpp / 8));
+	pixel = &pixmap->addr[(y * pixmap->line_len) + (x * pixmap->bytes_pp)];
 	rgb[0] = color & 0xFF;
 	rgb[1] = (color >> 8) & 0xFF;
 	rgb[2] = (color >> 16) & 0xFF;
-	opacity = (float)(1 - ((float)((color >> 24) & 0xFF) / 0xFF));
-	pixel[0] = ft_round(opacity * rgb[0]);
-	pixel[1] = ft_round(opacity * rgb[1]);
-	pixel[2] = ft_round(opacity * rgb[2]);
+	pixel[0] = rgb[0];
+	pixel[1] = rgb[1];
+	pixel[2] = rgb[2];
 	pixel[3] = 0;
 }
+
+	//float	opacity;
+	//opacity = (float)(1 - ((float)((color >> 24) & 0xFF) / 0xFF));
+	//opacity * rgb[0];
+	//opacity * rgb[1];
+	//opacity * rgb[2];
 
 void	ft_put_density(t_design *design, t_point c, int density)
 {

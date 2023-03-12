@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/10 19:34:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/12 19:16:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,24 @@ void	ft_proportion_z(t_point *copy, t_design *design)
 	ft_div_z(copy, design->z_div, design->size);
 }
 
+void	ft_calculate_incs(t_design *design)
+{
+	int	density;
+
+	density = 8 / design->event.scale;
+	density /= 2;
+	if (density == 0)
+		density = 1;
+	design->inc_x = density;
+	design->inc_y = design->width * density;
+	printf("design->inc_x == %i && design->inc_y == %i\n", \
+			design->inc_x, design->inc_y);
+}
+
 void	ft_config_points(t_point *copy, t_design *design)
 {
+	static int	i = 0;
+
 	ft_proportion_z(copy, design);
 	if (design->event.sphere)
 		ft_convert_rect(design, design->copy, design->size);
@@ -91,4 +107,6 @@ void	ft_config_points(t_point *copy, t_design *design)
 		(design->new_center[1]), design->size);
 	if (design->event.sel_line.z)
 		ft_sel_point(copy, design);
+	if (!i++)
+		ft_calculate_incs(design);
 }

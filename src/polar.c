@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:10:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/07 10:49:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:58:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_convert_rect(t_design *design, t_point *points, int size)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	(void) design;
@@ -30,12 +30,14 @@ void	ft_convert_rect(t_design *design, t_point *points, int size)
 
 void	ft_polarize(t_design *design, t_point *points, int size)
 {
-	int	i;
+	int		i;
+	float	rad;
 
 	i = -1;
+	rad = design->width / (M_PI * 2);
 	while (++i < size)
 	{
-		points[i].r = design->width / 2;
+		points[i].r = rad;
 		points[i].fi = (-points[i].x * 2 * M_PI) / ((float)(design->width - 1));
 		points[i].fita = ((points[i].y + (design->height / 2)) * M_PI) / \
 		((float)(design->height - 1));

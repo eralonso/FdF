@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/10 19:38:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:26:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static void	ft_init_mlx(t_design *design)
 	design->pixmap.img = mlx_new_image(design->mlx, WIN_WIDTH, WIN_HEIGHT);
 	design->pixmap.addr = mlx_get_data_addr(design->pixmap.img, \
 	&design->pixmap.bpp, &design->pixmap.line_len, &design->pixmap.endian);
+	design->pixmap.bytes_pp = design->pixmap.bpp / 8;
 }
 
 int	main(int ac, char **av)
