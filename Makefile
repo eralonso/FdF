@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
+#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/03/12 16:59:40 by eralonso         ###   ########.fr        #
+#    Updated: 2023/04/07 12:42:42 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,10 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	fdf utils check_map load_map print_map ft_key_events \
-				ft_move_events ft_button_events ft_config views \
-				event_utils print_utils math_utils config_utils \
-				polar
+FILES		=	fdf utils check_map load_map print_map key_events \
+				move_events button_events config views \
+				key_utils print_utils print_utils2 math_utils config_utils \
+				polar print_menu
 
 B_FILES		=
 
@@ -73,7 +73,7 @@ FRMWK		=	-framework OpenGL -framework Appkit
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
-CFLAGS		=	-Wall -Wextra -Werror -O3
+CFLAGS		=	-Wall -Wextra -Werror -O3# -fsanitize=address
 
 #<--------------------------------->RULES<----------------------------------->#
 $(OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)

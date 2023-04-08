@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/12 13:26:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:41:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,56 @@
 
 static void	ft_init_colors(t_design *design)
 {
-	design->palette.def.top = N_ORANGE;
+	design->palette.def.top = RED;
 	design->palette.def.std = ORANGE;
-	design->palette.def.btm = N_GREEN;
+	design->palette.def.btm = LIGHT_BLUE;
 	design->palette.def.bckg = D_GRAY;
-	design->palette.wb.top = WHITE;
-	design->palette.wb.std = WHITE;
-	design->palette.wb.btm = WHITE;
-	design->palette.wb.bckg = BLACK;
-	design->palette.bw.top = BLACK;
-	design->palette.bw.std = BLACK;
-	design->palette.bw.btm = BLACK;
-	design->palette.bw.bckg = WHITE;
+	design->palette.def.menu = GRAY;
 	design->palette.real.top = RED;
 	design->palette.real.std = GREEN;
 	design->palette.real.btm = BLUE;
 	design->palette.real.bckg = D_GRAY;
+	design->palette.real.menu = GRAY;
+	design->palette.wb.top = WHITE;
+	design->palette.wb.std = WHITE;
+	design->palette.wb.btm = WHITE;
+	design->palette.wb.bckg = BLACK;
+	design->palette.wb.menu = GRAY;
+	design->palette.bw.top = BLACK;
+	design->palette.bw.std = BLACK;
+	design->palette.bw.btm = BLACK;
+	design->palette.bw.bckg = WHITE;
+	design->palette.bw.menu = GRAY;
+	design->palette.neon.top = FUSCHIA;
+	design->palette.neon.std = VOID;
+	design->palette.neon.btm = JEWEL;
+	design->palette.neon.bckg = D_GRAY;
+	design->palette.neon.menu = GRAY;
 }
 
 static void	ft_init_design(t_design *design)
 {
-	ft_top(design);
+	ft_isometric(design);
 	ft_init_colors(design);
 	design->color = design->palette.def;
+	design->copy = NULL;
+	design->prop.density = 1;
+	design->prop.new_center[0] = WIN_WIDTH / 2;
+	design->prop.new_center[1] = WIN_HEIGHT / 2;
+	design->prop.dots = 0;
+	design->prop.lines = 1;
 	design->event.zoom.z = 1;
 	design->event.zoom.x = 0;
 	design->event.zoom.y = 0;
 	design->event.shift.x = 0;
 	design->event.shift.y = 0;
-	design->event.button_l.z = 0;
-	design->event.button_r.z = 0;
+	design->event.btn_l.z = 0;
+	design->event.btn_r.z = 0;
 	design->event.k_cmd = 0;
 	design->event.sel_line.z = 0;
-	design->density = 1;
-	design->new_center[0] = WIN_WIDTH / 2;
-	design->new_center[1] = WIN_HEIGHT / 2;
-	design->copy = NULL;
-	design->current = NULL;
-	design->dots = 0;
-	design->lines = 1;
-	design->z_div = 32;
 	design->event.sphere = 0;
 	design->event.shadow = 0;
+	design->render = 0;
 }
 
 static void	ft_init_mlx(t_design *design)

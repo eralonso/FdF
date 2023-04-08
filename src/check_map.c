@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/27 19:05:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/05 10:22:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	ft_check_valid_map(int x, int y, t_design *design)
 		ft_free(line, 1);
 	}
 	ft_free(cord, 1);
-	design->width = x;
-	design->height = y;
-	design->size = x * y;
+	design->info.width = x;
+	design->info.height = y;
+	design->info.size = x * y;
 	return (1);
 }
 

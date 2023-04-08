@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/03/05 10:39:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/05 10:07:06 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_clean_design(t_design *design, int num)
 	ft_free((char **)&(design->points), 2);
 	ft_free(&design->map, 2);
 	ft_free((char **)&(design->copy), 2);
-	ft_free((char **)&(design->current), 2);
 	return (num);
 }
 
@@ -54,7 +53,7 @@ int	ft_close_program(void *param)
 	return (1);
 }
 
-t_point	*ft_copy_map(t_point *points, int size)
+t_point	*ft_copy_map(t_point *points, int size, int iterator)
 {
 	t_point	*copy;
 	int		i;
@@ -62,8 +61,11 @@ t_point	*ft_copy_map(t_point *points, int size)
 	copy = ft_calloc(sizeof(t_point), size + 1);
 	if (!copy)
 		return (NULL);
-	i = -1;
-	while (++i < size)
+	i = 0;
+	while (i < size)
+	{
 		copy[i] = points[i];
+		i += iterator;
+	}
 	return (copy);
 }
