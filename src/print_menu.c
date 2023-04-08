@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 10:37:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/08 19:24:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/08 19:30:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    put_nbr(t_design *design, int *cords, int iter, int nbr)
     ft_free(&num, 2);
     if (iter)
     {
-        cords[0] = TAB;
+        cords[0] = TAB;qq
         cords[1] += LINE_SPACING;
     }
     else
