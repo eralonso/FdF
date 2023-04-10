@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 09:56:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/05 17:15:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:43:25 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ft_change_visibility(int key_code, t_design *design)
 		design->prop.dots = !design->prop.dots;
 	else if (key_code == KEY_S)
 		design->event.shadow = !design->event.shadow;
-	if (key_code == KEY_L || key_code == KEY_D || key_code == KEY_S)
+	else if (key_code == KEY_H)
+		design->event.show_menu = !design->event.show_menu;
+	if (key_code == KEY_L || key_code == KEY_D || key_code == KEY_S || \
+		key_code == KEY_H)
 		ft_print_map(design);
 }
 
@@ -77,6 +80,7 @@ int	ft_key_press(int key_code, t_design *design)
 	else if (key_code == KEY_CMD)
 	{
 		design->event.k_cmd = 1;
+		// design->event.put_pt = 0;	
 		design->event.sel_line.z = 1;
 		design->event.sel_line.x = WIN_WIDTH / 2;
 		design->event.sel_line.y = WIN_HEIGHT / 2;

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/05 15:56:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:28:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ void	ft_set_opacity(t_point *points, t_design *design, int size[2], \
 		while (iter[1] < size[0])
 		{
 			idx = iter[1] + (size[0] * iter[0]);
-			if (points[idx].select != design->event.sel_line.z)
+			if (points[idx].select != design->event.sel_line.z && \
+				!(design->points[idx].x == design->event.sel_point.x && \
+				design->points[idx].y == design->event.sel_point.y && \
+				design->points[idx].z == design->event.sel_point.z && \
+				design->event.k_cmd))
 			{
 				points[idx].color = (((points[idx].color & 0xFF) >> 2)) + \
 				((((points[idx].color >> 8) & 0xFF) >> 2) << 8) + \
@@ -40,11 +44,10 @@ void	ft_set_opacity(t_point *points, t_design *design, int size[2], \
 void	ft_sel_point(t_point *copy, t_design *design, int size[2], int iterator)
 {
 	int		iter[3];
-	float	max_dif;
-	float	dif[2];
+	float	dif[3];
 
 	iter[0] = 0;
-	max_dif = FLT_MAX;
+	dif[2] = FLT_MAX;
 	while (iter[0] < size[1])
 	{
 		iter[1] = 0;
@@ -53,11 +56,19 @@ void	ft_sel_point(t_point *copy, t_design *design, int size[2], int iterator)
 			iter[2] = iter[1] + (size[0] * iter[0]);
 			dif[0] = design->event.sel_line.x - copy[iter[2]].x;
 			dif[1] = design->event.sel_line.y - copy[iter[2]].y;
-			if (ft_module(dif[0], dif[1]) < max_dif)
+			if (!(design->event.sphere && copy[iter[2]].z < 0) && ft_module(dif[0], dif[1]) < dif[2])
 			{
-				max_dif = ft_module(dif[0], dif[1]);
+				dif[2] = ft_module(dif[0], dif[1]);
 				design->event.sel_line.z++;
 				copy[iter[2]].select = design->event.sel_line.z;
+				if (design->event.put_pt == 1)
+					design->event.sel_point = design->points[iter[2]];
+				// if (design->event.put_pt == 1)
+				// {
+				// 	design->event.sel_point.x = design->points[iter[2]].x;
+				// 	design->event.sel_point.y = design->points[iter[2]].y;
+				// 	design->event.sel_point.z = design->points[iter[2]].z;
+				// }
 			}
 			iter[1] += iterator;
 		}
@@ -104,6 +115,7 @@ void	ft_config_points(t_point *copy, t_stat info, t_design *design)
 	float	config[2];
 	int		size[2];
 
+	// design->event.sel_point.x = -WIN_WIDTH;
 	size[0] = info.width;
 	size[1] = info.height;
 	ft_div_z(copy, design->prop.z_div, size, info.inc_x);
@@ -117,6 +129,9 @@ void	ft_config_points(t_point *copy, t_stat info, t_design *design)
 	ft_scale(copy, config, size, info.inc_x);
 	ft_traslate(copy, design->prop.new_center, size, info.inc_x);
 	if (design->event.sel_line.z)
+	{
 		ft_sel_point(copy, design, size, info.inc_x);
+		design->event.put_pt = 2;
+	}
 }
 // ft_proportion_z(copy, design);

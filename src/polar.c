@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:10:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/07 14:16:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:06:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	ft_polarize(t_design *design, t_point *points, int size)
 		points[i].fi = (-points[i].x * 2 * M_PI) / \
 		((float)(design->info.width));
 		points[i].fita = ((points[i].y + (design->info.height / 2)) * M_PI) / \
-		((float)(design->info.height - 1));
+		((float)(design->info.height - 2));
 	}
 }

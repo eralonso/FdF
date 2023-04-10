@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/05 16:17:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:44:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_change_density(int key_code, t_design *design)
 {
 	if (key_code == KEY_V && design->prop.density > 0)
 		design->prop.density--;
-	else if (key_code == KEY_B)
+	else if (key_code == KEY_B && design->prop.density < 5)
 		design->prop.density++;
 	if (key_code == KEY_V || key_code == KEY_B)
 	{

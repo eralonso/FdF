@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/08 12:31:57 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:03:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	ft_print_map(t_design *design)
 	ft_free((char **)&design->copy, 2);
 	mlx_put_image_to_window(design->mlx, design->mlx_win, \
 	design->pixmap.img, 0, 0);
-	ft_print_menu(design);
+	if (design->event.show_menu)
+		ft_print_menu(design);
 	design->render = (float)(((double)(clock() - t) / CLOCKS_PER_SEC) * 1000);
-	printf("Render: %f\n", design->render);
+	// printf("Render: %f\n", design->render);
 	return (1);
 }
 
@@ -126,7 +127,7 @@ void	ft_print_background(t_design *design)
 		p.x = -1;
 		while (++(p.x) <= WIN_WIDTH)
 		{
-			if (p.x < (WIN_WIDTH / 5))
+			if (design->event.show_menu && p.x < (WIN_WIDTH / 5))
 				ft_pixel_put(&design->pixmap, p.x, p.y, design->color.menu);
 			else
 				ft_pixel_put(&design->pixmap, p.x, p.y, design->color.bckg);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:55:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/08 18:05:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:48:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	ft_check_sphere(t_point *points, t_design *design, int size[2], \
 	(void) size;
 	if (design->event.sphere && design->prop.lines)
 	{
-		inc = (design->info.width - 1) - ((design->info.width - 1) % iterator[0]);
+		inc = (design->info.width - 1) - ((design->info.width - 1) \
+				% iterator[0]);
 		printf("inc: %i\n", inc);
 		iter[0] = 0;
 		while (iter[0] < design->info.size)
@@ -59,7 +60,7 @@ void	ft_calculate_incs(t_design *design)
 	inc = 4 / design->event.scale;
 	design->info.inc_x = 1;
 	design->info.inc_y = design->info.width;
-	if (inc > 0)
+	if (design->event.scale <= 4)
 	{
 		design->info.inc_x = inc;
 		design->info.inc_y = design->info.width * inc;

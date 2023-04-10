@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/08 17:46:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:42:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	ft_load_map(t_design *design)
 	printf("scale == %f\n", design->event.scale);
 	printf("inc x: %ipx && inc y: %ipx\n", design->info.inc_x, \
 	design->info.inc_y);
-	printf("width: %ipx && height: %ipx && size: %ipx\n", design->info.width, design->info.height, design->info.size);
+	printf("width: %ipx && height: %ipx && size: %ipx\n", design->info.width, \
+	design->info.height, design->info.size);
 	return (1);
 }
 	// design->info.inc_x = 1;

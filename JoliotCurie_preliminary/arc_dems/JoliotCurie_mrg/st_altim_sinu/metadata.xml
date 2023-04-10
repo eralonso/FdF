@@ -1,3 +1,0 @@
-<?xml version="1.0"?>
-<!--<!DOCTYPE metadata SYSTEM "http://www.esri.com/metadata/esriprof80.dtd">-->
-<metadata xml:lang="en"><Esri><MetaID>{E2C383C2-00CE-490B-9756-1223BF5D0DD6}</MetaID><CreaDate>20050806</CreaDate><CreaTime>14592800</CreaTime><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process Name="ASCIIToRaster_2" ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Conversion Tools.tbx\ASCIIToRaster" Date="20050806" Time="145929">ASCIIToRaster E:\JoliotCurie_sinusoidal\stereo_altim_sinu\joliot_stereo_alt_sinu.asc E:\JoliotCurie_sinusoidal\stereo_altim_sinu\st_altim_sinu FLOAT</Process></lineage></DataProperties></Esri></metadata>

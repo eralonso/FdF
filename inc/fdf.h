@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/08 18:11:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:32:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define LIGHT_BLUE		(int)0x0051D1F6
 # define YELLOW			(int)0x00FFFF99
 # define ORANGE			(int)0x00FFA500
+# define L_GRAY			(int)0x00888888
 # define GRAY			(int)0x00555555
 # define CYAN			(int)0x0017E0E3
 # define D_GRAY			(int)0x00222222
@@ -80,6 +81,7 @@
 //KEY CODES
 # define KEY_S				(int)1
 # define KEY_D				(int)2
+# define KEY_H				(int)4
 # define KEY_G				(int)5
 # define KEY_Z				(int)6
 # define KEY_X				(int)7
@@ -123,6 +125,9 @@
 # define WIN_WIDTH	(int)1920
 # define WIN_HEIGHT	(int)1080
 
+//MENU
+# define MENU_WIDTH	(int)(WIN_WIDTH / 5)
+
 typedef struct s_design		t_design;
 typedef struct s_point		t_point;
 typedef struct s_pixmap		t_pixmap;
@@ -162,15 +167,18 @@ struct	s_color {
 };
 
 struct	s_events {
+	float		scale;
+	int			show_menu;
+	int			sphere;
+	int			shadow;
 	int			k_cmd;
+	int			put_pt;
 	t_point		btn_l;
 	t_point		btn_r;
-	float		scale;
 	t_point		sel_line;
 	t_point		zoom;
 	t_point		shift;
-	int			sphere;
-	int			shadow;
+	t_point		sel_point;
 };
 
 struct	s_palette {
