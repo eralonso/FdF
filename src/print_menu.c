@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 10:37:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 18:23:09 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:50:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	print_intro(t_design *design, int *cords)
 {
-	put_str(design, cords, 1, design->map_name);
+	put_str(design, cords, 0, "//");
+	put_str(design, cords, 0, design->map_name);
+	put_str(design, cords, 1, "\\\\");
 	ft_separator(cords, '\n', 0.5);
 	put_str(design, cords, 1, "INFO");
 	ft_separator(cords, '\n', 0.5);
@@ -65,7 +67,7 @@ void	ft_print_menu(t_design *design)
 	cords = ft_calloc(sizeof(int), 2);
 	if (!cords)
 		exit(ft_error(NULL, NULL, ft_clean_design(design, 1)));
-	cords[0] = TAB;
+	cords[0] = CHAR_PX;
 	cords[1] = LINE_SPACING;
 	print_intro(design, cords);
 	print_info(design, cords);
