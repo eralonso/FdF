@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/09 18:32:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:19:21 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@
 # define WIN_HEIGHT	(int)1080
 
 //MENU
-# define MENU_WIDTH	(int)(WIN_WIDTH / 5)
+# define MENU_WIDTH		(int)384
+# define TAB			(int)30
+# define CHAR_PX		(int)10
+# define LINE_SPACING	(int)25
 
 typedef struct s_design		t_design;
 typedef struct s_point		t_point;
@@ -217,6 +220,7 @@ struct s_design {
 	t_point		*points;
 	t_point		*copy;
 	t_pixmap	pixmap;
+	char		*map_name;
 	char		*map;
 	float		render;
 	void		*mlx;
@@ -271,7 +275,13 @@ int		ft_print_map(t_design *design);
 void	ft_print_line(t_point a, t_point b, t_design *design, int density);
 void	ft_print_axis(t_design *design);
 void	ft_print_background(t_design *design);
+
+//Menu
 void	ft_print_menu(t_design *design);
+void	ft_separator(int *cords, char s, float i);
+void	put_nbr(t_design *design, int *cords, int iter, int nbr);
+void	put_float(t_design *design, int *cords, int iter, float nbr);
+void	put_str(t_design *design, int *cords, int iter, char *str);
 
 //Print Utils
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);

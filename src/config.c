@@ -6,11 +6,23 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/10 12:28:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:17:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
+
+int	ft_check_sel_point(t_design *design, t_point point, int idx)
+{
+	if (point.select != design->event.sel_line.z && \
+		!(design->points[idx].x == design->event.sel_point.x && \
+		design->points[idx].y == design->event.sel_point.y && \
+		design->points[idx].z == design->event.sel_point.z && \
+		design->event.k_cmd))
+		return (1);
+	else
+		return (0);
+}
 
 void	ft_set_opacity(t_point *points, t_design *design, int size[2], \
 		int iterator)
@@ -25,11 +37,7 @@ void	ft_set_opacity(t_point *points, t_design *design, int size[2], \
 		while (iter[1] < size[0])
 		{
 			idx = iter[1] + (size[0] * iter[0]);
-			if (points[idx].select != design->event.sel_line.z && \
-				!(design->points[idx].x == design->event.sel_point.x && \
-				design->points[idx].y == design->event.sel_point.y && \
-				design->points[idx].z == design->event.sel_point.z && \
-				design->event.k_cmd))
+			if (ft_check_sel_point(design, points[idx], idx))
 			{
 				points[idx].color = (((points[idx].color & 0xFF) >> 2)) + \
 				((((points[idx].color >> 8) & 0xFF) >> 2) << 8) + \
@@ -56,25 +64,18 @@ void	ft_sel_point(t_point *copy, t_design *design, int size[2], int iterator)
 			iter[2] = iter[1] + (size[0] * iter[0]);
 			dif[0] = design->event.sel_line.x - copy[iter[2]].x;
 			dif[1] = design->event.sel_line.y - copy[iter[2]].y;
-			if (!(design->event.sphere && copy[iter[2]].z < 0) && ft_module(dif[0], dif[1]) < dif[2])
+			if (!(design->event.sphere && copy[iter[2]].z < 0) && \
+				ft_module(dif[0], dif[1]) < dif[2])
 			{
 				dif[2] = ft_module(dif[0], dif[1]);
-				design->event.sel_line.z++;
-				copy[iter[2]].select = design->event.sel_line.z;
+				copy[iter[2]].select = ++(design->event.sel_line.z);
 				if (design->event.put_pt == 1)
 					design->event.sel_point = design->points[iter[2]];
-				// if (design->event.put_pt == 1)
-				// {
-				// 	design->event.sel_point.x = design->points[iter[2]].x;
-				// 	design->event.sel_point.y = design->points[iter[2]].y;
-				// 	design->event.sel_point.z = design->points[iter[2]].z;
-				// }
 			}
 			iter[1] += iterator;
 		}
 		iter[0] += iterator;
 	}
-	ft_set_opacity(copy, design, size, iterator);
 }
 
 void	ft_div_z(t_point *points, float div, int size[2], int iterator)
@@ -115,7 +116,6 @@ void	ft_config_points(t_point *copy, t_stat info, t_design *design)
 	float	config[2];
 	int		size[2];
 
-	// design->event.sel_point.x = -WIN_WIDTH;
 	size[0] = info.width;
 	size[1] = info.height;
 	ft_div_z(copy, design->prop.z_div, size, info.inc_x);
@@ -131,6 +131,7 @@ void	ft_config_points(t_point *copy, t_stat info, t_design *design)
 	if (design->event.sel_line.z)
 	{
 		ft_sel_point(copy, design, size, info.inc_x);
+		ft_set_opacity(copy, design, size, info.inc_x);
 		design->event.put_pt = 2;
 	}
 }

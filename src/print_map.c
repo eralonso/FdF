@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/10 12:03:39 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:24:46 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	ft_print_map(t_design *design)
 	if (design->event.show_menu)
 		ft_print_menu(design);
 	design->render = (float)(((double)(clock() - t) / CLOCKS_PER_SEC) * 1000);
-	// printf("Render: %f\n", design->render);
 	return (1);
 }
 

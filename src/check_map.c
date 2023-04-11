@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/05 10:22:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:26:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ int	ft_check_map(char *file, t_design *design)
 		return (0);
 	if (!ft_load_map(design))
 		return (0);
+	design->map_name = file;
+	if (ft_strrchr(file, '/'))
+		design->map_name = ft_strrchr(file, '/') + 1;
+	design->map_name[ft_strlen(design->map_name) - 4] = '\0';
 	return (1);
 }
 

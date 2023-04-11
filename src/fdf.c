@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/09 18:33:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:28:22 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_init_design(t_design *design)
 	design->event.sel_line.z = 0;
 	design->event.sphere = 0;
 	design->event.shadow = 0;
-	design->event.show_menu = 1;	
+	design->event.show_menu = 1;
 	design->event.put_pt = 0;
 	design->render = 0;
 }
