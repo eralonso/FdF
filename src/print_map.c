@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 16:24:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:09:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,6 @@ void	ft_check_line(t_point *points, t_design *design, int idx, int inc[2])
 		ft_print_line(points[idx], points[idx + inc[1]], \
 		design, design->prop.density);
 }
-	// int	j;
-	// int	inc_x;
-	// int	inc_y;
-
-	// j = 0;
-	// inc_x = design->info.inc_x;
-	// inc_y = design->info.inc_y;
-	// while (j < design->info.width)
-	// {
-	// 	j += inc[0];
-	// 	i += inc[0];
-	// }
 
 void	ft_put_map(t_point *points, t_design *design)
 {

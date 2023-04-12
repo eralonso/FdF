@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:30:32 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 18:02:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:07:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ void	ft_separator(int *cords, char s, float i)
 		cords[axi] += sep;
 	if (half == 1)
 		cords[axi] += (int)((int)sep / 2);
+}
+
+void	put_str(t_design *design, int *cords, int iter, char *str)
+{
+	if (!str)
+		str = "";
+	mlx_string_put(design->mlx, design->mlx_win, cords[0], cords[1], \
+					TXT_CLR, str);
+	if (iter)
+	{
+		cords[0] = TAB;
+		cords[1] += LINE_SPACING;
+	}
+	else
+		cords[0] += (ft_strlen(str) * CHAR_PX) + CHAR_PX;
 }
 
 void	put_nbr(t_design *design, int *cords, int iter, int nbr)
@@ -87,17 +102,22 @@ void	put_float(t_design *design, int *cords, int iter, float nbr)
 					(CHAR_PX * (nbr < 0)) + CHAR_PX;
 }
 
-void	put_str(t_design *design, int *cords, int iter, char *str)
+void	print_palette(t_design *design, int *cords, char *str, t_color plt)
 {
-	if (!str)
-		str = "";
-	mlx_string_put(design->mlx, design->mlx_win, cords[0], cords[1], \
-					TXT_CLR, str);
-	if (iter)
-	{
-		cords[0] = TAB;
-		cords[1] += LINE_SPACING;
-	}
-	else
-		cords[0] += (ft_strlen(str) * CHAR_PX) + CHAR_PX;
+	put_str(design, cords, 1, str);
+	put_str(design, cords, 0, "(RGB)STD = [");
+	put_nbr(design, cords, 0, (plt.std >> 16) & 0xFF);
+	put_nbr(design, cords, 0, (plt.std >> 8) & 0xFF);
+	put_nbr(design, cords, 0, plt.std & 0xFF);
+	put_str(design, cords, 1, "]");
+	put_str(design, cords, 0, "(RGB)BTM = [");
+	put_nbr(design, cords, 0, (plt.btm >> 16) & 0xFF);
+	put_nbr(design, cords, 0, (plt.btm >> 8) & 0xFF);
+	put_nbr(design, cords, 0, plt.btm & 0xFF);
+	put_str(design, cords, 1, "]");
+	put_str(design, cords, 0, "(RGB)TOP = [");
+	put_nbr(design, cords, 0, (plt.top >> 16) & 0xFF);
+	put_nbr(design, cords, 0, (plt.top >> 8) & 0xFF);
+	put_nbr(design, cords, 0, plt.top & 0xFF);
+	put_str(design, cords, 1, "]");
 }

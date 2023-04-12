@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 09:56:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 17:42:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:01:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_change_palette(int key_code, t_design *design)
 		design->color = design->palette.wb;
 	if ((key_code >= KEY_1 && key_code <= KEY_4) || key_code == KEY_5)
 	{
+		design->color.menu = GRAY;
 		ft_color(design);
 		ft_print_map(design);
 	}

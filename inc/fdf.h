@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 18:19:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:10:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,12 @@
 # define VOID			(int)0x000E0B16
 # define JEWEL			(int)0x004717F6
 
-//Fin del mundo
-// # define N_GREEN		(int)0x00000000
-// # define N_ORANGE	(int)0x00B82601
-// # define ORANGE		(int)0x00062F4F
-
-// # define N_GREEN		(int)0x004CDEF5
-// # define N_ORANGE	(int)0x00FC4A1A
-// # define ORANGE		(int)0x00F19F4D
-
-// # define N_GREEN		(int)0x0066B9BF
-
-//Std
-// # define ORANGE		(int)0x00FA910C
-// # define N_ORANGE	(int)0x00FF0A35
-// # define N_GREEN		(int)0x003CE5FB
-// # define N_GREEN		(int)0x0000FFFF
+///Palettes id
+# define P_DEF			(int)0
+# define P_REAL			(int)1
+# define P_NEON			(int)2
+# define P_BW			(int)3
+# define P_WB			(int)4
 
 //EVENT CODES
 # define E_KEY_P 		(int)2
@@ -167,6 +157,7 @@ struct	s_color {
 	int		btm;
 	int		bckg;
 	int		menu;
+	int		id;
 };
 
 struct	s_events {
@@ -251,7 +242,8 @@ void	ft_top(t_design *design);
 void	ft_reverse(t_design *design);
 
 //View Utils
-int		ft_point_selected(t_design *design, t_point *p, int restart);
+void	ft_sel_point(t_point *copy, t_design *design, int size[2], \
+					int iterator);
 
 //Math Utils
 float	ft_module(float x, float y);
@@ -282,6 +274,7 @@ void	ft_separator(int *cords, char s, float i);
 void	put_nbr(t_design *design, int *cords, int iter, int nbr);
 void	put_float(t_design *design, int *cords, int iter, float nbr);
 void	put_str(t_design *design, int *cords, int iter, char *str);
+void	print_palette(t_design *design, int *cords, char *str, t_color plt);
 
 //Print Utils
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);
@@ -306,8 +299,6 @@ int		ft_btn_release(int button, int x, int y, t_design *design);
 int		ft_mouse_move(int x, int y, t_design *design);
 
 //Events Utils
-void	ft_print_cord(int x, int y, t_design *design);
-void	ft_redraw(t_design *design);
 int		ft_change_view(int key_code, t_design *design);
 int		ft_change_angle(int key_code, t_design *design);
 int		ft_change_density(int key_code, t_design *design);

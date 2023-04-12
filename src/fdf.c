@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 16:28:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:17:06 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,27 @@ static void	ft_init_colors(t_design *design)
 	design->palette.def.std = ORANGE;
 	design->palette.def.btm = LIGHT_BLUE;
 	design->palette.def.bckg = D_GRAY;
-	design->palette.def.menu = GRAY;
+	design->palette.def.id = P_DEF;
 	design->palette.real.top = RED;
 	design->palette.real.std = GREEN;
 	design->palette.real.btm = BLUE;
 	design->palette.real.bckg = D_GRAY;
-	design->palette.real.menu = GRAY;
+	design->palette.real.id = P_REAL;
 	design->palette.wb.top = WHITE;
 	design->palette.wb.std = WHITE;
 	design->palette.wb.btm = WHITE;
 	design->palette.wb.bckg = BLACK;
-	design->palette.wb.menu = GRAY;
+	design->palette.wb.id = P_WB;
 	design->palette.bw.top = BLACK;
 	design->palette.bw.std = BLACK;
 	design->palette.bw.btm = BLACK;
 	design->palette.bw.bckg = WHITE;
-	design->palette.bw.menu = GRAY;
+	design->palette.bw.id = P_BW;
 	design->palette.neon.top = FUSCHIA;
 	design->palette.neon.std = VOID;
 	design->palette.neon.btm = JEWEL;
 	design->palette.neon.bckg = D_GRAY;
-	design->palette.neon.menu = GRAY;
+	design->palette.neon.id = P_NEON;
 }
 
 static void	ft_init_design(t_design *design)
@@ -56,6 +56,7 @@ static void	ft_init_design(t_design *design)
 	ft_isometric(design);
 	ft_init_colors(design);
 	design->color = design->palette.def;
+	design->color.menu = GRAY;
 	design->copy = NULL;
 	design->prop.density = 1;
 	design->prop.new_center[0] = MENU_WIDTH + ((WIN_WIDTH - MENU_WIDTH) / 2);
@@ -76,6 +77,9 @@ static void	ft_init_design(t_design *design)
 	design->event.show_menu = 1;
 	design->event.put_pt = 0;
 	design->render = 0;
+	design->event.sel_point.x = 0;
+	design->event.sel_point.y = 0;
+	design->event.sel_point.z = 0;
 }
 
 static void	ft_init_mlx(t_design *design)

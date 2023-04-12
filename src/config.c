@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:33:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/11 18:17:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:16:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,6 @@ void	ft_div_z(t_point *points, float div, int size[2], int iterator)
 	}
 }
 
-// void	ft_proportion_z(t_point *copy, t_design *design)
-// {
-// 	ft_div_z(copy, design->prop.z_div, design->info.size, design->info.inc_x);
-// }
-	// float		mod;
-	// t_lli		dif_z;
-
-	// mod = ft_module(design->width, design->height);
-	// dif_z = design->max_z - design->min_z;
-	// dif_z = llabs(dif_z);
-	// if (dif_z <= mod / 2)
-	// 	design->z_div = 1;
-
 void	ft_config_points(t_point *copy, t_stat info, t_design *design)
 {
 	float	config[2];
@@ -135,4 +122,3 @@ void	ft_config_points(t_point *copy, t_stat info, t_design *design)
 		design->event.put_pt = 2;
 	}
 }
-// ft_proportion_z(copy, design);
