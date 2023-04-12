@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:53:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/10 18:58:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:52:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	ft_get_gradient(int start, int end, float len, float pos)
 	return ((int)(new[0] << 24) | (int)((new[1] << 16)) | (int)((new[2] << 8)) \
 		| (int)(new[3]));
 }
-// float	opacity;
-// opacity = 1 - (new[0] / 0xFF);
-// return ((int)((new[1] << 16) * opacity) | (int)((new[2] << 8) * opacity)
-// 	| (int)(new[3] * opacity));
+
+// Implement Opacity
+	// float	opacity;
+	// opacity = 1 - (new[0] / 0xFF);
+	// return ((int)((new[1] << 16) * opacity) | (int)((new[2] << 8) * opacity)
+	// 	| (int)(new[3] * opacity));
 
 void	ft_set_color(t_design *design, t_point *p, int min_z, int max_z)
 {
@@ -65,6 +67,7 @@ void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color)
 	pixel[3] = rgb[3];
 }
 
+// Implement Opacity
 	// if (rgb[3])
 	// 	printf("x == %i && y == %i && alpha == %i\n", x, y, rgb[3]);
 	//float	opacity;

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 13:10:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:03:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@
 # define MENU_WIDTH		(int)384
 # define TAB			(int)30
 # define CHAR_PX		(int)10
-# define LINE_SPACING	(int)25
+# define LINE_SPACING	(int)23
 
 typedef struct s_design		t_design;
 typedef struct s_point		t_point;

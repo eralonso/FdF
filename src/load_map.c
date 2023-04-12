@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/10 19:42:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:21:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,8 @@ int	ft_load_map(t_design *design)
 	design->prop.z_div = 1;
 	if (dif_z / 32 >= 1)
 		design->prop.z_div = (design->event.scale * ((float)dif_z / 64));
-	printf("scale == %f\n", design->event.scale);
-	printf("inc x: %ipx && inc y: %ipx\n", design->info.inc_x, \
-	design->info.inc_y);
-	printf("width: %ipx && height: %ipx && size: %ipx\n", design->info.width, \
-	design->info.height, design->info.size);
 	return (1);
 }
-	// design->info.inc_x = 1;
-	// design->info.inc_y = design->info.width;
-	// printf("mod == %f\n", mod);
-	// printf("dif_z == %lli\n", dif_z);
-	// printf("z max == %i\n", design->max_z);
-	// printf("z min == %i\n", design->min_z);
-	// printf("z_div == %f\n", design->z_div);
 
 int	ft_load_points(t_design *design)
 {

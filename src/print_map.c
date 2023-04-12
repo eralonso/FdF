@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 13:09:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:01:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_print_background(t_design *design)
 		p.x = -1;
 		while (++(p.x) <= WIN_WIDTH)
 		{
-			if (design->event.show_menu && p.x < (WIN_WIDTH / 5))
+			if (design->event.show_menu && p.x < MENU_WIDTH)
 				ft_pixel_put(&design->pixmap, p.x, p.y, design->color.menu);
 			else
 				ft_pixel_put(&design->pixmap, p.x, p.y, design->color.bckg);

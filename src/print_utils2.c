@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:55:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/09 18:48:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:17:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_check_sphere(t_point *points, t_design *design, int size[2], \
 	{
 		inc = (design->info.width - 1) - ((design->info.width - 1) \
 				% iterator[0]);
-		printf("inc: %i\n", inc);
 		iter[0] = 0;
 		while (iter[0] < design->info.size)
 		{
@@ -49,7 +48,6 @@ void	ft_check_sphere(t_point *points, t_design *design, int size[2], \
 			design, design->prop.density);
 			iter[0] += iterator[1];
 		}
-		printf("iter[0]: %i\n", iter[0]);
 	}
 }
 
@@ -66,28 +64,3 @@ void	ft_calculate_incs(t_design *design)
 		design->info.inc_y = design->info.width * inc;
 	}
 }
-/*
-	printf("design->info.inc_x == %i && design->info.inc_y
-	== %i\n", design->info.inc_x, design->info.inc_y);
-*/
-
-// void	ft_draw_dot(t_point *points, t_design *design, int size[2],
-//		int iterator)
-// {
-// 	t_point	p;
-// 	int		r;
-// 	int		iter[2];
-
-// 	iter[0] = 0;
-// 	r = design->prop.density;
-// 	while (iter[0] < size[1])
-// 	{
-// 		iter[1] = 0;
-// 		while (iter[1] < size[0])
-// 		{
-// 			p = points[iter[1] + (size[0] * iter[0])];
-// 			iter[1] += iterator;
-// 		}	
-// 		iter[0] += iterator;
-// 	}
-// }

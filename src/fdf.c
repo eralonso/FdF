@@ -6,21 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 13:17:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:21:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<fdf.h>
-
-	//design->color.top = RED;
-	//design->color.std = WHITE;
-	//design->color.btm = BLUE;
-	//design->color.top = ORANGE;
-	//design->color.std = GRAY;
-	//design->color.btm = CYAN;
-	//design->color.top = ORANGE;
-	//design->color.std = GRAY;
-	//design->color.btm = CYAN;
 
 static void	ft_init_colors(t_design *design)
 {
@@ -51,18 +41,8 @@ static void	ft_init_colors(t_design *design)
 	design->palette.neon.id = P_NEON;
 }
 
-static void	ft_init_design(t_design *design)
+static void	ft_init_events(t_design *design)
 {
-	ft_isometric(design);
-	ft_init_colors(design);
-	design->color = design->palette.def;
-	design->color.menu = GRAY;
-	design->copy = NULL;
-	design->prop.density = 1;
-	design->prop.new_center[0] = MENU_WIDTH + ((WIN_WIDTH - MENU_WIDTH) / 2);
-	design->prop.new_center[1] = WIN_HEIGHT / 2;
-	design->prop.dots = 0;
-	design->prop.lines = 1;
 	design->event.zoom.z = 1;
 	design->event.zoom.x = 0;
 	design->event.zoom.y = 0;
@@ -76,10 +56,25 @@ static void	ft_init_design(t_design *design)
 	design->event.shadow = 0;
 	design->event.show_menu = 1;
 	design->event.put_pt = 0;
-	design->render = 0;
 	design->event.sel_point.x = 0;
 	design->event.sel_point.y = 0;
 	design->event.sel_point.z = 0;
+}
+
+static void	ft_init_design(t_design *design)
+{
+	ft_isometric(design);
+	ft_init_colors(design);
+	design->color = design->palette.def;
+	design->color.menu = GRAY;
+	design->copy = NULL;
+	design->prop.density = 1;
+	design->prop.new_center[0] = MENU_WIDTH + ((WIN_WIDTH - MENU_WIDTH) / 2);
+	design->prop.new_center[1] = WIN_HEIGHT / 2;
+	design->prop.dots = 0;
+	design->prop.lines = 1;
+	ft_init_events(design);
+	design->render = 0;
 }
 
 static void	ft_init_mlx(t_design *design)
