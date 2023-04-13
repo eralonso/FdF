@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_utils.c                                      :+:      :+:    :+:   */
+/*   print_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:53:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 15:40:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:17:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<fdf.h>
+#include	<fdf_bonus.h>
 
 int	ft_get_gradient(int start, int end, float len, float pos)
 {

@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_map.c                                        :+:      :+:    :+:   */
+/*   print_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 16:40:09 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:27:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:17:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<fdf.h>
+#include	<fdf_bonus.h>
+#include	<time.h>
 
 void	ft_put_map(t_point *points, t_design *design);
 
 int	ft_print_map(t_design *design)
 {
+	clock_t	t;
+
+	t = clock();
 	design->copy = ft_copy_map(design->points, design->info.size, \
 	design->info.inc_x);
 	if (!design->copy)
@@ -29,6 +33,8 @@ int	ft_print_map(t_design *design)
 	design->pixmap.img, 0, 0);
 	if (design->event.show_menu)
 		ft_print_menu(design);
+	design->prop.render = (float)(((double)(clock() - t) / \
+		CLOCKS_PER_SEC) * 1000);
 	return (1);
 }
 

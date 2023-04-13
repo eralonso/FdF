@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_menu.c                                       :+:      :+:    :+:   */
+/*   print_menu_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 10:37:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:35:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:17:21 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include    <fdf.h>
+#include    <fdf_bonus.h>
 
 void	print_map_info(t_design *design, int *cords)
 {
@@ -43,6 +43,8 @@ void	print_draw_info(t_design *design, int *cords)
 	axis[1] = design->event.sel_point.y;
 	axis[2] = design->event.sel_point.z;
 	put_axis(design, cords, axis, 0);
+	put_str(design, cords, 0, "FPS: ");
+	put_nbr(design, cords, 1, (int)(1000.0 / design->prop.render));
 	put_str(design, cords, 0, "Scale:");
 	put_nbr(design, cords, 1, design->event.scale);
 	put_str(design, cords, 0, "Zoom:");

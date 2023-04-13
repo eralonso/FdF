@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
+#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 13:34:08 by eralonso          #+#    #+#              #
-#    Updated: 2023/02/08 16:05:51 by eralonso         ###   ########.fr        #
+#    Updated: 2023/04/13 17:28:54 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,20 +37,11 @@ all			:
 library		:
 	@$(MAKE) -C $(LIBFT_DIR)
 
-#library		::
-#	@echo -n
-
 printf		:
 	@$(MAKE) -C $(PRINTF_DIR)
 
-#printf		::
-#	@echo -n
-
 mlx			:
 	@$(MAKE) -C $(MLX_DIR)
-
-#mlx			::
-#	@echo -n
 
 clean		:
 	@$(MAKE) clean -C $(LIBFT_DIR)

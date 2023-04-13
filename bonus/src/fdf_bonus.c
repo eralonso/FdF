@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:27:46 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:16:09 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<fdf.h>
+#include	<fdf_bonus.h>
 
 static void	ft_init_colors(t_design *design)
 {
@@ -73,6 +73,7 @@ static void	ft_init_design(t_design *design)
 	design->prop.new_center[1] = WIN_HEIGHT / 2;
 	design->prop.dots = 0;
 	design->prop.lines = 1;
+	design->prop.render = 1;
 	ft_init_events(design);
 }
 

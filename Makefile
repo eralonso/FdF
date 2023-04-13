@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/04/13 13:13:31 by eralonso         ###   ########.fr        #
+#    Updated: 2023/04/13 17:38:04 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ CIAN		=	\033[1;96m
 
 #<--------------------------------->NAME<------------------------------------>#
 NAME		=	FdF
+B_NAME		=	FdF_bonus
 
 #<-------------------------------->LIBRARY<---------------------------------->#
 LIBRARY		=	lib/
@@ -50,7 +51,7 @@ FILES		=	fdf utils check_map load_map print_map key_events \
 				key_utils print_utils print_utils2 math_utils config_utils \
 				polar print_menu menu_utils menu_utils2
 
-B_FILES		=
+B_FILES		=	$(addsuffix _bonus, $(FILES))
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
@@ -90,25 +91,18 @@ all				:
 	@$(MAKE) -C $(LIBRARY)
 	@$(MAKE) $(NAME)
 
-bonus			:
-	@$(MAKE) BONUS=1 all
-
-ifndef BONUS
 
 $(NAME)			:	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
 
-else
+bonus			:
+	@$(MAKE) -C $(LIBRARY)
+	@$(MAKE) $(B_NAME)
 
-$(NAME)			:	$(B_OBJS)
+$(B_NAME)			:	$(B_OBJS)
 	@$(CC) $(CFLAGS) $(B_OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF bonus has been compiled$(DEF_COLOR)"
-
-endif
-
-#$(NAME)			::
-#	@echo "$(YELLOW)Nothing to be done for 'FdF'$(DEF_COLOR)"
 
 clean			:
 	@$(MAKE) clean -C $(LIBRARY)
@@ -120,7 +114,7 @@ clean			:
 fclean			:
 	@$(MAKE) clean
 	@$(MAKE) fclean -C $(LIBRARY)
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(B_NAME)
 	@echo ""
 	@echo "$(RED)Program has been removed$(DEF_COLOR)"
 
