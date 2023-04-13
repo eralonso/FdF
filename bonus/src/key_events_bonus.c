@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 09:56:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:16:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:45:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,20 @@ void	ft_change_palette(int key_code, t_design *design)
 void	ft_change_z_div(int key_code, t_design *design)
 {
 	int			high_z;
-	static int	n = 0;
 
 	if (design->info.max_z - design->info.min_z < 0)
 		high_z = abs(design->info.min_z);
 	else
 		high_z = abs(design->info.max_z);
-	if (key_code == KEY_SUM && n < 10)
+	if (key_code == KEY_SUM && design->prop.lim_z < 10)
 	{
 		design->prop.z_div /= 1.5;
-		n++;
+		design->prop.lim_z++;
 	}
 	else if (key_code == KEY_RES && design->prop.z_div <= high_z)
 	{
 		design->prop.z_div *= 1.5;
-		n--;
+		design->prop.lim_z--;
 	}
 	if (design->prop.z_div < 0)
 		design->prop.z_div = 1;

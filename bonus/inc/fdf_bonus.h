@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:14:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:43:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ struct	s_property {
 	int			lines;
 	int			dots;
 	float		render;
+	int			lim_z;
 };
 
 struct s_design {

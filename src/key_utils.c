@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:29:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 13:10:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:42:25 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_restore_vars(t_design *design)
 	design->prop.lines = 1;
 	design->prop.dots = 0;
 	design->prop.density = 1;
+	design->prop.lim_z = 0;
 	design->prop.z_div = 1;
 	if (dif_z / 32 >= 1)
 		design->prop.z_div = (design->event.scale * ((float)dif_z / 64));
