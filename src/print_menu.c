@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 10:37:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 18:55:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:33:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,19 @@ void	print_map_info(t_design *design, int *cords)
 
 void	print_draw_info(t_design *design, int *cords)
 {
+	float	axis[3];
+
 	put_str(design, cords, 1, "[<-->DRAW<-->]");
 	ft_separator(cords, '\n', 0.5);
-	put_str(design, cords, 0, "[ X , Y , Z ] = [");
-	put_nbr(design, cords, 0, (int)design->prop.angle[0] % 360);
-	put_str(design, cords, 0, ",");
-	put_nbr(design, cords, 0, (int)design->prop.angle[1] % 360);
-	put_str(design, cords, 0, ",");
-	put_nbr(design, cords, 0, (int)design->prop.angle[2] % 360);
-	put_str(design, cords, 1, "]");
+	put_axis(design, cords, design->prop.angle, 1);
 	put_str(design, cords, 1, "Point Selected");
 	ft_separator(cords, '\t', 0.5);
-	put_str(design, cords, 0, "[ X =");
-	if (design->event.put_pt)
-		put_nbr(design, cords, 0, design->event.sel_point.x);
-	put_str(design, cords, 0, "Y =");
-	if (design->event.put_pt)
-		put_nbr(design, cords, 0, design->event.sel_point.y);
-	put_str(design, cords, 0, "Z =");
-	if (design->event.put_pt)
-		put_nbr(design, cords, 0, design->event.sel_point.z);
-	put_str(design, cords, 1, "]");
-	put_str(design, cords, 0, "R: ");
-	put_nbr(design, cords, 0, design->render);
-	put_str(design, cords, 1, "ms");
+	axis[0] = design->event.sel_point.x;
+	axis[1] = design->event.sel_point.y;
+	axis[2] = design->event.sel_point.z;
+	put_axis(design, cords, axis, 0);
+	put_str(design, cords, 0, "FPS: ");
+	put_nbr(design, cords, 1, (int)(1000.0 / design->prop.render));
 	put_str(design, cords, 0, "Scale:");
 	put_nbr(design, cords, 1, design->event.scale);
 	put_str(design, cords, 0, "Zoom:");

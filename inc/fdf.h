@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 18:03:15 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:26:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 ///Menu
 # define TXT_CLR		(int)0xEAEAEA
 # define NBR_CLR		(int)0xF3AF3D
+# define TTL_CLR		(int)
 
 ///Palette -> Neon
 # define FUSCHIA		(int)0x00A239CA
@@ -200,6 +201,7 @@ struct	s_property {
 	float		new_center[2];
 	int			lines;
 	int			dots;
+	float		render;
 };
 
 struct s_design {
@@ -213,7 +215,6 @@ struct s_design {
 	t_pixmap	pixmap;
 	char		*map_name;
 	char		*map;
-	float		render;
 	void		*mlx;
 	void		*mlx_win;
 };
@@ -275,6 +276,8 @@ void	put_nbr(t_design *design, int *cords, int iter, int nbr);
 void	put_float(t_design *design, int *cords, int iter, float nbr);
 void	put_str(t_design *design, int *cords, int iter, char *str);
 void	print_palette(t_design *design, int *cords, char *str, t_color plt);
+void	put_square(t_design *design, int *cords, int size, int color);
+void	put_axis(t_design *design, int *cords, float axis[3], int angle);
 
 //Print Utils
 void	ft_pixel_put(t_pixmap *pixmap, int x, int y, int color);

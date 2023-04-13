@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:30:32 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 13:07:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:09:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,25 @@ void	put_float(t_design *design, int *cords, int iter, float nbr)
 
 void	print_palette(t_design *design, int *cords, char *str, t_color plt)
 {
+	static int	size = 21;
+
 	put_str(design, cords, 1, str);
 	put_str(design, cords, 0, "(RGB)STD = [");
 	put_nbr(design, cords, 0, (plt.std >> 16) & 0xFF);
 	put_nbr(design, cords, 0, (plt.std >> 8) & 0xFF);
 	put_nbr(design, cords, 0, plt.std & 0xFF);
+	put_square(design, cords, size, plt.std);
 	put_str(design, cords, 1, "]");
 	put_str(design, cords, 0, "(RGB)BTM = [");
 	put_nbr(design, cords, 0, (plt.btm >> 16) & 0xFF);
 	put_nbr(design, cords, 0, (plt.btm >> 8) & 0xFF);
 	put_nbr(design, cords, 0, plt.btm & 0xFF);
+	put_square(design, cords, size, plt.btm);
 	put_str(design, cords, 1, "]");
 	put_str(design, cords, 0, "(RGB)TOP = [");
 	put_nbr(design, cords, 0, (plt.top >> 16) & 0xFF);
 	put_nbr(design, cords, 0, (plt.top >> 8) & 0xFF);
 	put_nbr(design, cords, 0, plt.top & 0xFF);
+	put_square(design, cords, size, plt.top);
 	put_str(design, cords, 1, "]");
 }

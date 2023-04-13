@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/12 17:21:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:28:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static void	ft_init_design(t_design *design)
 	design->prop.new_center[1] = WIN_HEIGHT / 2;
 	design->prop.dots = 0;
 	design->prop.lines = 1;
+	design->prop.render = 1;
 	ft_init_events(design);
-	design->render = 0;
 }
 
 static void	ft_init_mlx(t_design *design)
