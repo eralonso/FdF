@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:04:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 18:44:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:32:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	ft_init_design(t_design *design)
 	ft_init_colors(design);
 	design->color = design->palette.def;
 	design->color.menu = GRAY;
+	design->points = NULL;
 	design->copy = NULL;
 	design->prop.density = 1;
 	design->prop.new_center[0] = MENU_WIDTH + ((WIN_WIDTH - MENU_WIDTH) / 2);

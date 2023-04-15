@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:46:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:15:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:56:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	ft_check_map(char *file, t_design *design)
 {
 	int	fd;
 
-	if (ft_strrncmp(file, ".fdf\0", 4))
-		exit(ft_error("👽 Extension incorrect", NULL, 1));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit(ft_error(NULL, file, 1));
+	if (ft_strrncmp(file, ".fdf\0", 4))
+		exit(ft_error(ERR_EXT, NULL, pow(ft_close(&fd), 0)));
 	design->map = ft_strdup("");
 	if (!design->map)
 		return (ft_close(&fd) * 0);
@@ -58,7 +58,7 @@ int	ft_read_all(int *fd, t_design *design)
 		tmp = design->map;
 		design->map = ft_strjoin(design->map, buffer);
 		if (!design->map)
-			return (ft_free(&tmp, 2) != 0);
+			return (ft_free(&tmp, 2) != NULL);
 		ft_free(&tmp, 2);
 		ft_bzero(buffer, B_READ);
 		bytes = read(*fd, buffer, B_READ);
@@ -66,6 +66,8 @@ int	ft_read_all(int *fd, t_design *design)
 	if (bytes == -1)
 		return (ft_error("🤯 Read error", ft_free(&tmp, 2), 1));
 	ft_printf(1, "\n");
+	if (*design->map == '\n')
+		return (ft_free(&design->map, 2) != NULL);
 	return (1);
 }
 
@@ -86,7 +88,7 @@ int	ft_check_valid_map(int x, int y, t_design *design)
 			x = ft_matrixlen(line) - (*(line[ft_matrixlen(line) - 1]) == 10);
 		if (!ft_check_valid_param(line, -1) || x != ft_matrixlen(line) - \
 			(*(line[ft_matrixlen(line) - 1]) == 10))
-			return (ft_error(ERR_COL, ft_free(line, 1), \
+			return (ft_error(ERR_MAP, ft_free(line, 1), \
 					ft_free(cord, 1) != NULL));
 		ft_free(line, 1);
 	}

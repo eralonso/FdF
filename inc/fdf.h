@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:05:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 18:41:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:54:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@
 # define ERR_PARAM	(char *)"💩 Invalid number of arguments"
 # define ERR_MAP	(char *)"💩 Map is incorrect"
 # define ERR_COL	(char *)"💩 Invalid number of columns"
+# define ERR_COL	(char *)"💩 Invalid number of columns"
+# define ERR_EXT	(char *)"👽 Extension incorrect <file>.fdf"
 
 //WINDOW
 # define WIN_WIDTH	(int)1920

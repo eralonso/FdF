@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 16:59:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:23:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	ft_error(char *str, char *file, int err)
 {
 	if (str)
-		ft_printf(1, "FdF: %s\n", str);
+		ft_printf(2, "FdF: %s\n", str);
 	else if (err && file)
 	{
-		ft_printf(1, "FdF: 🤯 %s: ", file);
+		ft_printf(2, "FdF: 🤯 %s: ", file);
 		perror("");
 	}
 	else if (err)

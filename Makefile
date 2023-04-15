@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/04/13 17:38:04 by eralonso         ###   ########.fr        #
+#    Updated: 2023/04/14 10:35:25 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror -O3# -fsanitize=address
+MKFLAGS		=	--no-print-directory
 
 #<--------------------------------->RULES<----------------------------------->#
 $(OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
@@ -88,8 +89,8 @@ $(B_OBJ_DIR)%.o	:	%.c $(LIB_A) $(MK)
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(B_INCLUDE) -c $< -o $@
 
 all				:
-	@$(MAKE) -C $(LIBRARY)
-	@$(MAKE) $(NAME)
+	@$(MAKE) $(MKFLAGS) -C $(LIBRARY)
+	@$(MAKE) $(MKFLAGS) $(NAME)
 
 
 $(NAME)			:	$(OBJS)
@@ -97,30 +98,30 @@ $(NAME)			:	$(OBJS)
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
 
 bonus			:
-	@$(MAKE) -C $(LIBRARY)
-	@$(MAKE) $(B_NAME)
+	@$(MAKE) $(MKFLAGS) -C $(LIBRARY)
+	@$(MAKE) $(MKFLAGS) $(B_NAME)
 
 $(B_NAME)			:	$(B_OBJS)
 	@$(CC) $(CFLAGS) $(B_OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF bonus has been compiled$(DEF_COLOR)"
 
 clean			:
-	@$(MAKE) clean -C $(LIBRARY)
+	@$(MAKE) $(MKFLAGS) clean -C $(LIBRARY)
 	@$(RM) $(OBJ_DIR) $(B_OBJ_DIR)
 	@echo ""
 	@echo "$(RED)All OBJS && DEPS has been removed$(DEF_COLOR)"
 	@echo ""
 
 fclean			:
-	@$(MAKE) clean
-	@$(MAKE) fclean -C $(LIBRARY)
+	@$(MAKE) $(MKFLAGS) clean
+	@$(MAKE) $(MKFLAGS) fclean -C $(LIBRARY)
 	@$(RM) $(NAME) $(B_NAME)
 	@echo ""
 	@echo "$(RED)Program has been removed$(DEF_COLOR)"
 
 re				:
-	@$(MAKE) fclean
-	@$(MAKE) all
+	@$(MAKE) $(MKFLAGS) fclean
+	@$(MAKE) $(MKFLAGS) all
 	@echo ""
 	@echo "$(CIAN)FdF has been recompiled$(DEF_COLOR)"
 

@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 13:34:08 by eralonso          #+#    #+#              #
-#    Updated: 2023/04/13 17:28:54 by eralonso         ###   ########.fr        #
+#    Updated: 2023/04/14 10:35:54 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,36 +25,37 @@ PRINTF_DIR	=	ft_printf/
 MLX_DIR		=	minilibx_macos/
 
 RM			=	rm -f
+MKFLAGS		=	--no-print-directory
 
 #-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/RULES/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-#
 
 all			:
-	@$(MAKE) library
-	@$(MAKE) printf
-	@$(MAKE) mlx
+	@$(MAKE) $(MKFLAGS) library
+	@$(MAKE) $(MKFLAGS) printf
+	@$(MAKE) $(MKFLAGS) mlx
 	@echo ""
 
 library		:
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) $(MKFLAGS) -C $(LIBFT_DIR)
 
 printf		:
-	@$(MAKE) -C $(PRINTF_DIR)
+	@$(MAKE) $(MKFLAGS) -C $(PRINTF_DIR)
 
 mlx			:
-	@$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) $(MKFLAGS) -C $(MLX_DIR)
 
 clean		:
-	@$(MAKE) clean -C $(LIBFT_DIR)
-	@$(MAKE) clean -C $(PRINTF_DIR)
-	@$(MAKE) clean -C $(MLX_DIR)
+	@$(MAKE) $(MKFLAGS) clean -C $(LIBFT_DIR)
+	@$(MAKE) $(MKFLAGS) clean -C $(PRINTF_DIR)
+	@$(MAKE) $(MKFLAGS) clean -C $(MLX_DIR)
 
 fclean		:
-	@$(MAKE) fclean -C $(LIBFT_DIR)
-	@$(MAKE) fclean -C $(PRINTF_DIR)
-	@$(MAKE) fclean -C $(MLX_DIR)
+	@$(MAKE) $(MKFLAGS) fclean -C $(LIBFT_DIR)
+	@$(MAKE) $(MKFLAGS) fclean -C $(PRINTF_DIR)
+	@$(MAKE) $(MKFLAGS) fclean -C $(MLX_DIR)
 
 re			:
-	@$(MAKE) fclean
-	@$(MAKE) all
+	@$(MAKE) $(MKFLAGS) fclean
+	@$(MAKE) $(MKFLAGS) all
 
 .PHONY: all clean fclean re library printf mlx

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 10:21:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/04/13 17:16:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:33:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_load_map(t_design *design)
 	float	mod;
 	t_lli	dif_z;
 
+	if (!design->info.size)
+		return (ft_error("👁  Empty map", NULL, 0));
 	if (!ft_load_points(design))
 		return (0);
 	ft_printf(1, "\n");
